@@ -6,7 +6,7 @@ INCLUDE=-I$(SRC)/.
 BIN=./bin
 SRC=./src
 OUT=$(BIN)/Mario
-OBJS=$(BIN)/gamemanager.o $(BIN)/main.o
+OBJS=$(BIN)/object.o $(BIN)/player.o $(BIN)/map.o $(BIN)/game.o $(BIN)/tilemanager.o $(BIN)/gamemanager.o $(BIN)/main.o
 
 all: $(OUT)
 

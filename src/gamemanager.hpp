@@ -3,6 +3,7 @@
 
 #include "common.hpp"
 #include "game.hpp"
+#include "tilemanager.hpp"
 
 namespace Mario
 {
@@ -24,13 +25,13 @@ namespace Mario
         ALLEGRO_TIMER* redraw_timer;
         ALLEGRO_TIMER* update_timer;
         Game* game;
+        TileManager* tile_mgr;
         bool done;
         const float fps = 60;
         const float ups = 100;
-        const int width = 800;
-        const int height = 600;
+        const size_t width = 1024;
+        const size_t height = 768;
     };
 }
 
 #endif
-

@@ -91,7 +91,7 @@ void GameManager::loop()
                     break;
 
                 size_t tile_x = floor(e.mouse.x/TileSize + 0.5);
-                size_t tile_y = ceil((height-e.mouse.y)/TileSize + 0.5);
+                size_t tile_y = floor((height-e.mouse.y)/TileSize + 0.5);
                 int t = game->map->tiles[tile_x][tile_y] + e.mouse.dz;
                 if (t < 0) t += MAX_TILE;
                 game->map->tiles[tile_x][tile_y] = Tile(t % MAX_TILE);

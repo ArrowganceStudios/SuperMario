@@ -8,7 +8,10 @@ SRC=./src
 OUT=$(BIN)/Mario
 OBJS=$(BIN)/object.o $(BIN)/player.o $(BIN)/map.o $(BIN)/game.o $(BIN)/tilemanager.o $(BIN)/gamemanager.o $(BIN)/main.o
 
-all: $(OUT)
+all: dirs $(OUT)
+
+dirs:
+	mkdir -p $(BIN)
 
 $(OUT): $(OBJS)
 	$(CXX) $(OBJS) -o $(OUT) $(INCLUDE) $(CFLAGS) $(LDFLAGS)

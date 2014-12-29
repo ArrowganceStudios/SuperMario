@@ -16,8 +16,11 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
+#define __DEBUG__   1
+
 namespace Mario
 {
+#if __DEBUG__
     template <typename T>
     void log_info(T t)
     {
@@ -30,6 +33,9 @@ namespace Mario
         std::cout << t << " ";
         log_info(args...);
     }
+#else
+#   define log_info(...)
+#endif
 
     const size_t TileSize = 32;
 

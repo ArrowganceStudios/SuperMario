@@ -118,7 +118,7 @@ void GameManager::Loop()
 
             case ALLEGRO_EVENT_MOUSE_AXES:
             {
-                if (e.mouse.dz == 0)
+                if (!game->map->edit_mode || e.mouse.dz == 0)
                     break;
 
                 size_t tile_x = floor(e.mouse.x/TileSize + 0.5);

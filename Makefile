@@ -17,5 +17,8 @@ $(BIN)/%.o: $(SRC)/%.cpp
 	$(CXX) $(CFLAGS) $< -c -o $@
 
 clean:
-	rm -rf $(BIN)/*o $(OUT)
+	rm -rf $(BIN)/*o $(OUT) doc
+
+doc:
+	doxygen
 

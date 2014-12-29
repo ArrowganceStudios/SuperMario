@@ -37,23 +37,26 @@ namespace Mario
 #   define log_info(...)
 #endif
 
-    const size_t TileSize = 32;
+    const size_t TileSize = 32; ///< Map tile size
 
-    enum Tile //< Tile types.
+    /**
+     * Tile types.
+     */
+    enum Tile
     {
-        TILE_EMPTY,
+        TILE_EMPTY,         ///< Empty tile
 
-        TILE_GRASS,
-        TILE_SAND,
-        TILE_WALL,
+        TILE_GRASS,         ///< Grass tile
+        TILE_SAND,          ///< Sand tile
+        TILE_WALL,          ///< Wall tile
 
-        TILE_PLAYER_SPAWN,
-        TILE_GOOMBA_SPAWN,
-        TILE_KOOPA_SPAWN,
-        TILE_SPINY_SPAWN,
-        TILE_LAKITU_SPAWN,
+        TILE_PLAYER_SPAWN,  ///< Player spawn tile
+        TILE_GOOMBA_SPAWN,  ///< Goomba spawn tile
+        TILE_KOOPA_SPAWN,   ///< Koopa spawn tile
+        TILE_SPINY_SPAWN,   ///< Spiny spawn tile
+        TILE_LAKITU_SPAWN,  ///< Lakitu spawn tile
 
-        MAX_TILE
+        MAX_TILE            ///< Max tile ID
     };
 
     struct Game;

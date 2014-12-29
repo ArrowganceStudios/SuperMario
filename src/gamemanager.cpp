@@ -184,6 +184,6 @@ void GameManager::Update(float dt)
 void GameManager::Draw()
 {
     al_clear_to_color(al_map_rgb(255, 255, 255));
-    tile_mgr->DrawMap(height, game->map);
+    tile_mgr->DrawMap(game->map, height);
     al_flip_display();
 }

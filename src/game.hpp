@@ -8,26 +8,44 @@
 
 namespace Mario
 {
+    /// Game class.
     struct Game
     {
         Game();
         ~Game();
 
-        // utilities
-
+        /**
+         * Loads map from file.
+         * @param path Map file path.
+         */
         void LoadMap(std::string path);
+
+        /**
+         * Saves map to file.
+         * @param path Map file path.
+         */
         void SaveMap(std::string path);
+
+        /**
+         * Game update handler.
+         * @param dt Time increment.
+         */
         void Update(float dt);
 
-        // hooks
-
+        /**
+         * Called when player is added to map.
+         * @param player Player.
+         */
         void OnPlayerAddToMap(Player* player);
+
+        /**
+         * Called when object is added to map (except player).
+         * @param object Object.
+         */
         void OnObjectAddToMap(Object* object);
 
-        // properties
-
-        Map* map;
-        Player* player;
+        Map* map;           ///< Game map
+        Player* player;     ///< Player object
     };
 }
 

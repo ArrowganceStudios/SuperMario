@@ -10,23 +10,56 @@ namespace Mario
     typedef std::vector<Tile> TileRow;
     typedef std::vector<TileRow> TileSet;
 
+    /// Game map class.
     struct Map
     {
+        /**
+         * Game map constructor.
+         * @param game Owner game object.
+         * @param path Map file path.
+         */
         Map(Game* game, std::string path);
+
         ~Map();
 
+        /**
+         * Loads map from file.
+         * @param path Map file path.
+         */
         void Load(std::string path);
+
+        /**
+         * Saves map to file.
+         * @param path Map file path.
+         */
         void Save(std::string path);
-        void AddObject(Object* o);
-        void AddPlayer(Player* p);
+
+        /**
+         * Adds object to map.
+         * @param object Object.
+         */
+        void AddObject(Object* object);
+
+        /**
+         * Adds player to map.
+         * @param player Player.
+         */
+        void AddPlayer(Player* player);
+
+        /** Spawns objects on map. */
         void SpawnObjects();
+
+        /**
+         * Map update handler.
+         * @param dt Time increment.
+         */
         void Update(float dt);
 
-        TileSet tiles;
-        std::list<Object*> objs;
-        Game* game;
-        Player* player;
-        bool edit_mode;
+        Game* game;                 ///< Game object
+        Player* player;             ///< Player object
+        TileSet tiles;              ///< Map tileset
+        std::list<Object*> objs;    ///< Object  list
+        bool edit_mode;             ///< Edit mode flag
     };
 }
 

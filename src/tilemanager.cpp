@@ -42,7 +42,7 @@ ALLEGRO_COLOR TileManager::GetTileColor(Map* map, Tile& tile)
     return al_map_rgb(0, 127, 255);
 }
 
-void TileManager::DrawMap(size_t height, Map* map)
+void TileManager::DrawMap(Map* map, size_t height)
 {
     TileSet& tiles = map->tiles;
 

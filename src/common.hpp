@@ -17,6 +17,7 @@
 #include <allegro5/allegro_ttf.h>
 
 #define __DEBUG__   1
+#define ASSETS      "assets/"
 
 namespace Mario
 {

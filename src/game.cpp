@@ -4,7 +4,7 @@ using namespace Mario;
 
 Game::Game()
 {
-    map = new Map(this, "level1.txt");
+    map = new Map(this, ASSETS "map1");
 
     log_info("[Game]\tCreated.");
 }

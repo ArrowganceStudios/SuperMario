@@ -5,13 +5,11 @@ INCLUDE=-I$(SRC)/.
 
 BIN=./bin
 SRC=./src
+ASSETS=./assets
 OUT=$(BIN)/Mario
 OBJS=$(BIN)/object.o $(BIN)/player.o $(BIN)/map.o $(BIN)/game.o $(BIN)/tilemanager.o $(BIN)/gamemanager.o $(BIN)/main.o
 
-all: dirs $(OUT)
-
-dirs:
-	mkdir -p $(BIN)
+all: prebuild $(OUT)
 
 $(OUT): $(OBJS)
 	$(CXX) $(OBJS) -o $(OUT) $(INCLUDE) $(CFLAGS) $(LDFLAGS)
@@ -19,9 +17,12 @@ $(OUT): $(OBJS)
 $(BIN)/%.o: $(SRC)/%.cpp
 	$(CXX) $(CFLAGS) $< -c -o $@
 
+prebuild:
+	mkdir -p $(BIN)
+	cp -r $(ASSETS) $(BIN)
+
 clean:
-	rm -rf $(BIN)/*o $(OUT) doc
+	rm -rf $(BIN)/*o $(BIN)/$(ASSETS) $(OUT) doc
 
 doc:
 	doxygen
-

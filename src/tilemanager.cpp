@@ -38,8 +38,18 @@ ALLEGRO_COLOR TileManager::GetTileColor(Map* map, Tile& tile)
             case TILE_SPINY_SPAWN:
                 return al_map_rgb(255, 0, 127);
         }
+    else
+        switch (tile)
+        {
+            case TILE_PLAYER_SPAWN:
+            case TILE_GOOMBA_SPAWN:
+            case TILE_KOOPA_SPAWN:
+            case TILE_LAKITU_SPAWN:
+            case TILE_SPINY_SPAWN:
+                return al_map_rgb(0, 127, 255);
+        }
 
-    return al_map_rgb(0, 127, 255);
+    return al_map_rgb(0, 0, 0);
 }
 
 void TileManager::DrawMap(Map* map, size_t height)

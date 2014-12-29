@@ -73,18 +73,19 @@ void GameManager::Loop()
                     case ALLEGRO_KEY_F1:
                     {
                         game->map->edit_mode = !game->map->edit_mode;
+                        log_info("[Game]\tMap edit mode", game->map->edit_mode ? "on" : "off");
                         break;
                     }
 
                     case ALLEGRO_KEY_F2:
                     {
-                        game->SaveMap("level1.txt");
+                        game->SaveMap(ASSETS "map1");
                         break;
                     }
 
                     case ALLEGRO_KEY_F3:
                     {
-                        game->LoadMap("level1.txt");
+                        game->LoadMap(ASSETS "map1");
                         break;
                     }
 

@@ -12,13 +12,13 @@ namespace Mario
         GameManager() : done(false) {}
         ~GameManager() {}
 
-        void init();
-        void loop();
-        void cleanup();
-        void update(float dt);
-        void draw();
-        bool isDone() { return done; }
-        bool isPaused() { return false; }
+        void Init();
+        void Loop();
+        void Cleanup();
+        void Update(float dt);
+        void Draw();
+        bool IsDone() { return done; }
+        bool IsPaused() { return false; } //todo
 
         ALLEGRO_DISPLAY* display;
         ALLEGRO_EVENT_QUEUE* queue;

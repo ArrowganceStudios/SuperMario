@@ -3,7 +3,7 @@
 
 using namespace Mario;
 
-void GameManager::init()
+void GameManager::Init()
 {
     if (!al_init())
         exit(1);
@@ -43,12 +43,12 @@ void GameManager::init()
     game = new Game();
 }
 
-void GameManager::loop()
+void GameManager::Loop()
 {
     ALLEGRO_EVENT e;
     bool redraw = false;
 
-    while (!isDone())
+    while (!IsDone())
     {
         al_wait_for_event(queue, &e);
 
@@ -70,17 +70,48 @@ void GameManager::loop()
                         break;
                     }
 
+                    case ALLEGRO_KEY_F1:
+                    {
+                        game->map->edit_mode = !game->map->edit_mode;
+                        break;
+                    }
+
                     case ALLEGRO_KEY_F2:
                     {
-                        game->save_map("level1.txt");
+                        game->SaveMap("level1.txt");
                         break;
                     }
 
                     case ALLEGRO_KEY_F3:
                     {
-                        game->load_map("level1.txt");
+                        game->LoadMap("level1.txt");
                         break;
                     }
+
+                    case ALLEGRO_KEY_LEFT:
+                    case ALLEGRO_KEY_RIGHT:
+                    case ALLEGRO_KEY_UP:
+                    case ALLEGRO_KEY_DOWN:
+                    {
+                        if (game && game->player)
+                            game->player->OnKeyDown(e.keyboard.keycode);
+                        break;
+                    }
+                }
+                break;
+            }
+
+            case ALLEGRO_EVENT_KEY_UP:
+            {
+                switch (e.keyboard.keycode)
+                {
+                    case ALLEGRO_KEY_LEFT:
+                    case ALLEGRO_KEY_RIGHT:
+                    case ALLEGRO_KEY_UP:
+                    case ALLEGRO_KEY_DOWN:
+                        if (game && game->player)
+                            game->player->OnKeyUp(e.keyboard.keycode);
+                        break;
                 }
                 break;
             }
@@ -104,7 +135,10 @@ void GameManager::loop()
                 {
                     static float old_time = 0;
                     float cur_time = al_get_time();
-                    if (!isPaused()) update(cur_time - old_time);
+
+                    if (!IsPaused())
+                        Update(cur_time - old_time);
+
                     old_time = cur_time;
                 }
                 else if (e.timer.source == redraw_timer)
@@ -116,12 +150,12 @@ void GameManager::loop()
         if (redraw && al_is_event_queue_empty(queue))
         {
             redraw = false;
-            draw();
+            Draw();
         }
     }
 }
 
-void GameManager::cleanup()
+void GameManager::Cleanup()
 {
     if (game)
         delete game;
@@ -142,12 +176,14 @@ void GameManager::cleanup()
         al_destroy_event_queue(queue);
 }
 
-void GameManager::update(float dt)
-{}
+void GameManager::Update(float dt)
+{
+    game->Update(dt);
+}
 
-void GameManager::draw()
+void GameManager::Draw()
 {
     al_clear_to_color(al_map_rgb(255, 255, 255));
-    tile_mgr->draw_map(height, game->map);
+    tile_mgr->DrawMap(height, game->map);
     al_flip_display();
 }

@@ -2,6 +2,7 @@
 #define __Game__
 
 #include "common.hpp"
+#include "object.hpp"
 #include "player.hpp"
 #include "map.hpp"
 
@@ -12,8 +13,18 @@ namespace Mario
         Game();
         ~Game();
 
-        void load_map(std::string path);
-        void save_map(std::string path);
+        // utilities
+
+        void LoadMap(std::string path);
+        void SaveMap(std::string path);
+        void Update(float dt);
+
+        // hooks
+
+        void OnPlayerAddToMap(Player* player);
+        void OnObjectAddToMap(Object* object);
+
+        // properties
 
         Map* map;
         Player* player;

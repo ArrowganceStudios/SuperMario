@@ -2,13 +2,17 @@
 #define __Player__
 
 #include "common.hpp"
+#include "object.hpp"
 
 namespace Mario
 {
-    struct Player
+    struct Player : public Object
     {
-        Player() {}
+        Player(size_t tile_x, size_t tile_y) : Object(tile_x, tile_y) {}
         ~Player() {}
+
+        void OnKeyDown(int key);
+        void OnKeyUp(int key);
     };
 }
 

@@ -11,8 +11,8 @@ namespace Mario
         TileManager() {}
         ~TileManager() {}
 
-        ALLEGRO_COLOR get_tile_color(Tile& tile);
-        void draw_map(size_t height, Map* map);
+        ALLEGRO_COLOR GetTileColor(Map* map, Tile& tile);
+        void DrawMap(size_t height, Map* map);
     };
 }
 

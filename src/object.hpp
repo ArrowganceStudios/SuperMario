@@ -9,14 +9,13 @@ namespace Mario
     struct Object
     {
         /**
+         * @param map Owner map.
          * @param tile_x X map tile.
          * @param tile_y Y map tile.
          */
-        Object(size_t tile_x, size_t tile_y)
+        Object(Map* map, size_t tile_x, size_t tile_y) : dir_x(0), dir_y(0),
+            falling(false), map(map)
         {
-            dir_x = 0;
-            dir_y = 0;
-            falling = false;
             pos_x = TileSize * tile_x + size_x/2;
             pos_y = TileSize * tile_y;
         }
@@ -38,44 +37,47 @@ namespace Mario
         float dir_x;    ///< Horizontal direction of movement
         float dir_y;    ///< Vertical direction of movement
         const float size_x = TileSize;  ///< Object size
+        Map* map;       ///< Owner map
     };
 
     /// Generic enemy class.
     struct Enemy : public Object
     {
         /// @copydoc Object
-        Enemy(size_t tile_x, size_t tile_y) : Object(tile_x, tile_y)
+        Enemy(Map* map, size_t tile_x, size_t tile_y) : Object(map, tile_x, tile_y)
         {
             dir_x = (rand() % 2 == 0 ? 1 : -1) * 20;
         }
+
+        void OnUpdate(float dt);
     };
 
     /// Goomba spawn.
     struct Goomba : public Enemy
     {
         /// @copydoc Enemy
-        Goomba(size_t tile_x, size_t tile_y) : Enemy(tile_x, tile_y) {}
+        Goomba(Map* map, size_t tile_x, size_t tile_y) : Enemy(map, tile_x, tile_y) {}
     };
 
     /// Koopa spawn.
     struct Koopa : public Enemy
     {
         /// @copydoc Enemy
-        Koopa(size_t tile_x, size_t tile_y) : Enemy(tile_x, tile_y) {}
+        Koopa(Map* map, size_t tile_x, size_t tile_y) : Enemy(map, tile_x, tile_y) {}
     };
 
     /// Lakitu spawn.
     struct Lakitu : public Enemy
     {
         /// @copydoc Enemy
-        Lakitu(size_t tile_x, size_t tile_y) : Enemy(tile_x, tile_y) {}
+        Lakitu(Map* map, size_t tile_x, size_t tile_y) : Enemy(map, tile_x, tile_y) {}
     };
 
     /// Spiny spawn.
     struct Spiny : public Enemy
     {
         /// @copydoc Enemy
-        Spiny(size_t tile_x, size_t tile_y) : Enemy(tile_x, tile_y) {}
+        Spiny(Map* map, size_t tile_x, size_t tile_y) : Enemy(map, tile_x, tile_y) {}
     };
 }
 

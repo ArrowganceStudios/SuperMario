@@ -87,28 +87,28 @@ void Map::SpawnObjects()
             switch (tiles[x][y])
             {
                 case TILE_PLAYER_SPAWN:
-                    AddPlayer(new Player(x, y));
+                    AddPlayer(new Player(this, x, y));
                     break;
 
                 case TILE_GOOMBA_SPAWN:
-                    AddObject(new Goomba(x, y));
+                    AddObject(new Goomba(this, x, y));
                     break;
 
                 case TILE_KOOPA_SPAWN:
-                    AddObject(new Koopa(x, y));
+                    AddObject(new Koopa(this, x, y));
                     break;
 
                 case TILE_LAKITU_SPAWN:
-                    AddObject(new Lakitu(x, y));
+                    AddObject(new Lakitu(this, x, y));
                     break;
 
                 case TILE_SPINY_SPAWN:
-                    AddObject(new Spiny(x, y));
+                    AddObject(new Spiny(this, x, y));
                     break;
             }
 }
 
-inline Tile Map::GetTile(int tile_x, int tile_y)
+Tile Map::GetTile(int tile_x, int tile_y)
 {
     if (tile_x < 0 || tile_y < 0 ||
         size_t(tile_x) >= tiles.size() ||
@@ -118,14 +118,9 @@ inline Tile Map::GetTile(int tile_x, int tile_y)
     return Tile(tiles[size_t(tile_x)][size_t(tile_y)]);
 }
 
-inline Tile Map::GetTileAtPos(float x, float y)
+Tile Map::GetTileAtPos(float x, float y)
 {
     return GetTile(ToTile(x), ToTile(y));
-}
-
-inline bool Map::IsSolidTile(Tile tile)
-{
-    return tile > TILE_EMPTY && tile < TILE_PLAYER_SPAWN;
 }
 
 void Map::Update(float dt)

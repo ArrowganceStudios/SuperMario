@@ -14,7 +14,7 @@ namespace Mario
          * @param tile_x X map tile.
          * @param tile_y Y map tile.
          */
-        Player(size_t tile_x, size_t tile_y) : Object(tile_x, tile_y) {}
+        Player(Map* map, size_t tile_x, size_t tile_y) : Object(map, tile_x, tile_y) {}
 
         ~Player() {}
 

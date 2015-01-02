@@ -61,6 +61,7 @@ namespace Mario
         MAX_TILE            ///< Max tile ID
     };
 
+    struct Map;
     struct Game;
 }
 

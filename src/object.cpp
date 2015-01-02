@@ -1,4 +1,5 @@
 #include "object.hpp"
+#include "map.hpp"
 
 using namespace Mario;
 
@@ -16,4 +17,15 @@ void Object::OnUpdate(float dt)
 void Object::OnDraw(size_t height)
 {
     al_draw_filled_rectangle(pos_x-TileSize/2, height-pos_y, pos_x + TileSize/2, height-(pos_y + TileSize), al_map_rgb(255, 255, 255));
+}
+
+void Enemy::OnUpdate(float dt)
+{
+    Tile at = map->GetTile(Map::ToTile(pos_x), Map::ToTile(pos_y)-1);
+    Tile next = map->GetTile(Map::ToTile(pos_x + dir_x * dt), Map::ToTile(pos_y)-1);
+
+    if (Map::IsSolidTile(at) && !Map::IsSolidTile(next))
+        dir_x *= -1;
+
+    Object::OnUpdate(dt);
 }

@@ -1,5 +1,5 @@
-#include "common.hpp"
-#include "gamemanager.hpp"
+#include "Common.hpp"
+#include "GameManager.hpp"
 
 int main(int argc, char** argv)
 {

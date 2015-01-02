@@ -1,11 +1,11 @@
 #ifndef __Game__
 #define __Game__
 
-#include "common.hpp"
-#include "object.hpp"
-#include "player.hpp"
-#include "map.hpp"
-#include "gamestates.hpp"
+#include "Common.hpp"
+#include "Objects.hpp"
+#include "Player.hpp"
+#include "Map.hpp"
+#include "GameStates.hpp"
 
 namespace Mario
 {

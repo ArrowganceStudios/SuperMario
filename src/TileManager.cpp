@@ -1,5 +1,5 @@
-#include "map.hpp"
-#include "tilemanager.hpp"
+#include "Map.hpp"
+#include "TileManager.hpp"
 
 using namespace Mario;
 

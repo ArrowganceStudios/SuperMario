@@ -1,8 +1,8 @@
 #ifndef __TileManager__
 #define __TileManager__
 
-#include "common.hpp"
-#include "map.hpp"
+#include "Common.hpp"
+#include "Map.hpp"
 
 namespace Mario
 {

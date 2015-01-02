@@ -1,7 +1,7 @@
-#ifndef __Object__
-#define __Object__
+#ifndef __Objects__
+#define __Objects__
 
-#include "common.hpp"
+#include "Common.hpp"
 
 namespace Mario
 {

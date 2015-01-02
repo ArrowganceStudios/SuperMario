@@ -1,6 +1,6 @@
-#include "object.hpp"
-#include "map.hpp"
-#include "game.hpp"
+#include "Objects.hpp"
+#include "Map.hpp"
+#include "Game.hpp"
 
 using namespace Mario;
 

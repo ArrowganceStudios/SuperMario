@@ -1,5 +1,5 @@
-#include "gamestates.hpp"
-#include "game.hpp"
+#include "GameStates.hpp"
+#include "Game.hpp"
 
 using namespace Mario;
 

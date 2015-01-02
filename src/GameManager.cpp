@@ -1,6 +1,6 @@
-#include "game.hpp"
-#include "gamestates.hpp"
-#include "gamemanager.hpp"
+#include "Game.hpp"
+#include "GameStates.hpp"
+#include "GameManager.hpp"
 
 using namespace Mario;
 

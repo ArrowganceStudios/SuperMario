@@ -1,5 +1,5 @@
-#include "map.hpp"
-#include "spritemanager.hpp"
+#include "Map.hpp"
+#include "SpriteManager.hpp"
 
 using namespace Mario;
 

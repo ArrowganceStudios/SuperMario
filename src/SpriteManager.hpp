@@ -1,8 +1,8 @@
 #ifndef __SpriteManager__
 #define __SpriteManager__
 
-#include "common.hpp"
-#include "map.hpp"
+#include "Common.hpp"
+#include "Map.hpp"
 
 namespace Mario
 {

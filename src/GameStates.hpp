@@ -1,7 +1,7 @@
 #ifndef __GameStates__
 #define __GameStates__
 
-#include "common.hpp"
+#include "Common.hpp"
 
 namespace Mario
 {

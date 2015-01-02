@@ -1,10 +1,10 @@
 #ifndef __GameManager__
 #define __GameManager__
 
-#include "common.hpp"
-#include "game.hpp"
-#include "tilemanager.hpp"
-#include "spritemanager.hpp"
+#include "Common.hpp"
+#include "Game.hpp"
+#include "TileManager.hpp"
+#include "SpriteManager.hpp"
 
 namespace Mario
 {

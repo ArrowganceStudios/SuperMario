@@ -1,9 +1,9 @@
 #ifndef __Map__
 #define __Map__
 
-#include "common.hpp"
-#include "object.hpp"
-#include "player.hpp"
+#include "Common.hpp"
+#include "Objects.hpp"
+#include "Player.hpp"
 
 namespace Mario
 {

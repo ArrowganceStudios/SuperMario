@@ -1,8 +1,8 @@
 #ifndef __Player__
 #define __Player__
 
-#include "common.hpp"
-#include "object.hpp"
+#include "Common.hpp"
+#include "Objects.hpp"
 
 namespace Mario
 {

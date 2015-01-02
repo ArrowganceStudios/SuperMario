@@ -141,7 +141,7 @@ void Map::Update(float dt)
             (*i)->dir_y = 0;
         }
 
-        else if (!(*i)->falling && !IsSolidTile(GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt - 1)))
+        else if (!(*i)->falling && !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1)))
             (*i)->falling = true;
     }
 }

@@ -125,13 +125,14 @@ Tile Map::GetTileAtPos(float x, float y)
 
 void Map::Update(float dt)
 {
-    for (std::list<Object*>::iterator i = objs.begin(); i != objs.end(); ++i)
+    for (ObjectList::iterator i = objs.begin(); i != objs.end(); ++i)
     {
         (*i)->OnUpdate(dt);
 
         if ((*i)->falling && IsSolidTile( GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt) ))
         {
             (*i)->falling = false;
+            (*i)->state = STATE_STAND; // todo: only if not running anymore
             (*i)->pos_y = floor((*i)->pos_y/TileSize)*TileSize;
             (*i)->dir_y = 0;
         }
@@ -139,7 +140,7 @@ void Map::Update(float dt)
         else if (!(*i)->falling && !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1)))
             (*i)->falling = true;
 
-        std::list<Object*>::iterator j = i;
+        ObjectList::iterator j = i;
         for (++j; j != objs.end(); ++j)
         {
             if (fabs((*i)->pos_x - (*j)->pos_x) < (*i)->size_x/2 + (*j)->size_x/2 &&

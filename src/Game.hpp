@@ -6,6 +6,7 @@
 #include "Player.hpp"
 #include "Map.hpp"
 #include "GameStates.hpp"
+#include "SpriteManager.hpp"
 
 namespace Mario
 {

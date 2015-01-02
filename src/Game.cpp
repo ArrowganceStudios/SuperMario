@@ -13,6 +13,7 @@ Game::Game()
 
 Game::~Game()
 {
+    player = nullptr;
     delete map;
 
     log_info("[Game]\tDeleted.");

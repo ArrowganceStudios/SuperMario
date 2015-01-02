@@ -9,12 +9,14 @@ namespace Mario
     struct Object
     {
         /**
+         * @param type Object type.
          * @param map Owner map.
          * @param tile_x X map tile.
          * @param tile_y Y map tile.
          */
-        Object(Map* map, size_t tile_x, size_t tile_y) : dir_x(0), dir_y(0),
-            falling(false), map(map), size_x(TileSize), state(STATE_ALIVE)
+        Object(ObjectType type, Map* map, size_t tile_x, size_t tile_y) :
+            falling(false), dir_x(0), dir_y(0), size_x(TileSize), map(map),
+            state(STATE_ALIVE), type(type)
         {
             pos_x = TileSize * tile_x + size_x/2;
             pos_y = TileSize * tile_y;
@@ -39,25 +41,28 @@ namespace Mario
         virtual void OnUpdate(float dt);
 
         /**
-         * Draw handler.
+         * Draw handler. Returns tile number to display by sprite manager.
          */
-        virtual void OnDraw(size_t height);
+        virtual size_t OnDraw() { return 0; }
 
         bool falling;       ///< Falling flag
         float pos_x;        ///< X map position
         float pos_y;        ///< Y map position
         float dir_x;        ///< Horizontal direction of movement
         float dir_y;        ///< Vertical direction of movement
+        size_t frame;       ///< Current frame
         const float size_x; ///< Object size
         Map* map;           ///< Owner map
         ObjectState state;  ///< Alive state
+        ObjectType type;    ///< Object type
     };
 
     /// Generic enemy class.
     struct Enemy : public Object
     {
         /// @copydoc Object
-        Enemy(Map* map, size_t tile_x, size_t tile_y) : Object(map, tile_x, tile_y)
+        Enemy(ObjectType type, Map* map, size_t tile_x, size_t tile_y) :
+            Object(type, map, tile_x, tile_y)
         {
             dir_x = (rand() % 2 == 0 ? 1 : -1) * 20;
         }
@@ -69,29 +74,53 @@ namespace Mario
     /// Goomba spawn.
     struct Goomba : public Enemy
     {
-        /// @copydoc Enemy
-        Goomba(Map* map, size_t tile_x, size_t tile_y) : Enemy(map, tile_x, tile_y) {}
+        /**
+         * Goomba spawn constructor.
+         * @param map Owner map.
+         * @param tile_x X map tile.
+         * @param tile_y Y map tile.
+         */
+        Goomba(Map* map, size_t tile_x, size_t tile_y) :
+            Enemy(OBJECT_GOOMBA, map, tile_x, tile_y) {}
     };
 
     /// Koopa spawn.
     struct Koopa : public Enemy
     {
-        /// @copydoc Enemy
-        Koopa(Map* map, size_t tile_x, size_t tile_y) : Enemy(map, tile_x, tile_y) {}
+        /**
+         * Koopa spawn constructor.
+         * @param map Owner map.
+         * @param tile_x X map tile.
+         * @param tile_y Y map tile.
+         */
+        Koopa(Map* map, size_t tile_x, size_t tile_y) :
+            Enemy(OBJECT_KOOPA, map, tile_x, tile_y) {}
     };
 
     /// Lakitu spawn.
     struct Lakitu : public Enemy
     {
-        /// @copydoc Enemy
-        Lakitu(Map* map, size_t tile_x, size_t tile_y) : Enemy(map, tile_x, tile_y) {}
+        /**
+         * Lakitu spawn constructor.
+         * @param map Owner map.
+         * @param tile_x X map tile.
+         * @param tile_y Y map tile.
+         */
+        Lakitu(Map* map, size_t tile_x, size_t tile_y) :
+            Enemy(OBJECT_LAKITU, map, tile_x, tile_y) {}
     };
 
     /// Spiny spawn.
     struct Spiny : public Enemy
     {
-        /// @copydoc Enemy
-        Spiny(Map* map, size_t tile_x, size_t tile_y) : Enemy(map, tile_x, tile_y) {}
+        /**
+         * Spiny spawn constructor.
+         * @param map Owner map.
+         * @param tile_x X map tile.
+         * @param tile_y Y map tile.
+         */
+        Spiny(Map* map, size_t tile_x, size_t tile_y) :
+            Enemy(OBJECT_SPINY, map, tile_x, tile_y) {}
     };
 }
 

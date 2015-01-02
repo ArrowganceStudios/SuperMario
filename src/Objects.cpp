@@ -24,11 +24,6 @@ void Object::OnUpdate(float dt)
     pos_y += dir_y * dt;
 }
 
-void Object::OnDraw(size_t height)
-{
-    al_draw_filled_rectangle(pos_x-TileSize/2, height-pos_y, pos_x + TileSize/2, height-(pos_y + TileSize), al_map_rgb(255, 255, 255));
-}
-
 void Enemy::OnCollision(Object* spawn)
 {
     if (Player* player = dynamic_cast<Player*>(spawn))

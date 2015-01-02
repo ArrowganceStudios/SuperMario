@@ -9,6 +9,7 @@ namespace Mario
 {
     typedef std::vector<Tile> TileRow;
     typedef std::vector<TileRow> TileSet;
+    typedef std::list<Object*> ObjectList;
 
     /// Game map class.
     struct Map
@@ -90,7 +91,7 @@ namespace Mario
         Game* game;                 ///< Game object
         Player* player;             ///< Player object
         TileSet tiles;              ///< Map tileset
-        std::list<Object*> objs;    ///< Object  list
+        ObjectList objs;            ///< Object  list
         bool edit_mode;             ///< Edit mode flag
     };
 }

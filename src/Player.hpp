@@ -15,9 +15,11 @@ namespace Mario
          * @param tile_x X map tile.
          * @param tile_y Y map tile.
          */
-        Player(Map* map, size_t tile_x, size_t tile_y) : Object(map, tile_x, tile_y) {}
+        Player(Map* map, size_t tile_x, size_t tile_y) :
+            Object(OBJECT_PLAYER, map, tile_x, tile_y) {}
 
         ~Player() {}
+        size_t OnDraw();
 
         /**
          * Key down handler.

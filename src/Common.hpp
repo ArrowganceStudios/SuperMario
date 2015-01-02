@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <list>
+#include <map>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -38,6 +39,19 @@ namespace Mario
 #   define log_info(...)
 #endif
 
+    template <typename T>
+    void log_error(T t)
+    {
+        std::cerr << t << std::endl;
+    }
+
+    template <typename T, typename... Args>
+    void log_error(T t, Args... args)
+    {
+        std::cerr << t << " ";
+        log_error(args...);
+    }
+
     const size_t TileSize = 32; ///< Map tile size
     const float Gravity = 12 * TileSize; ///< Gravity
 
@@ -58,13 +72,30 @@ namespace Mario
         TILE_SPINY_SPAWN,   ///< Spiny spawn tile
         TILE_LAKITU_SPAWN,  ///< Lakitu spawn tile
 
-        MAX_TILE            ///< Max tile ID
+        MAX_TILE_TYPE       ///< Max tile ID
+    };
+
+    enum ObjectType
+    {
+        OBJECT_UNKNOWN,
+
+        OBJECT_PLAYER,
+        OBJECT_GOOMBA,
+        OBJECT_KOOPA,
+        OBJECT_SPINY,
+        OBJECT_LAKITU,
+
+        MAX_OBJECT_TYPE
     };
 
     enum ObjectState
     {
+        STATE_DEAD,
         STATE_ALIVE,
-        STATE_DEAD
+
+        STATE_STAND = STATE_ALIVE,
+        STATE_RUN,
+        STATE_JUMP
     };
 
 

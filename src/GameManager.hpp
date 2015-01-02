@@ -11,7 +11,8 @@ namespace Mario
     /// Game manager class.
     struct GameManager
     {
-        GameManager() : done(false) {}
+        GameManager() : display(nullptr), queue(nullptr), redraw_timer(nullptr),
+            update_timer(nullptr), game(nullptr), sprite_mgr(nullptr), done(false) {}
         ~GameManager() {}
 
         /**
@@ -55,6 +56,7 @@ namespace Mario
         ALLEGRO_TIMER* redraw_timer;    ///< Redraw timer
         ALLEGRO_TIMER* update_timer;    ///< Update timer
         Game* game;                     ///< Game object
+        SpriteManager* sprite_mgr;      ///< Sprite manager
         bool done;                      ///< Done flag
 
         const float fps = 60;           ///< FPS setting

@@ -16,11 +16,6 @@ bool GamePausedState::OnKeyDown(int key)
     return true;
 }
 
-bool GamePausedState::OnUpdate(float dt)
-{
-    return true;
-}
-
 bool GameOverState::OnUpdate(float dt)
 {
     timer += dt;

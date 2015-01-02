@@ -63,8 +63,11 @@ namespace Mario
         /// @copydoc GameState::OnKeyDown
         bool OnKeyDown(int key);
 
+        /// @copydoc GameState::OnKeyUp
+        bool OnKeyUp(int key) { return true; }
+
         /// @copydoc GameState::OnUpdate
-        bool OnUpdate(float dt);
+        bool OnUpdate(float dt) { return true; }
     };
 
     /// Game over state class
@@ -72,6 +75,12 @@ namespace Mario
     {
         /// @copydoc GameState::GameState
         GameOverState(Game* game) : GameState(game), timer(0) {}
+
+        /// @copydoc GameState::OnKeyDown
+        bool OnKeyDown(int key) { return true; }
+
+        /// @copydoc GameState::OnKeyUp
+        bool OnKeyUp(int key) { return true; }
 
         /// @copydoc GameState::OnUpdate
         bool OnUpdate(float dt);

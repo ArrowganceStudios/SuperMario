@@ -14,6 +14,9 @@ namespace Mario
          */
         Object(size_t tile_x, size_t tile_y)
         {
+            dir_x = 0;
+            dir_y = 0;
+            falling = false;
             pos_x = TileSize * tile_x + size_x/2;
             pos_y = TileSize * tile_y;
         }
@@ -27,19 +30,24 @@ namespace Mario
         /**
          * Draw handler.
          */
-        virtual void OnDraw();
+        virtual void OnDraw(size_t height);
 
-        float pos_x;    ///< X map position.
-        float pos_y;    ///< Y map position.
-        float dir_x;    ///< Horizontal direction of movement.
-        const float size_x = TileSize;  ///< Object size.
+        bool falling;   ///< Falling flag
+        float pos_x;    ///< X map position
+        float pos_y;    ///< Y map position
+        float dir_x;    ///< Horizontal direction of movement
+        float dir_y;    ///< Vertical direction of movement
+        const float size_x = TileSize;  ///< Object size
     };
 
     /// Generic enemy class.
     struct Enemy : public Object
     {
         /// @copydoc Object
-        Enemy(size_t tile_x, size_t tile_y) : Object(tile_x, tile_y) {}
+        Enemy(size_t tile_x, size_t tile_y) : Object(tile_x, tile_y)
+        {
+            dir_x = (rand() % 2 == 0 ? 1 : -1) * 20;
+        }
     };
 
     /// Goomba spawn.

@@ -4,6 +4,7 @@
 #include "common.hpp"
 #include "game.hpp"
 #include "tilemanager.hpp"
+#include "spritemanager.hpp"
 
 namespace Mario
 {
@@ -54,7 +55,6 @@ namespace Mario
         ALLEGRO_TIMER* redraw_timer;    ///< Redraw timer
         ALLEGRO_TIMER* update_timer;    ///< Update timer
         Game* game;                     ///< Game object
-        TileManager* tile_mgr;          ///< Tile manager
         bool done;                      ///< Done flag
 
         const float fps = 60;           ///< FPS setting

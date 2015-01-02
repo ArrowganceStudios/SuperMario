@@ -108,8 +108,40 @@ void Map::SpawnObjects()
             }
 }
 
+inline Tile Map::GetTile(int tile_x, int tile_y)
+{
+    if (tile_x < 0 || tile_y < 0 ||
+        size_t(tile_x) >= tiles.size() ||
+        size_t(tile_y) >= tiles[size_t(tile_x)].size())
+        return TILE_EMPTY;
+
+    return Tile(tiles[size_t(tile_x)][size_t(tile_y)]);
+}
+
+inline Tile Map::GetTileAtPos(float x, float y)
+{
+    return GetTile(ToTile(x), ToTile(y));
+}
+
+inline bool Map::IsSolidTile(Tile tile)
+{
+    return tile > TILE_EMPTY && tile < TILE_PLAYER_SPAWN;
+}
+
 void Map::Update(float dt)
 {
     for (std::list<Object*>::iterator i = objs.begin(); i != objs.end(); ++i)
+    {
         (*i)->OnUpdate(dt);
+
+        if ((*i)->falling && IsSolidTile( GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt) ))
+        {
+            (*i)->falling = false;
+            (*i)->pos_y = floor((*i)->pos_y/TileSize)*TileSize;
+            (*i)->dir_y = 0;
+        }
+
+        else if (!(*i)->falling && !IsSolidTile(GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt - 1)))
+            (*i)->falling = true;
+    }
 }

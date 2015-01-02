@@ -55,6 +55,23 @@ namespace Mario
          */
         void Update(float dt);
 
+        int ToTile(float pos) { return floor(pos/TileSize); };
+
+        Tile GetTile(int tile_x, int tile_y);
+
+        /**
+         * Returns tile type at given coordinates.
+         * @param x X map coord.
+         * @param y Y map coord.
+         */
+        Tile GetTileAtPos(float x, float y);
+
+        /**
+         * Returns true if the tile is solid (it is possible to stand on it).
+         * @param tile Tile type.
+         */
+        bool IsSolidTile(Tile tile);
+
         Game* game;                 ///< Game object
         Player* player;             ///< Player object
         TileSet tiles;              ///< Map tileset

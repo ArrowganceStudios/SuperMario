@@ -39,6 +39,7 @@ namespace Mario
 #endif
 
     const size_t TileSize = 32; ///< Map tile size
+    const float Gravity = 12 * TileSize; ///< Gravity
 
     /**
      * Tile types.

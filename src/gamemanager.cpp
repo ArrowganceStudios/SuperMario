@@ -5,6 +5,8 @@ using namespace Mario;
 
 void GameManager::Init()
 {
+    srand(time(nullptr));
+
     if (!al_init())
         exit(1);
 
@@ -39,7 +41,6 @@ void GameManager::Init()
     al_start_timer(redraw_timer);
     al_start_timer(update_timer);
 
-    tile_mgr = new TileManager();
     game = new Game();
 }
 
@@ -93,6 +94,9 @@ void GameManager::Loop()
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_UP:
                     case ALLEGRO_KEY_DOWN:
+                    case ALLEGRO_KEY_Z:
+                    case ALLEGRO_KEY_X:
+                    case ALLEGRO_KEY_SPACE:
                     {
                         if (game && game->player)
                             game->player->OnKeyDown(e.keyboard.keycode);
@@ -161,9 +165,6 @@ void GameManager::Cleanup()
     if (game)
         delete game;
 
-    if (tile_mgr)
-        delete tile_mgr;
-
     if (redraw_timer)
         al_destroy_timer(redraw_timer);
 
@@ -185,6 +186,7 @@ void GameManager::Update(float dt)
 void GameManager::Draw()
 {
     al_clear_to_color(al_map_rgb(255, 255, 255));
-    tile_mgr->DrawMap(game->map, height);
+    TileManager::Draw(game->map, height);
+    SpriteManager::Draw(game->map, height);
     al_flip_display();
 }

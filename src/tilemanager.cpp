@@ -52,11 +52,14 @@ ALLEGRO_COLOR TileManager::GetTileColor(Map* map, Tile& tile)
     return al_map_rgb(0, 0, 0);
 }
 
-void TileManager::DrawMap(Map* map, size_t height)
+void TileManager::Draw(Map* map, size_t height)
 {
     TileSet& tiles = map->tiles;
 
     for (int c = 0; c < tiles.size(); ++c)
         for (int r = 0; r < 24; ++r)
+        {
             al_draw_filled_rectangle(c * TileSize, height - r * TileSize, (c+1)*TileSize, height - (r+1)*TileSize, GetTileColor(map, tiles[c][r]));
+            al_draw_filled_rectangle(c * TileSize, height - r * TileSize, c * TileSize + 2, height - (r * TileSize + 2), al_map_rgb(255, 255, 255));
+        }
 }

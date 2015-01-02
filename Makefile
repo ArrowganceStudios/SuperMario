@@ -7,7 +7,7 @@ BIN=./bin
 SRC=./src
 ASSETS=./assets
 OUT=$(BIN)/Mario
-OBJS=$(BIN)/object.o $(BIN)/player.o $(BIN)/map.o $(BIN)/game.o $(BIN)/tilemanager.o $(BIN)/gamemanager.o $(BIN)/main.o
+OBJS=$(BIN)/object.o $(BIN)/player.o $(BIN)/map.o $(BIN)/game.o $(BIN)/tilemanager.o $(BIN)/spritemanager.o $(BIN)/gamemanager.o $(BIN)/main.o
 
 all: prebuild $(OUT)
 

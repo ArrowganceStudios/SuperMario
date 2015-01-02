@@ -61,6 +61,13 @@ namespace Mario
         MAX_TILE            ///< Max tile ID
     };
 
+    enum ObjectState
+    {
+        STATE_ALIVE,
+        STATE_DEAD
+    };
+
+
     struct Map;
     struct Game;
 }

@@ -1,7 +1,17 @@
 #include "object.hpp"
 #include "map.hpp"
+#include "game.hpp"
 
 using namespace Mario;
+
+void Object::Kill(Object* enemy)
+{
+    if (enemy->state != STATE_DEAD)
+    {
+        enemy->state = STATE_DEAD;
+        map->game->OnKill(this, enemy);
+    }
+}
 
 void Object::OnUpdate(float dt)
 {
@@ -17,6 +27,12 @@ void Object::OnUpdate(float dt)
 void Object::OnDraw(size_t height)
 {
     al_draw_filled_rectangle(pos_x-TileSize/2, height-pos_y, pos_x + TileSize/2, height-(pos_y + TileSize), al_map_rgb(255, 255, 255));
+}
+
+void Enemy::OnCollision(Object* spawn)
+{
+    if (Player* player = dynamic_cast<Player*>(spawn))
+        Kill(player);
 }
 
 void Enemy::OnUpdate(float dt)

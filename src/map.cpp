@@ -138,5 +138,19 @@ void Map::Update(float dt)
 
         else if (!(*i)->falling && !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1)))
             (*i)->falling = true;
+
+        std::list<Object*>::iterator j = i;
+        for (++j; j != objs.end(); ++j)
+        {
+            if (fabs((*i)->pos_x - (*j)->pos_x) < (*i)->size_x/2 + (*j)->size_x/2 &&
+                fabs((*i)->pos_y - (*j)->pos_y) < (*j)->size_x/2 + (*j)->size_x/2)
+            {
+                if ((*i)->state != STATE_DEAD)
+                    (*i)->OnCollision(*j);
+
+                if ((*j)->state != STATE_DEAD)
+                    (*j)->OnCollision(*i);
+            }
+        }
     }
 }

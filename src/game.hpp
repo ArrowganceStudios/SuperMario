@@ -44,6 +44,8 @@ namespace Mario
          */
         void OnObjectAddToMap(Object* object);
 
+        void OnKill(Object* killer, Object* victim);
+
         Map* map;           ///< Game map
         Player* player;     ///< Player object
     };

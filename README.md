@@ -1,7 +1,11 @@
-Mario
-=====
+Super Mario: OO Adventures
+==========================
 
 It's me, Mario!
+
+Credits:
+* Mario series: Nintendo
+* Graphics: Nintendo & http://www.mariouniverse.com/
 
 Building
 --------

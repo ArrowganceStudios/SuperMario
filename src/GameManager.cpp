@@ -36,6 +36,8 @@ void GameManager::Init()
     if (!(queue = al_create_event_queue()))
         exit(1);
 
+    al_set_window_title(display, "Super Mario: OO Adventures");
+
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_mouse_event_source());

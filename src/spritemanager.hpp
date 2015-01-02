@@ -6,6 +6,7 @@
 
 namespace Mario
 {
+    /// Sprite manager class
     struct SpriteManager
     {
         /**

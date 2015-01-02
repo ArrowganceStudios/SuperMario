@@ -11,6 +11,7 @@ namespace Mario
     {
         /**
          * Player constructor.
+         * @param map Owner map.
          * @param tile_x X map tile.
          * @param tile_y Y map tile.
          */

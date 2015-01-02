@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "gamestates.hpp"
 #include "gamemanager.hpp"
 
 using namespace Mario;
@@ -51,6 +52,12 @@ void GameManager::Loop()
 
     while (!IsDone())
     {
+        if (game->done)
+        {
+            delete game;
+            game = new Game();
+        }
+
         al_wait_for_event(queue, &e);
 
         switch (e.type)
@@ -63,14 +70,17 @@ void GameManager::Loop()
 
             case ALLEGRO_EVENT_KEY_DOWN:
             {
+                if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+                {
+                    done = true;
+                    break;
+                }
+
+                if (!game)
+                    break;
+
                 switch (e.keyboard.keycode)
                 {
-                    case ALLEGRO_KEY_ESCAPE:
-                    {
-                        done = true;
-                        break;
-                    }
-
                     case ALLEGRO_KEY_F1:
                     {
                         game->map->edit_mode = !game->map->edit_mode;
@@ -89,25 +99,27 @@ void GameManager::Loop()
                         game->LoadMap(ASSETS "map1");
                         break;
                     }
-
-                    case ALLEGRO_KEY_LEFT:
-                    case ALLEGRO_KEY_RIGHT:
-                    case ALLEGRO_KEY_UP:
-                    case ALLEGRO_KEY_DOWN:
-                    case ALLEGRO_KEY_Z:
-                    case ALLEGRO_KEY_X:
-                    case ALLEGRO_KEY_SPACE:
-                    {
-                        if (game && game->player)
-                            game->player->OnKeyDown(e.keyboard.keycode);
-                        break;
-                    }
                 }
+
+                if (!game->states.empty() && game->states.back()->OnKeyDown(e.keyboard.keycode))
+                    break;
+
+                if (e.keyboard.keycode == ALLEGRO_KEY_P)
+                {
+                    game->states.push_back(new GamePausedState(game));
+                    break;
+                }
+
+                if (game->player)
+                    game->player->OnKeyDown(e.keyboard.keycode);
                 break;
             }
 
             case ALLEGRO_EVENT_KEY_UP:
             {
+                if (game && !game->states.empty() && game->states.back()->OnKeyUp(e.keyboard.keycode))
+                    break;
+
                 switch (e.keyboard.keycode)
                 {
                     case ALLEGRO_KEY_LEFT:
@@ -141,8 +153,7 @@ void GameManager::Loop()
                     static float old_time = 0;
                     float cur_time = al_get_time();
 
-                    if (!IsPaused())
-                        Update(cur_time - old_time);
+                    Update(cur_time - old_time);
 
                     old_time = cur_time;
                 }
@@ -180,13 +191,19 @@ void GameManager::Cleanup()
 
 void GameManager::Update(float dt)
 {
-    game->Update(dt);
+    if (game)
+        game->Update(dt);
 }
 
 void GameManager::Draw()
 {
     al_clear_to_color(al_map_rgb(255, 255, 255));
-    TileManager::Draw(game->map, height);
-    SpriteManager::Draw(game->map, height);
+
+    if (game)
+    {
+        TileManager::Draw(game->map, height);
+        SpriteManager::Draw(game->map, height);
+    }
+
     al_flip_display();
 }

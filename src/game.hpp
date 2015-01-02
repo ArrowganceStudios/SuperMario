@@ -5,6 +5,7 @@
 #include "object.hpp"
 #include "player.hpp"
 #include "map.hpp"
+#include "gamestates.hpp"
 
 namespace Mario
 {
@@ -33,6 +34,23 @@ namespace Mario
         void Update(float dt);
 
         /**
+         * Returns paused state flag.
+         */
+        bool IsPaused();
+
+        /**
+         * Called on game state begin.
+         * @param state Game state.
+         */
+        void OnGameStateStart(GameState* state) {}
+
+        /**
+         * Called on game state finish.
+         * @param state Game state.
+         */
+        void OnGameStateFinish(GameState* state);
+
+        /**
          * Called when an object kills another object.
          * @param killer Killer.
          * @param victim Victim.
@@ -51,8 +69,10 @@ namespace Mario
          */
         void OnObjectAddToMap(Object* object);
 
-        Map* map;           ///< Game map
-        Player* player;     ///< Player object
+        Map* map;                       ///< Game map
+        Player* player;                 ///< Player object
+        std::list<GameState*> states;   ///< Game states
+        bool done;                      ///< Game finished flag
     };
 }
 

@@ -6,22 +6,32 @@ using namespace Mario;
 
 void Object::Kill(Object* enemy)
 {
-    if (enemy->state != STATE_DEAD)
+    if (enemy->state & STATE_ALIVE)
     {
-        enemy->state = STATE_DEAD;
+        enemy->state &= ~STATE_ALIVE;
         map->game->OnKill(this, enemy);
     }
 }
 
 void Object::OnUpdate(float dt)
 {
-    if (falling)
+    // movement
+    if (state & STATE_FALL)
         dir_y += -Gravity * dt;
     else if (dir_y != 0)
         dir_y = 0;
 
     pos_x += dir_x * dt;
     pos_y += dir_y * dt;
+
+    // animation
+    anim_timer += dt;
+
+    if (anim_timer > 0.1)
+    {
+        anim_timer = 0;
+        ++frame;
+    }
 }
 
 void Enemy::OnCollision(Object* spawn)

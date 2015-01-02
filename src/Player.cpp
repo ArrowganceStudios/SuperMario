@@ -7,21 +7,23 @@ void Player::OnKeyDown(int key)
     switch (key)
     {
         case ALLEGRO_KEY_LEFT:
-            dir_x = -3*int(TileSize);
-            state = STATE_RUN;
+            dir_x = -4*int(TileSize);
+            state |= STATE_LEFT;
+            state |= STATE_RUN;
             break;
 
         case ALLEGRO_KEY_RIGHT:
-            dir_x = 3*int(TileSize);
-            state = STATE_RUN;
+            dir_x = 4*int(TileSize);
+            state &= ~STATE_LEFT;
+            state |= STATE_RUN;
             break;
 
         case ALLEGRO_KEY_Z:
-            if (!falling)
+            if (!(state & STATE_FALL))
             {
                 dir_y = 10*int(TileSize);
-                falling = true;
-                state = STATE_JUMP;
+                state |= STATE_FALL;
+                state |= STATE_JUMP;
             }
             break;
     }
@@ -33,24 +35,28 @@ void Player::OnKeyUp(int key)
     {
         case ALLEGRO_KEY_LEFT:
         case ALLEGRO_KEY_RIGHT:
+            if (state & (STATE_JUMP | STATE_FALL))
+                break;
+
             dir_x = 0;
-            if (state != STATE_JUMP)
-                state = STATE_STAND;
+            state &= ~STATE_RUN;
             break;
     }
 }
 
 size_t Player::OnDraw()
 {
-    switch (state)
-    {
-        case STATE_STAND:
-            return 68;
+    if (!(state & STATE_ALIVE))
+        return 52;
 
-        case STATE_RUN:
-            return 69 + (frame = (frame + 1) % 2);
+    if (state & STATE_JUMP)
+        return state & STATE_LEFT ? 106 : 118;
 
-        default:
-            return 0;
-    }
+    if (state & STATE_FALL)
+        return state & STATE_LEFT ? 61 : 73;
+
+    if (state & STATE_RUN)
+        return (state & STATE_LEFT ? 64 : 68) + frame % 3;
+
+    return state & STATE_LEFT ? 66 : 68;
 }

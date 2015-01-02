@@ -19,6 +19,8 @@ namespace Mario
             Object(OBJECT_PLAYER, map, tile_x, tile_y) {}
 
         ~Player() {}
+
+        /// @copydoc Object::OnDraw
         size_t OnDraw();
 
         /**

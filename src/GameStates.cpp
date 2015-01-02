@@ -16,6 +16,16 @@ bool GamePausedState::OnKeyDown(int key)
     return true;
 }
 
+void GameOverState::OnInit()
+{
+    if (Player* player = game->player)
+    {
+        player->dir_x = 0;
+        player->dir_y = 10 * TileSize;
+        player->state |= STATE_FALL;
+    }
+}
+
 bool GameOverState::OnUpdate(float dt)
 {
     timer += dt;
@@ -25,6 +35,8 @@ bool GameOverState::OnUpdate(float dt)
         Finish();
         game->done = true;
     }
+
+    game->player->OnUpdate(dt);
 
     return true;
 }

@@ -129,16 +129,15 @@ void Map::Update(float dt)
     {
         (*i)->OnUpdate(dt);
 
-        if ((*i)->falling && IsSolidTile( GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt) ))
+        if ((*i)->state & STATE_FALL && IsSolidTile( GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt) ))
         {
-            (*i)->falling = false;
-            (*i)->state = STATE_STAND; // todo: only if not running anymore
-            (*i)->pos_y = floor((*i)->pos_y/TileSize)*TileSize;
+            (*i)->state &= ~(STATE_FALL | STATE_JUMP); // finish jump or fall
+            (*i)->pos_y = floor((*i)->pos_y/TileSize)*TileSize; // set on top of tile
             (*i)->dir_y = 0;
         }
 
-        else if (!(*i)->falling && !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1)))
-            (*i)->falling = true;
+        else if (!((*i)->state & STATE_FALL) && !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1)))
+            (*i)->state |= STATE_FALL;
 
         ObjectList::iterator j = i;
         for (++j; j != objs.end(); ++j)
@@ -146,10 +145,10 @@ void Map::Update(float dt)
             if (fabs((*i)->pos_x - (*j)->pos_x) < (*i)->size_x/2 + (*j)->size_x/2 &&
                 fabs((*i)->pos_y - (*j)->pos_y) < (*j)->size_x/2 + (*j)->size_x/2)
             {
-                if ((*i)->state != STATE_DEAD)
+                if ((*i)->state & STATE_ALIVE)
                     (*i)->OnCollision(*j);
 
-                if ((*j)->state != STATE_DEAD)
+                if ((*j)->state & STATE_ALIVE)
                     (*j)->OnCollision(*i);
             }
         }

@@ -15,8 +15,8 @@ namespace Mario
          * @param tile_y Y map tile.
          */
         Object(ObjectType type, Map* map, size_t tile_x, size_t tile_y) :
-            falling(false), dir_x(0), dir_y(0), size_x(TileSize), map(map),
-            state(STATE_ALIVE), type(type)
+            dir_x(0), dir_y(0), size_x(TileSize), map(map), state(STATE_ALIVE),
+            type(type), frame(0), anim_timer(0)
         {
             pos_x = TileSize * tile_x + size_x/2;
             pos_y = TileSize * tile_y;
@@ -45,15 +45,15 @@ namespace Mario
          */
         virtual size_t OnDraw() { return 0; }
 
-        bool falling;       ///< Falling flag
         float pos_x;        ///< X map position
         float pos_y;        ///< Y map position
         float dir_x;        ///< Horizontal direction of movement
         float dir_y;        ///< Vertical direction of movement
-        size_t frame;       ///< Current frame
+        float anim_timer;   ///< Animation timer
+        unsigned frame;     ///< Current frame
         const float size_x; ///< Object size
         Map* map;           ///< Owner map
-        ObjectState state;  ///< Alive state
+        unsigned state;     ///< Alive state
         ObjectType type;    ///< Object type
     };
 

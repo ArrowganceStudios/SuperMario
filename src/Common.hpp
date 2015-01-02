@@ -90,14 +90,12 @@ namespace Mario
 
     enum ObjectState
     {
-        STATE_DEAD,
-        STATE_ALIVE,
-
-        STATE_STAND = STATE_ALIVE,
-        STATE_RUN,
-        STATE_JUMP
+        STATE_ALIVE     = (1 << 0),
+        STATE_RUN       = (1 << 1),
+        STATE_LEFT      = (1 << 2),
+        STATE_JUMP      = (1 << 3),
+        STATE_FALL      = (1 << 4),
     };
-
 
     struct Map;
     struct GameState;

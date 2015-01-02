@@ -33,6 +33,13 @@ namespace Mario
         void Update(float dt);
 
         /**
+         * Called when an object kills another object.
+         * @param killer Killer.
+         * @param victim Victim.
+         */
+        void OnKill(Object* killer, Object* victim);
+
+        /**
          * Called when player is added to map.
          * @param player Player.
          */
@@ -43,8 +50,6 @@ namespace Mario
          * @param object Object.
          */
         void OnObjectAddToMap(Object* object);
-
-        void OnKill(Object* killer, Object* victim);
 
         Map* map;           ///< Game map
         Player* player;     ///< Player object

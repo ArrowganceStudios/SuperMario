@@ -100,15 +100,15 @@ namespace Mario
      */
     enum ObjectType
     {
-        OBJECT_UNKNOWN,
+        OBJECT_UNKNOWN,     ///< Unknown spawn
 
-        OBJECT_PLAYER,
-        OBJECT_GOOMBA,
-        OBJECT_KOOPA,
-        OBJECT_SPINY,
-        OBJECT_LAKITU,
+        OBJECT_PLAYER,      ///< Player spawn
+        OBJECT_GOOMBA,      ///< Goomba spawn
+        OBJECT_KOOPA,       ///< Koopa spawn
+        OBJECT_SPINY,       ///< Spiny spawn
+        OBJECT_LAKITU,      ///< Lakitu spawn
 
-        MAX_OBJECT_TYPE
+        MAX_OBJECT_TYPE     ///< Max spawn type
     };
 
     /**
@@ -119,11 +119,11 @@ namespace Mario
      */
     enum ObjectState
     {
-        STATE_ALIVE     = (1 << 0),
-        STATE_RUN       = (1 << 1),
-        STATE_LEFT      = (1 << 2),
-        STATE_JUMP      = (1 << 3),
-        STATE_FALL      = (1 << 4),
+        STATE_ALIVE     = (1 << 0),     ///< Alive flag
+        STATE_RUN       = (1 << 1),     ///< Running flag
+        STATE_LEFT      = (1 << 2),     ///< Moving left flag
+        STATE_JUMP      = (1 << 3),     ///< Jumping flag
+        STATE_FALL      = (1 << 4),     ///< Falling flag
     };
 
     struct Map;

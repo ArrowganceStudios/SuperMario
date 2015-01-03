@@ -1,3 +1,10 @@
+/**
+ * @file        Common.hpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #ifndef __Common__
 #define __Common__
 
@@ -17,18 +24,20 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
-#define __DEBUG__   1
-#define ASSETS      "assets/"
+#define __DEBUG__   1               ///< Debug info display flag
+#define ASSETS      "assets/"       ///< Asset path prefix
 
 namespace Mario
 {
 #if __DEBUG__
+    /// Prints log info (single arg).
     template <typename T>
     void log_info(T t)
     {
         std::cout << t << std::endl;
     }
 
+    /// Prints log info (multiple args).
     template <typename T, typename... Args>
     void log_info(T t, Args... args)
     {
@@ -39,12 +48,14 @@ namespace Mario
 #   define log_info(...)
 #endif
 
+    /// Prints log errors (single arg).
     template <typename T>
     void log_error(T t)
     {
         std::cerr << t << std::endl;
     }
 
+    /// Prints log errors (multiple args).
     template <typename T, typename... Args>
     void log_error(T t, Args... args)
     {
@@ -52,11 +63,14 @@ namespace Mario
         log_error(args...);
     }
 
-    const size_t TileSize = 32; ///< Map tile size
-    const float Gravity = 12 * TileSize; ///< Gravity
+    const size_t TileSize = 32;             ///< Map tile size
+    const float Gravity = 30 * TileSize;    ///< Gravity
 
     /**
-     * Tile types.
+     * Tile types
+     *
+     * Tiles between empty and player spawn tiles (exclusive) are solid,
+     * so that objects can stand on them.
      */
     enum Tile
     {
@@ -72,9 +86,18 @@ namespace Mario
         TILE_SPINY_SPAWN,   ///< Spiny spawn tile
         TILE_LAKITU_SPAWN,  ///< Lakitu spawn tile
 
-        MAX_TILE_TYPE       ///< Max tile ID
+        MAX_TILE_TYPE,      ///< Max tile ID
+
+        TILE_SOLID_START    = TILE_GRASS,
+        TILE_SOLID_END      = TILE_WALL
+
     };
 
+    /**
+     * Map object type list
+     *
+     * Lists all possible map spawns.
+     */
     enum ObjectType
     {
         OBJECT_UNKNOWN,
@@ -88,6 +111,12 @@ namespace Mario
         MAX_OBJECT_TYPE
     };
 
+    /**
+     * Map object state list
+     *
+     * These flags are stored in Object's state variable and hold movement
+     * and animation information.
+     */
     enum ObjectState
     {
         STATE_ALIVE     = (1 << 0),

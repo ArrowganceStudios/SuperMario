@@ -1,3 +1,10 @@
+/**
+ * @file        GameManager.hpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #ifndef __GameManager__
 #define __GameManager__
 

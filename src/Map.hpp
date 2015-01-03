@@ -1,3 +1,10 @@
+/**
+ * @file        Map.hpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #ifndef __Map__
 #define __Map__
 
@@ -7,9 +14,9 @@
 
 namespace Mario
 {
-    typedef std::vector<Tile> TileRow;
-    typedef std::vector<TileRow> TileSet;
-    typedef std::list<Object*> ObjectList;
+    typedef std::vector<Tile> TileRow;          ///< Single tile row type
+    typedef std::vector<TileRow> TileSet;       ///< Tile map type
+    typedef std::list<Object*> ObjectList;      ///< Map object list type
 
     /// Game map class.
     struct Map
@@ -85,7 +92,7 @@ namespace Mario
          */
         inline static bool IsSolidTile(Tile tile)
         {
-            return tile > TILE_EMPTY && tile < TILE_PLAYER_SPAWN;
+            return tile >= TILE_SOLID_START && tile <= TILE_SOLID_END;
         };
 
         Game* game;                 ///< Game object

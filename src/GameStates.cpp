@@ -1,3 +1,10 @@
+/**
+ * @file        GameStates.cpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #include "GameStates.hpp"
 #include "Game.hpp"
 
@@ -21,7 +28,7 @@ void GameOverState::OnInit()
     if (Player* player = game->player)
     {
         player->dir_x = 0;
-        player->dir_y = 10 * TileSize;
+        player->dir_y = 15 * TileSize;
         player->state |= STATE_FALL;
     }
 }

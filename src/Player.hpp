@@ -1,3 +1,10 @@
+/**
+ * @file        Player.hpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #ifndef __Player__
 #define __Player__
 

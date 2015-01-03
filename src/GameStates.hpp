@@ -1,3 +1,10 @@
+/**
+ * @file        GameStates.hpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #ifndef __GameStates__
 #define __GameStates__
 

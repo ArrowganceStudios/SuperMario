@@ -1,3 +1,10 @@
+/**
+ * @file        Objects.cpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #include "Objects.hpp"
 #include "Map.hpp"
 #include "Game.hpp"

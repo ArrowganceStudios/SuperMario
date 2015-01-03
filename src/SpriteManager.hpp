@@ -1,3 +1,10 @@
+/**
+ * @file        SpriteManager.hpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #ifndef __SpriteManager__
 #define __SpriteManager__
 
@@ -32,6 +39,10 @@ namespace Mario
         ALLEGRO_BITMAP* bitmap;     ///< Allegro bitmap
     };
 
+    /**
+     * Sprite info map type.
+     * Maps objects to their sprite information.
+     */
     typedef std::map<ObjectType, SpriteInfo*> SpriteInfoMap;
 
     /// Sprite manager class

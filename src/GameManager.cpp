@@ -1,3 +1,10 @@
+/**
+ * @file        GameManager.cpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #include "Game.hpp"
 #include "GameStates.hpp"
 #include "GameManager.hpp"

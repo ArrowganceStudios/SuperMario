@@ -1,3 +1,10 @@
+/**
+ * @file        Objects.hpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #ifndef __Objects__
 #define __Objects__
 

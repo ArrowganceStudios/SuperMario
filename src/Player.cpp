@@ -1,3 +1,10 @@
+/**
+ * @file        Player.cpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #include "Player.hpp"
 
 using namespace Mario;
@@ -7,13 +14,13 @@ void Player::OnKeyDown(int key)
     switch (key)
     {
         case ALLEGRO_KEY_LEFT:
-            dir_x = -4*int(TileSize);
+            dir_x = -5*int(TileSize);
             state |= STATE_LEFT;
             state |= STATE_RUN;
             break;
 
         case ALLEGRO_KEY_RIGHT:
-            dir_x = 4*int(TileSize);
+            dir_x = 5*int(TileSize);
             state &= ~STATE_LEFT;
             state |= STATE_RUN;
             break;
@@ -21,7 +28,7 @@ void Player::OnKeyDown(int key)
         case ALLEGRO_KEY_Z:
             if (!(state & STATE_FALL))
             {
-                dir_y = 10*int(TileSize);
+                dir_y = 15*int(TileSize);
                 state |= STATE_FALL;
                 state |= STATE_JUMP;
             }

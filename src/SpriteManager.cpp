@@ -1,3 +1,10 @@
+/**
+ * @file        SpriteManager.cpp
+ * @author      mg6 (maciej@gamrat.it)
+ * @date        2014-2015
+ * @copyright   GNU GPL v2
+ */
+
 #include "Map.hpp"
 #include "SpriteManager.hpp"
 

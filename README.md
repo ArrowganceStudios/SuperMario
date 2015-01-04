@@ -5,7 +5,7 @@ It's me, Mario!
 
 Credits:
 * Mario series: Nintendo
-* Graphics: Nintendo & http://www.mariouniverse.com/
+* Graphics: Nintendo, Tech Static/Bowserman, http://www.mariouniverse.com/
 
 Building
 --------

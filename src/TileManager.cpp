@@ -66,7 +66,7 @@ void TileManager::Draw(Map* map, size_t height)
     for (int c = 0; c < tiles.size(); ++c)
         for (int r = 0; r < 24; ++r)
         {
-            al_draw_filled_rectangle(c * TileSize, height - r * TileSize, (c+1)*TileSize, height - (r+1)*TileSize, GetTileColor(map, tiles[c][r]));
-            al_draw_filled_rectangle(c * TileSize, height - r * TileSize, c * TileSize + 2, height - (r * TileSize + 2), al_map_rgb(255, 255, 255));
+            al_draw_filled_rectangle(c * TileSize - map->offset, height - r * TileSize, (c+1)*TileSize - map->offset, height - (r+1)*TileSize, GetTileColor(map, tiles[c][r]));
+            al_draw_filled_rectangle(c * TileSize - map->offset, height - r * TileSize, c * TileSize + 2 - map->offset, height - (r * TileSize + 2), al_map_rgb(255, 255, 255));
         }
 }

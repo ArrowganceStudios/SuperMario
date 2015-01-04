@@ -15,6 +15,7 @@ Map::Map(Game* game, std::string path)
     this->game = game;
     this->player = nullptr;
     this->edit_mode = false;
+    this->offset = 0;
 
     Load(path);
     SpawnObjects();

@@ -18,7 +18,10 @@ SpriteManager::~SpriteManager()
 
 void SpriteManager::Register()
 {
-    sprites[OBJECT_PLAYER] = new SpriteInfo(ASSETS "mario.png", 30, 40, 15);
+    sprites[OBJECT_PLAYER]  = new SpriteInfo(ASSETS "mario.png", 30, 40, 15);
+    sprites[OBJECT_GOOMBA]  = new SpriteInfo(ASSETS "goomba.png", 22, 26, 7);
+    sprites[OBJECT_KOOPA]   = new SpriteInfo(ASSETS "koopa.png", 16, 28, 8);
+    sprites[OBJECT_SPINY]   = new SpriteInfo(ASSETS "spiny.png", 16, 16, 4);
 }
 
 void SpriteManager::Load()
@@ -50,7 +53,7 @@ void SpriteManager::Draw(Map* map, size_t height)
             tile % info->row_size * info->tile_width,
             tile / info->row_size * info->tile_height,
             info->tile_width, info->tile_height,
-            o->pos_x-info->tile_width,
+            o->pos_x-info->tile_width - map->offset,
             height-(o->pos_y+info->tile_height*2),
             2*info->tile_width, 2*info->tile_height,
             0);

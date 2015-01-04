@@ -100,6 +100,7 @@ namespace Mario
         TileSet tiles;              ///< Map tileset
         ObjectList objs;            ///< Object  list
         bool edit_mode;             ///< Edit mode flag
+        float offset;               ///< Map offset
     };
 }
 

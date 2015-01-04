@@ -89,6 +89,9 @@ namespace Mario
          */
         Goomba(Map* map, size_t tile_x, size_t tile_y) :
             Enemy(OBJECT_GOOMBA, map, tile_x, tile_y) {}
+
+        /// @copydoc Object::OnDraw
+        size_t OnDraw();
     };
 
     /// Koopa spawn.
@@ -102,6 +105,9 @@ namespace Mario
          */
         Koopa(Map* map, size_t tile_x, size_t tile_y) :
             Enemy(OBJECT_KOOPA, map, tile_x, tile_y) {}
+
+        /// @copydoc Object::OnDraw
+        size_t OnDraw();
     };
 
     /// Lakitu spawn.
@@ -128,6 +134,9 @@ namespace Mario
          */
         Spiny(Map* map, size_t tile_x, size_t tile_y) :
             Enemy(OBJECT_SPINY, map, tile_x, tile_y) {}
+
+        /// @copydoc Object::OnDraw
+        size_t OnDraw();
     };
 }
 

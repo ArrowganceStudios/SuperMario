@@ -57,3 +57,21 @@ void Enemy::OnUpdate(float dt)
 
     Object::OnUpdate(dt);
 }
+
+size_t Goomba::OnDraw()
+{
+    if (!(state & STATE_ALIVE))
+        return 2;
+
+    return frame % 4 >= 2;
+}
+
+size_t Koopa::OnDraw()
+{
+    return (dir_x < 0 ? 0 : 2) + (frame % 4 >= 2);
+}
+
+size_t Spiny::OnDraw()
+{
+    return (dir_x < 0 ? 0 : 2) + (frame % 4 >= 2);
+}

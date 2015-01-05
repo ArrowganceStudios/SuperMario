@@ -49,11 +49,17 @@ void Enemy::OnCollision(Object* spawn)
 
 void Enemy::OnUpdate(float dt)
 {
-    Tile at = map->GetTile(Map::ToTile(pos_x), Map::ToTile(pos_y)-1);
-    Tile next = map->GetTile(Map::ToTile(pos_x + dir_x * dt), Map::ToTile(pos_y)-1);
+    int tile_x = Map::ToTile(pos_x);
+    int tile_y = Map::ToTile(pos_y);
+    int tile_n = Map::ToTile(pos_x + dir_x * dt);
 
-    if (Map::IsSolidTile(at) && !Map::IsSolidTile(next))
-        dir_x *= -1;
+    // check if standing on solid tile
+    if (Map::IsSolidTile(map->GetTile(tile_x, tile_y - 1)))
+        // check if at edge or wall
+        if (!Map::IsSolidTile(map->GetTile(tile_n, tile_y - 1)) ||
+            Map::IsSolidTile(map->GetTile(tile_n, tile_y)))
+            // change direction
+            dir_x *= -1;
 
     Object::OnUpdate(dt);
 }

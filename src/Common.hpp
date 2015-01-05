@@ -25,7 +25,12 @@
 #include <allegro5/allegro_ttf.h>
 
 #define __DEBUG__   1               ///< Debug info display flag
-#define ASSETS      "assets/"       ///< Asset path prefix
+
+#if __GNUC__
+#   define ASSETS   "assets/"       ///< Asset path prefix
+#else
+#   define ASSETS   "assets\\"      ///< Asset path prefix
+#endif
 
 namespace Mario
 {

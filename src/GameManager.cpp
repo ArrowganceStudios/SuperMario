@@ -55,6 +55,7 @@ void GameManager::Init()
     al_start_timer(update_timer);
 
     sprite_mgr = new SpriteManager();
+    tile_mgr = new TileManager();
     game = new Game();
 }
 
@@ -192,6 +193,9 @@ void GameManager::Cleanup()
     if (sprite_mgr)
         delete sprite_mgr;
 
+    if (tile_mgr)
+        delete tile_mgr;
+
     if (redraw_timer)
         al_destroy_timer(redraw_timer);
 
@@ -217,7 +221,7 @@ void GameManager::Draw()
 
     if (game)
     {
-        TileManager::Draw(game->map, height);
+        tile_mgr->Draw(game->map, height);
         sprite_mgr->Draw(game->map, height);
     }
 

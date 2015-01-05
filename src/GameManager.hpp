@@ -64,6 +64,7 @@ namespace Mario
         ALLEGRO_TIMER* update_timer;    ///< Update timer
         Game* game;                     ///< Game object
         SpriteManager* sprite_mgr;      ///< Sprite manager
+        TileManager* tile_mgr;          ///< Tile manager
         bool done;                      ///< Done flag
 
         const float fps = 60;           ///< FPS setting

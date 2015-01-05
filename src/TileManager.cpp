@@ -59,6 +59,17 @@ ALLEGRO_COLOR TileManager::GetTileColor(Map* map, Tile& tile)
     return al_map_rgb(0, 0, 0);
 }
 
+unsigned TileManager::GetTileIndex(Tile tile)
+{
+    switch (tile)
+    {
+        case TILE_GRASS:    return 1;
+        case TILE_WALL:     return 45;
+
+        default:            return unsigned(tile);
+    }
+}
+
 void TileManager::Draw(Map* map, size_t height)
 {
     TileSet& tiles = map->tiles;
@@ -67,6 +78,15 @@ void TileManager::Draw(Map* map, size_t height)
         for (int r = 0; r < 24; ++r)
         {
             al_draw_filled_rectangle(c * TileSize - map->offset, height - r * TileSize, (c+1)*TileSize - map->offset, height - (r+1)*TileSize, GetTileColor(map, tiles[c][r]));
-            al_draw_filled_rectangle(c * TileSize - map->offset, height - r * TileSize, c * TileSize + 2 - map->offset, height - (r * TileSize + 2), al_map_rgb(255, 255, 255));
+
+            if (map->edit_mode)
+                al_draw_filled_rectangle(c * TileSize - map->offset, height - r * TileSize, c * TileSize + 2 - map->offset, height - (r * TileSize + 2), al_map_rgb(255, 255, 255));
+
+            unsigned t = GetTileIndex(tiles[c][r]);
+
+            if (t)
+                al_draw_scaled_bitmap(this->tiles,
+                    1 + t % 44 * 17, 1 + t / 44 * 17, 16, 16,
+                    c * TileSize, height - (r+1) * TileSize, TileSize, TileSize, 0);
         }
 }

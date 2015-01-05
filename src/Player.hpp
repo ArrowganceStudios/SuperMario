@@ -41,6 +41,8 @@ namespace Mario
          * @param key Released key.
          */
         void OnKeyUp(int key);
+
+        unsigned keys_down;     ///< Holds information about keys being pressed
     };
 }
 

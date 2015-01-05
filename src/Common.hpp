@@ -131,6 +131,19 @@ namespace Mario
         STATE_FALL      = (1 << 4),     ///< Falling flag
     };
 
+    /**
+     * Key state flags
+     *
+     * Un/set by key press and release handlers.
+     */
+    enum KeyState
+    {
+        KEY_STATE_UP    = (1 << 0),
+        KEY_STATE_DOWN  = (1 << 1),
+        KEY_STATE_LEFT  = (1 << 2),
+        KEY_STATE_RIGHT = (1 << 3),
+    };
+
     struct Map;
     struct GameState;
     struct Game;

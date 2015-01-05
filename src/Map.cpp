@@ -137,14 +137,25 @@ void Map::Update(float dt)
     {
         (*i)->OnUpdate(dt);
 
-        if ((*i)->state & STATE_FALL && IsSolidTile( GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt) ))
+        // if falling and will land on solid tile in next frame
+        if ((*i)->state & STATE_FALL && (*i)->dir_y < 0 &&
+            IsSolidTile( GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt) ))
         {
-            (*i)->state &= ~(STATE_FALL | STATE_JUMP); // finish jump or fall
-            (*i)->pos_y = floor((*i)->pos_y/TileSize)*TileSize; // set on top of tile
+            // finish jump or fall
+            (*i)->state &= ~(STATE_FALL | STATE_JUMP);
             (*i)->dir_y = 0;
+
+            // place on top of tile
+            (*i)->pos_y = Map::ToTile((*i)->pos_y + TileSize/2) * TileSize;
+
+            // prevent running after jumping
+            if (!((*i)->state & STATE_RUN))
+                (*i)->dir_x = 0;
         }
 
+        // if is not falling and is standing on non-solid tile
         else if (!((*i)->state & STATE_FALL) && !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1)))
+            // begin falling
             (*i)->state |= STATE_FALL;
 
         ObjectList::iterator j = i;

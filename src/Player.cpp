@@ -13,13 +13,23 @@ void Player::OnKeyDown(int key)
 {
     switch (key)
     {
+        case ALLEGRO_KEY_UP:
+            keys_down |= KEY_STATE_UP;
+            break;
+
+        case ALLEGRO_KEY_DOWN:
+            keys_down |= KEY_STATE_DOWN;
+            break;
+
         case ALLEGRO_KEY_LEFT:
+            keys_down |= KEY_STATE_LEFT;
             dir_x = -5*int(TileSize);
             state |= STATE_LEFT;
             state |= STATE_RUN;
             break;
 
         case ALLEGRO_KEY_RIGHT:
+            keys_down |= KEY_STATE_RIGHT;
             dir_x = 5*int(TileSize);
             state &= ~STATE_LEFT;
             state |= STATE_RUN;
@@ -38,16 +48,25 @@ void Player::OnKeyDown(int key)
 
 void Player::OnKeyUp(int key)
 {
+    // clear key state flags
     switch (key)
     {
-        case ALLEGRO_KEY_LEFT:
-        case ALLEGRO_KEY_RIGHT:
-            if (state & (STATE_JUMP | STATE_FALL))
-                break;
+        case ALLEGRO_KEY_UP:    keys_down &= ~KEY_STATE_UP;     break;
+        case ALLEGRO_KEY_DOWN:  keys_down &= ~KEY_STATE_DOWN;   break;
+        case ALLEGRO_KEY_LEFT:  keys_down &= ~KEY_STATE_LEFT;   break;
+        case ALLEGRO_KEY_RIGHT: keys_down &= ~KEY_STATE_RIGHT;  break;
+    }
 
-            dir_x = 0;
+    // if both left and right keys are released
+    if (!(keys_down & (KEY_STATE_LEFT | KEY_STATE_RIGHT)))
+    {
+        // stop running
+        if (state & STATE_RUN)
             state &= ~STATE_RUN;
-            break;
+
+        // stop if not jumping or falling
+        if (!(state & (STATE_JUMP | STATE_FALL)))
+            dir_x = 0;
     }
 }
 

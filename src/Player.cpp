@@ -9,14 +9,21 @@
 
 using namespace Mario;
 
+void Player::OnAnimate(float dt)
+{
+    anim_timer += dt;
+
+    if (anim_timer > 0.1)
+    {
+        anim_timer = 0;
+        ++frame;
+    }
+}
+
 void Player::OnKeyDown(int key)
 {
     switch (key)
     {
-        case ALLEGRO_KEY_UP:
-            keys_down |= KEY_STATE_UP;
-            break;
-
         case ALLEGRO_KEY_DOWN:
             keys_down |= KEY_STATE_DOWN;
             break;
@@ -34,6 +41,9 @@ void Player::OnKeyDown(int key)
             state &= ~STATE_LEFT;
             state |= STATE_RUN;
             break;
+
+        case ALLEGRO_KEY_UP:
+            keys_down |= KEY_STATE_UP;
 
         case ALLEGRO_KEY_Z:
             if (!(state & STATE_FALL))

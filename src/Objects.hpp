@@ -36,10 +36,22 @@ namespace Mario
         void Kill(Object* enemy);
 
         /**
+         * Default animation handler.
+         * @param dt Time increment.
+         */
+        virtual void OnAnimate(float dt);
+
+        /**
          * Collision handler.
          * @param spawn Map spawn.
          */
         virtual void OnCollision(Object* spawn) {}
+
+        /**
+         * Default movement handler.
+         * @param dt Time increment.
+         */
+        virtual void OnMove(float dt);
 
         /**
          * Update handler.
@@ -120,7 +132,11 @@ namespace Mario
          * @param tile_y Y map tile.
          */
         Lakitu(Map* map, size_t tile_x, size_t tile_y) :
-            Enemy(OBJECT_LAKITU, map, tile_x, tile_y) {}
+            Enemy(OBJECT_LAKITU, map, tile_x, tile_y)
+        {
+            state |= STATE_FLY;
+            dir_x = 0;
+        }
 
         /// @copydoc Object::OnDraw
         size_t OnDraw();

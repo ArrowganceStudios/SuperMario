@@ -129,6 +129,7 @@ namespace Mario
         STATE_LEFT      = (1 << 2),     ///< Moving left flag
         STATE_JUMP      = (1 << 3),     ///< Jumping flag
         STATE_FALL      = (1 << 4),     ///< Falling flag
+        STATE_FLY       = (1 << 5),     ///< Flying object flag
     };
 
     /**

@@ -27,6 +27,9 @@ namespace Mario
 
         ~Player() {}
 
+        /// @copydoc Object::OnAnimate
+        void OnAnimate(float dt);
+
         /// @copydoc Object::OnDraw
         size_t OnDraw();
 

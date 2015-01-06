@@ -154,7 +154,8 @@ void Map::Update(float dt)
         }
 
         // if is not falling and is standing on non-solid tile
-        else if (!((*i)->state & STATE_FALL) && !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1)))
+        else if (!((*i)->state & (STATE_FALL | STATE_FLY)) &&
+            !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1)))
             // begin falling
             (*i)->state |= STATE_FALL;
 

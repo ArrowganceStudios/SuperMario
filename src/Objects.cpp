@@ -20,25 +20,31 @@ void Object::Kill(Object* enemy)
     }
 }
 
-void Object::OnUpdate(float dt)
+void Object::OnAnimate(float dt)
 {
-    // movement
-    if (state & STATE_FALL)
-        dir_y += -Gravity * dt;
-    else if (dir_y != 0)
-        dir_y = 0;
-
-    pos_x += dir_x * dt;
-    pos_y += dir_y * dt;
-
-    // animation
     anim_timer += dt;
 
-    if (anim_timer > 0.1)
+    if (anim_timer > 0.2)
     {
         anim_timer = 0;
         ++frame;
     }
+}
+
+void Object::OnMove(float dt)
+{
+    // apply gravity if falling
+    if (!(state & STATE_FLY) && state & STATE_FALL)
+        dir_y += -Gravity * dt;
+
+    pos_x += dir_x * dt;
+    pos_y += dir_y * dt;
+}
+
+void Object::OnUpdate(float dt)
+{
+    OnMove(dt);
+    OnAnimate(dt);
 }
 
 void Enemy::OnCollision(Object* spawn)
@@ -69,20 +75,20 @@ size_t Goomba::OnDraw()
     if (!(state & STATE_ALIVE))
         return 2;
 
-    return frame % 4 >= 2;
+    return frame % 2;
 }
 
 size_t Koopa::OnDraw()
 {
-    return (dir_x < 0 ? 0 : 2) + (frame % 4 >= 2);
+    return (dir_x < 0 ? 0 : 2) + frame % 2;
 }
 
 size_t Lakitu::OnDraw()
 {
-    return 2;
+    return 1;
 }
 
 size_t Spiny::OnDraw()
 {
-    return (dir_x < 0 ? 0 : 2) + (frame % 4 >= 2);
+    return (dir_x < 0 ? 0 : 2) + frame % 2;
 }

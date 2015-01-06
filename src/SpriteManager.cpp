@@ -27,7 +27,7 @@ void SpriteManager::Register()
     sprites[OBJECT_PLAYER]  = new SpriteInfo(ASSETS "mario.png", 30, 40, 15);
     sprites[OBJECT_GOOMBA]  = new SpriteInfo(ASSETS "goomba.png", 22, 26, 7);
     sprites[OBJECT_KOOPA]   = new SpriteInfo(ASSETS "koopa.png", 16, 28, 8);
-    sprites[OBJECT_LAKITU]  = new SpriteInfo(ASSETS "enemies.png", 16, 16, 4);
+    sprites[OBJECT_LAKITU]  = new SpriteInfo(ASSETS "enemies.png", 16, 32, 4);
     sprites[OBJECT_SPINY]   = new SpriteInfo(ASSETS "spiny.png", 16, 16, 4);
 }
 

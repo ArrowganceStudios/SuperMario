@@ -121,6 +121,9 @@ namespace Mario
          */
         Lakitu(Map* map, size_t tile_x, size_t tile_y) :
             Enemy(OBJECT_LAKITU, map, tile_x, tile_y) {}
+
+        /// @copydoc Object::OnDraw
+        size_t OnDraw();
     };
 
     /// Spiny spawn.

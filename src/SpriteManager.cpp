@@ -14,6 +14,12 @@ SpriteManager::~SpriteManager()
 {
     for (SpriteInfoMap::iterator i = sprites.begin(); i != sprites.end(); ++i)
         delete i->second;
+
+    for (PathToBitmapMap::iterator i = bitmaps.begin(); i != bitmaps.end(); ++i)
+    {
+        al_destroy_bitmap(i->second);
+        log_info("[Spr]\tUnloaded sprite sheet", i->first);
+    }
 }
 
 void SpriteManager::Register()
@@ -21,16 +27,20 @@ void SpriteManager::Register()
     sprites[OBJECT_PLAYER]  = new SpriteInfo(ASSETS "mario.png", 30, 40, 15);
     sprites[OBJECT_GOOMBA]  = new SpriteInfo(ASSETS "goomba.png", 22, 26, 7);
     sprites[OBJECT_KOOPA]   = new SpriteInfo(ASSETS "koopa.png", 16, 28, 8);
+    sprites[OBJECT_LAKITU]  = new SpriteInfo(ASSETS "enemies.png", 16, 16, 4);
     sprites[OBJECT_SPINY]   = new SpriteInfo(ASSETS "spiny.png", 16, 16, 4);
 }
 
 void SpriteManager::Load()
 {
     for (SpriteInfoMap::iterator i = sprites.begin(); i != sprites.end(); ++i)
-        if (i->second->bitmap = al_load_bitmap(i->second->path.c_str()))
-            log_info("[Spr]\tLoaded sprite sheet", i->second->path);
-        else
-            log_error("[Spr]\tCould not load sprite sheet", i->second->path);
+        if (!bitmaps[i->second->path])
+        {
+            if (bitmaps[i->second->path] = al_load_bitmap(i->second->path.c_str()))
+                log_info("[Spr]\tLoaded sprite sheet", i->second->path);
+            else
+                log_error("[Spr]\tCould not load sprite sheet", i->second->path);
+        }
 }
 
 void SpriteManager::Draw(Map* map, size_t height)
@@ -49,7 +59,7 @@ void SpriteManager::Draw(Map* map, size_t height)
 
         size_t tile = o->OnDraw();
 
-        al_draw_scaled_bitmap(info->bitmap,
+        al_draw_scaled_bitmap(bitmaps[info->path],
             tile % info->row_size * info->tile_width,
             tile / info->row_size * info->tile_height,
             info->tile_width, info->tile_height,

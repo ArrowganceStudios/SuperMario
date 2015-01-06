@@ -77,6 +77,11 @@ size_t Koopa::OnDraw()
     return (dir_x < 0 ? 0 : 2) + (frame % 4 >= 2);
 }
 
+size_t Lakitu::OnDraw()
+{
+    return 2;
+}
+
 size_t Spiny::OnDraw()
 {
     return (dir_x < 0 ? 0 : 2) + (frame % 4 >= 2);

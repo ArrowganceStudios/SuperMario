@@ -25,25 +25,21 @@ namespace Mario
          */
         SpriteInfo(std::string path, size_t tile_width, size_t tile_height,
             size_t row_size) : path(path), tile_width(tile_width),
-            tile_height(tile_height), row_size(row_size), bitmap(nullptr) {}
+            tile_height(tile_height), row_size(row_size) {}
 
-        ~SpriteInfo()
-        {
-            al_destroy_bitmap(bitmap);
-        }
+        ~SpriteInfo() {}
 
         std::string path;           ///< Sprite map file path
         size_t tile_width;          ///< Tile width
         size_t tile_height;         ///< Tile height
         size_t row_size;            ///< Count of tiles in row
-        ALLEGRO_BITMAP* bitmap;     ///< Allegro bitmap
     };
 
-    /**
-     * Sprite info map type.
-     * Maps objects to their sprite information.
-     */
+    /// Object type to sprite info map type
     typedef std::map<ObjectType, SpriteInfo*> SpriteInfoMap;
+
+    /// Sprite sheet path to to Allegro bitmap map type
+    typedef std::map<std::string, ALLEGRO_BITMAP*> PathToBitmapMap;
 
     /// Sprite manager class
     struct SpriteManager
@@ -73,6 +69,7 @@ namespace Mario
          */
         void Load();
 
+        PathToBitmapMap bitmaps;    ///< Loaded sprite bitmaps
         SpriteInfoMap sprites;      ///< Sprite information map
     };
 }

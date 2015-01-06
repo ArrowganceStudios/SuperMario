@@ -82,9 +82,7 @@ void TileManager::Draw(Map* map, size_t height)
             if (map->edit_mode)
                 al_draw_filled_rectangle(c * TileSize - map->offset, height - r * TileSize, c * TileSize + 2 - map->offset, height - (r * TileSize + 2), al_map_rgb(255, 255, 255));
 
-            unsigned t = GetTileIndex(tiles[c][r]);
-
-            if (t)
+            if (unsigned t = GetTileIndex(tiles[c][r]))
                 al_draw_scaled_bitmap(this->tiles,
                     1 + t % 44 * 17, 1 + t / 44 * 17, 16, 16,
                     c * TileSize, height - (r+1) * TileSize, TileSize, TileSize, 0);

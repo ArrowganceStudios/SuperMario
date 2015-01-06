@@ -1,18 +1,19 @@
-CXX=g++
-CFLAGS=-std=c++11
-LDFLAGS=$$(pkg-config --cflags --libs allegro-5.0 allegro_image-5.0 allegro_primitives-5.0)
-INCLUDE=-I$(SRC)/.
+CXX	= $(CROSS)g++
+PKG	= $(CROSS)pkg-config
+ALLEG	= allegro-5.0 allegro_image-5.0 allegro_primitives-5.0
+LDFLAGS	= $$($(PKG) --libs $(ALLEG))
+CFLAGS	= $$($(PKG) --cflags $(ALLEG)) -std=c++11
 
-BIN=./bin
-SRC=./src
-ASSETS=./assets
-OUT=$(BIN)/Mario
-OBJS=$(BIN)/Objects.o $(BIN)/Player.o $(BIN)/Map.o $(BIN)/GameStates.o $(BIN)/Game.o $(BIN)/TileManager.o $(BIN)/SpriteManager.o $(BIN)/GameManager.o $(BIN)/main.o
+BIN	= ./bin
+SRC	= ./src
+ASSETS	= ./assets
+OUT	= $(BIN)/Mario
+OBJS	= $(BIN)/Objects.o $(BIN)/Player.o $(BIN)/Map.o $(BIN)/GameStates.o $(BIN)/Game.o $(BIN)/TileManager.o $(BIN)/SpriteManager.o $(BIN)/GameManager.o $(BIN)/main.o
 
 all: prebuild $(OUT)
 
 $(OUT): $(OBJS)
-	$(CXX) $(OBJS) -o $(OUT) $(INCLUDE) $(CFLAGS) $(LDFLAGS)
+	$(CXX) $(OBJS) -o $@ $(CFLAGS) $(LDFLAGS)
 
 $(BIN)/%.o: $(SRC)/%.cpp
 	$(CXX) $(CFLAGS) $< -c -o $@

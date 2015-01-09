@@ -154,7 +154,7 @@ namespace Mario
         Spiny(Map* map, size_t tile_x, size_t tile_y) :
             Enemy(OBJECT_SPINY, map, tile_x, tile_y) {}
 
-        /// @copydoc Object::OnDraw
+        void OnCollision(Object* spawn);
         size_t OnDraw();
     };
 }

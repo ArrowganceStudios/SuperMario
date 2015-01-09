@@ -16,6 +16,8 @@ void Object::Kill(Object* enemy)
     if (enemy->state & STATE_ALIVE)
     {
         enemy->state &= ~STATE_ALIVE;
+        enemy->state |= STATE_FALL;
+        enemy->dir_y = 10 * TileSize;
         map->game->OnKill(this, enemy);
     }
 }
@@ -50,7 +52,12 @@ void Object::OnUpdate(float dt)
 void Enemy::OnCollision(Object* spawn)
 {
     if (Player* player = dynamic_cast<Player*>(spawn))
-        Kill(player);
+    {
+        if (pos_y < spawn->pos_y)
+            player->Kill(this);
+        else
+            Kill(player);
+    }
 }
 
 void Enemy::OnUpdate(float dt)
@@ -80,6 +87,9 @@ size_t Goomba::OnDraw()
 
 size_t Koopa::OnDraw()
 {
+    if (!(state & STATE_ALIVE))
+        return 4;
+
     return (dir_x < 0 ? 0 : 2) + frame % 2;
 }
 
@@ -88,7 +98,16 @@ size_t Lakitu::OnDraw()
     return 1;
 }
 
+void Spiny::OnCollision(Object* spawn)
+{
+    if (Player* player = dynamic_cast<Player*>(spawn))
+        Kill(player);
+}
+
 size_t Spiny::OnDraw()
 {
+    if (!(state & STATE_ALIVE))
+        return 4;
+
     return (dir_x < 0 ? 0 : 2) + frame % 2;
 }

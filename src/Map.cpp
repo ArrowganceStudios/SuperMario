@@ -138,7 +138,7 @@ void Map::Update(float dt)
         (*i)->OnUpdate(dt);
 
         // if falling and will land on solid tile in next frame
-        if ((*i)->state & STATE_FALL && (*i)->dir_y < 0 &&
+        if ((*i)->state & STATE_FALL && (*i)->state & STATE_ALIVE && (*i)->dir_y < 0 &&
             IsSolidTile( GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt) ))
         {
             // finish jump or fall

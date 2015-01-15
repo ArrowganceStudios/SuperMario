@@ -1,0 +1,3 @@
+[submodule "win/dep/allegro5"]
+	path = win/dep/allegro5
+	url = https://github.com/mg6/allegro5

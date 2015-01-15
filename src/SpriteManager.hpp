@@ -9,6 +9,7 @@
 #define __SpriteManager__
 
 #include "Common.hpp"
+#include "ScreenHandler.hpp"
 #include "Map.hpp"
 
 namespace Mario
@@ -35,17 +36,21 @@ namespace Mario
         size_t row_size;            ///< Count of tiles in row
     };
 
-    /// Object type to sprite info map type
-    typedef std::map<ObjectType, SpriteInfo*> SpriteInfoMap;
-
-    /// Sprite sheet path to to Allegro bitmap map type
-    typedef std::map<std::string, ALLEGRO_BITMAP*> PathToBitmapMap;
-
     /// Sprite manager class
-    struct SpriteManager
+    struct SpriteManager : public ScreenHandler
     {
-        SpriteManager()
+        /// Object type to sprite info map type
+        typedef std::map<ObjectType, SpriteInfo*> SpriteInfoMap;
+
+        /// Sprite sheet path to to Allegro bitmap map type
+        typedef std::map<std::string, ALLEGRO_BITMAP*> PathToBitmapMap;
+
+        SpriteManager(ScreenHandler::Size width, ScreenHandler::Size height,
+            ScreenHandler::P offset_x = 0, ScreenHandler::P offset_y = 0)
         {
+            SetScreenSize(width, height);
+            SetScreenOffset(offset_x, offset_y);
+
             Register();
             Load();
         }
@@ -55,9 +60,8 @@ namespace Mario
         /**
          * Draws sprites on the map.
          * @param map Game map.
-         * @param height Screen height.
          */
-        void Draw(Map* map, size_t height);
+        void Draw(Map* map);
 
         /**
          * Registers sprite map files.

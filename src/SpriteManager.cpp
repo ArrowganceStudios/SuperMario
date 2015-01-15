@@ -43,7 +43,7 @@ void SpriteManager::Load()
         }
 }
 
-void SpriteManager::Draw(Map* map, size_t height)
+void SpriteManager::Draw(Map* map)
 {
     for (ObjectList::iterator obj = map->objs.begin(); obj != map->objs.end(); ++obj)
     {
@@ -52,19 +52,19 @@ void SpriteManager::Draw(Map* map, size_t height)
 
         if (!info)
         {
-            al_draw_filled_rectangle(o->pos_x-TileSize/2, height-o->pos_y,
-                o->pos_x + TileSize/2, height-(o->pos_y + TileSize), al_map_rgb(255, 255, 255));
+            DrawFilledRect(o->pos_x-TileSize/2, o->pos_y,
+                o->pos_x + TileSize/2, o->pos_y + TileSize, RGB(255, 255, 255));
             continue;
         }
 
         size_t tile = o->OnDraw();
 
-        al_draw_scaled_bitmap(bitmaps[info->path],
+        DrawScaledBitmap(bitmaps[info->path],
             tile % info->row_size * info->tile_width,
             tile / info->row_size * info->tile_height,
             info->tile_width, info->tile_height,
             o->pos_x-info->tile_width - map->offset,
-            height-(o->pos_y+info->tile_height*2),
+            o->pos_y+info->tile_height*2,
             2*info->tile_width, 2*info->tile_height,
             0);
     }

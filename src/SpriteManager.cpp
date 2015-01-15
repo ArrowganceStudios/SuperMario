@@ -53,7 +53,7 @@ void SpriteManager::Draw(Map* map)
         if (!info)
         {
             DrawFilledRect(o->pos_x-TileSize/2, o->pos_y,
-                o->pos_x + TileSize/2, o->pos_y + TileSize, RGB(255, 255, 255));
+                o->pos_x + TileSize / 2, o->pos_y + TileSize, MakeCol(255, 255, 255));
             continue;
         }
 

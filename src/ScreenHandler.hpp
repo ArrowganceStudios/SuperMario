@@ -32,18 +32,28 @@ namespace Mario
         virtual void ClearScreen(Color col) {}
         virtual void DrawFilledRect(P x1, P y1, P x2, P y2, Color rgb) {}
         virtual void DrawScaledBitmap() {}
-        virtual void SetScreenOffset(P offset_x, P offset_y) { this->offset_x = offset_x; this->offset_y = offset_y; }
-        virtual void SetScreenSize(Size width, Size height) { this->width = width; this->height = height; }
+
+        static Color MakeCol(Color r, Color g, Color b)
+        {
+            return ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
+        }
+
+        virtual void SetScreenOffset(P offset_x, P offset_y)
+        {
+            this->offset_x = offset_x;
+            this->offset_y = offset_y;
+        }
+
+        virtual void SetScreenSize(Size width, Size height)
+        {
+            this->width = width;
+            this->height = height;
+        }
 
         virtual void ToWinCoords(P& x, P& y)
         {
             x += offset_x;
             y = height - y + offset_y;
-        }
-
-        static Color RGB(Color r, Color g, Color b)
-        {
-            return ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);
         }
     };
 }

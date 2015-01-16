@@ -1,8 +1,8 @@
 CXX	= $(CROSS)g++
 PKG	= $(CROSS)pkg-config
 ALLEG	= allegro-5.0 allegro_image-5.0 allegro_primitives-5.0
-LDFLAGS	= $$($(PKG) --libs $(ALLEG))
-CFLAGS	= $$($(PKG) --cflags $(ALLEG)) -std=c++11
+LDFLAGS	= $(LDFLAGS_CUSTOM) $$($(PKG) --libs $(ALLEG))
+CFLAGS	= $(CFLAGS_CUSTOM) $$($(PKG) --cflags $(ALLEG)) -std=c++11
 
 BIN	= ./bin
 SRC	= ./src

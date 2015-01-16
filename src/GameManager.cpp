@@ -27,7 +27,7 @@ void GameManager::Init()
     if (!al_init_image_addon())
         exit(1);
 
-    al_set_new_display_flags(ALLEGRO_WINDOWED);
+    al_set_new_display_flags(ALLEGRO_WINDOWED | ALLEGRO_RESIZABLE);
     al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
     al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
 
@@ -36,6 +36,12 @@ void GameManager::Init()
 
     if (!(update_timer = al_create_timer(1.0/ups)))
         exit(1);
+
+    ALLEGRO_DISPLAY_MODE info;
+    al_get_display_mode(al_get_num_display_modes() - 1, &info);
+    width = info.width;
+    height = info.height;
+    log_info(width, height, ref_width, ref_height);
 
     if (!(display = al_create_display(width, height)))
         exit(1);
@@ -54,8 +60,8 @@ void GameManager::Init()
     al_start_timer(redraw_timer);
     al_start_timer(update_timer);
 
-    sprite_mgr = new SpriteManager();
-    tile_mgr = new TileManager();
+    sprite_mgr = new SpriteManager(ref_width, ref_height, 0, 0);
+    tile_mgr = new TileManager(ref_width, ref_height, 0, 0);
     game = new Game();
 }
 
@@ -217,12 +223,12 @@ void GameManager::Update(float dt)
 
 void GameManager::Draw()
 {
-    al_clear_to_color(al_map_rgb(255, 255, 255));
+    al_clear_to_color(al_map_rgb(0, 0, 0));
 
     if (game)
     {
-        tile_mgr->Draw(game->map, height);
-        sprite_mgr->Draw(game->map, height);
+        tile_mgr->Draw(game->map);
+        sprite_mgr->Draw(game->map);
     }
 
     al_flip_display();

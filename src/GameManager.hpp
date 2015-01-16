@@ -19,7 +19,9 @@ namespace Mario
     struct GameManager
     {
         GameManager() : display(nullptr), queue(nullptr), redraw_timer(nullptr),
-            update_timer(nullptr), game(nullptr), sprite_mgr(nullptr), done(false) {}
+            update_timer(nullptr), game(nullptr), sprite_mgr(nullptr), done(false),
+            width(ref_width), height(ref_height) {}
+
         ~GameManager() {}
 
         /**
@@ -66,11 +68,13 @@ namespace Mario
         SpriteManager* sprite_mgr;      ///< Sprite manager
         TileManager* tile_mgr;          ///< Tile manager
         bool done;                      ///< Done flag
+        size_t width;                   ///< Actual window width
+        size_t height;                  ///< Actual window height
 
+        const size_t ref_width = 640;   ///< Reference window width
+        const size_t ref_height = 480;  ///< Reference window height
         const float fps = 60;           ///< FPS setting
         const float ups = 100;          ///< Update frequency setting
-        const size_t width = 1024;      ///< Window width
-        const size_t height = 768;      ///< Window height
     };
 }
 

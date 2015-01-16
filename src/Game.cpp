@@ -49,6 +49,8 @@ bool Game::IsPaused()
     for (std::list<GameState*>::iterator i = states.begin(); i != states.end(); ++i)
         if (GamePausedState* paused = dynamic_cast<GamePausedState*>(*i))
             return true;
+
+    return false;
 }
 
 void Game::OnGameStateFinish(GameState* state)

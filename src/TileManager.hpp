@@ -9,15 +9,20 @@
 #define __TileManager__
 
 #include "Common.hpp"
+#include "ScreenHandler.hpp"
 #include "Map.hpp"
 
 namespace Mario
 {
     /// Tile manager class.
-    struct TileManager
+    struct TileManager : public ScreenHandler
     {
-        TileManager() : tiles(nullptr)
+        TileManager(ScreenHandler::Size width, ScreenHandler::Size height,
+            ScreenHandler::P offset_x = 0, ScreenHandler::P offset_y = 0) : tiles(nullptr)
         {
+            SetScreenSize(width, height);
+            SetScreenOffset(offset_x, offset_y);
+
             if (tiles = al_load_bitmap(ASSETS "tiles.png"))
                 log_info("[Tile]\tTiles loaded.");
             else
@@ -34,7 +39,7 @@ namespace Mario
          * @param map Game map.
          * @param tile Tile type.
          */
-        static ALLEGRO_COLOR GetTileColor(Map* map, Tile& tile);
+        static ScreenHandler::Color GetTileColor(Map* map, Tile& tile);
 
         /**
          * Returns tile sheet index for specified tile type.
@@ -45,9 +50,8 @@ namespace Mario
         /**
          * Draws the map on screen.
          * @param map Game map.
-         * @param height Screen height.
          */
-        void Draw(Map* map, size_t height);
+        void Draw(Map* map);
 
         ALLEGRO_BITMAP* tiles;      ///< Tile sheet
     };

@@ -78,10 +78,11 @@ unsigned TileManager::GetTileIndex(Tile tile)
 
 void TileManager::Draw(Map* map)
 {
-    ClearScreen(MakeCol(0, 127, 255));
+    //ClearScreen(MakeCol(0, 127, 255));
     TileSet& tiles = map->tiles;
 
-    DrawScaledBitmap(bg, 0, 0, al_get_bitmap_width(bg), al_get_bitmap_height(bg), 0, 0, width, height);
+    float ratio = al_get_bitmap_width(bg) / al_get_bitmap_height(bg);
+    DrawScaledBitmap(bg, 0, 0, al_get_bitmap_width(bg), al_get_bitmap_height(bg), 0, height, ratio*height, height);
 
     for (size_t c = 0; c < tiles.size(); ++c)
         for (size_t r = 0; r < 24; ++r)

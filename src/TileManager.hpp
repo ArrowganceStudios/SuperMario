@@ -18,7 +18,8 @@ namespace Mario
     struct TileManager : public ScreenHandler
     {
         TileManager(ScreenHandler::Size width, ScreenHandler::Size height,
-            ScreenHandler::P offset_x = 0, ScreenHandler::P offset_y = 0) : tiles(nullptr)
+            ScreenHandler::P offset_x = 0, ScreenHandler::P offset_y = 0) :
+            tiles(nullptr), bg(nullptr)
         {
             SetScreenSize(width, height);
             SetScreenOffset(offset_x, offset_y);
@@ -27,11 +28,17 @@ namespace Mario
                 log_info("[Tile]\tTiles loaded.");
             else
                 log_error("[Tile]\tCould not load tiles.");
+
+            if (bg = al_load_bitmap(ASSETS "bg.png"))
+                log_info("[Tile]\tBackground loaded.");
+            else
+                log_error("[Tile]\tCould not load background.");
         }
 
         ~TileManager()
         {
             al_destroy_bitmap(tiles);
+            al_destroy_bitmap(bg);
         }
 
         /**
@@ -54,6 +61,7 @@ namespace Mario
         void Draw(Map* map);
 
         ALLEGRO_BITMAP* tiles;      ///< Tile sheet
+        ALLEGRO_BITMAP* bg;         ///< Map background
     };
 }
 

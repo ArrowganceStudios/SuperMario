@@ -12,6 +12,7 @@ using namespace Mario;
 
 ScreenHandler::Color TileManager::GetTileColor(Map* map, Tile& tile)
 {
+    /*
     switch (tile)
     {
         case TILE_EMPTY:
@@ -26,6 +27,7 @@ ScreenHandler::Color TileManager::GetTileColor(Map* map, Tile& tile)
         case TILE_WALL:
             return MakeCol(255, 127, 0);
     }
+    */
 
     if (map->edit_mode)
         switch (tile)
@@ -63,28 +65,35 @@ unsigned TileManager::GetTileIndex(Tile tile)
 {
     switch (tile)
     {
-        case TILE_GRASS:    return 1;
-        case TILE_WALL:     return 45;
-
-        default:            return unsigned(tile);
+        case TILE_GRASS_LEFT:   return 1;
+        case TILE_GRASS_MID:    return 2;
+        case TILE_GRASS_RIGHT:  return 3;
+        case TILE_SAND_LEFT:    return 45;
+        case TILE_SAND_MID:     return 46;
+        case TILE_SAND_RIGHT:   return 47;
     }
+
+    return 0;
 }
 
 void TileManager::Draw(Map* map)
 {
+    ClearScreen(MakeCol(0, 127, 255));
     TileSet& tiles = map->tiles;
+
+    DrawScaledBitmap(bg, 0, 0, al_get_bitmap_width(bg), al_get_bitmap_height(bg), 0, 0, width, height);
 
     for (size_t c = 0; c < tiles.size(); ++c)
         for (size_t r = 0; r < 24; ++r)
         {
-            DrawFilledRect(c * TileSize - map->offset, r * TileSize, (c+1)*TileSize - map->offset, (r+1)*TileSize, GetTileColor(map, tiles[c][r]));
+            //DrawFilledRect(c * TileSize - map->offset, r * TileSize, (c+1)*TileSize - map->offset, (r+1)*TileSize, GetTileColor(map, tiles[c][r]));
 
             if (map->edit_mode)
                 DrawFilledRect(c * TileSize - map->offset, r * TileSize, c * TileSize + 2 - map->offset, (r * TileSize + 2), MakeCol(255, 255, 255));
 
             if (unsigned t = GetTileIndex(tiles[c][r]))
                 DrawScaledBitmap(this->tiles,
-                    1 + t % 44 * 17, 1 + t / 44 * 17, 16, 16,
-                    c * TileSize, (r+1) * TileSize, TileSize, TileSize, 0);
+                    1 + (t-1) % 44 * 17, 1 + (t-1) / 44 * 17, 16, 16,
+                    c * TileSize - map->offset, (r+1) * TileSize, TileSize, TileSize, 0);
         }
 }

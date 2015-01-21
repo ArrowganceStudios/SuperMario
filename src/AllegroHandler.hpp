@@ -36,12 +36,20 @@ namespace Mario
             al_draw_filled_rectangle(x1, y1, x2, y2, toColor(rgb));
         }
 
+        void DrawBitmap(ALLEGRO_BITMAP* bmp, P x, P y, int flags = 0)
+        {
+            //ToWinCoords(x, y);
+
+            al_draw_bitmap(bmp, x, y, 0);
+        }
+
         void DrawScaledBitmap(ALLEGRO_BITMAP* bmp, P sx, P sy, P sw, P sh,
             P dx, P dy, P dw, P dh, int flags = 0)
         {
             ToWinCoords(dx, dy);
 
-            al_draw_scaled_bitmap(bmp, sx, sy, sw, sh, dx, dy, dw, dh, flags);
+            // floor dx and dy to prevent gaps between tiles
+            al_draw_scaled_bitmap(bmp, sx, sy, sw, sh, floor(dx), floor(dy), dw, dh, flags);
         }
     };
 

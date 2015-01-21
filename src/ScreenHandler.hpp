@@ -30,6 +30,7 @@ namespace Mario
         IScreenHandler() : width(Size()), height(Size()), offset_x(P()), offset_y(P()) {}
 
         virtual void ClearScreen(Color col) {}
+        virtual void DrawBitmap() {}
         virtual void DrawFilledRect(P x1, P y1, P x2, P y2, Color rgb) {}
         virtual void DrawScaledBitmap() {}
 

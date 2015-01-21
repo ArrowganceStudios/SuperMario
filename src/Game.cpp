@@ -42,6 +42,7 @@ void Game::Update(float dt)
         return;
 
     map->Update(dt);
+    if (player) map->offset = (player->pos_x > 5*TileSize) ? player->pos_x - 5*TileSize : 0;
 }
 
 bool Game::IsPaused()

@@ -70,7 +70,12 @@ namespace Mario
         inline static int ToTile(float pos)
         {
             return floor(pos/TileSize);
-        };
+        }
+
+        float GetMapWidth()
+        {
+            return tiles.size() * TileSize;
+        }
 
         /**
          * Returns tile type at given map tile.
@@ -93,7 +98,7 @@ namespace Mario
         inline static bool IsSolidTile(Tile tile)
         {
             return tile >= TILE_SOLID_START && tile <= TILE_SOLID_END;
-        };
+        }
 
         Game* game;                 ///< Game object
         Player* player;             ///< Player object

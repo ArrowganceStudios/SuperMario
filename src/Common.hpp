@@ -79,23 +79,26 @@ namespace Mario
      */
     enum Tile
     {
-        TILE_EMPTY,         ///< Empty tile
+        TILE_EMPTY,
 
-        TILE_GRASS,         ///< Grass tile
-        TILE_SAND,          ///< Sand tile
-        TILE_WALL,          ///< Wall tile
+        TILE_GRASS_LEFT,
+        TILE_GRASS_MID,
+        TILE_GRASS_RIGHT,
+        TILE_SAND_LEFT,
+        TILE_SAND_MID,
+        TILE_SAND_RIGHT,
+        TILE_WALL,
 
-        TILE_PLAYER_SPAWN,  ///< Player spawn tile
+        TILE_PLAYER_SPAWN = 50,  ///< Player spawn tile
         TILE_GOOMBA_SPAWN,  ///< Goomba spawn tile
         TILE_KOOPA_SPAWN,   ///< Koopa spawn tile
         TILE_SPINY_SPAWN,   ///< Spiny spawn tile
         TILE_LAKITU_SPAWN,  ///< Lakitu spawn tile
 
-        MAX_TILE_TYPE,      ///< Max tile ID
+        MAX_TILE_TYPE       = 500, ///< Max tile ID
 
-        TILE_SOLID_START    = TILE_GRASS,
-        TILE_SOLID_END      = TILE_WALL
-
+        TILE_SOLID_START    = TILE_GRASS_LEFT,
+        TILE_SOLID_END      = TILE_GRASS_RIGHT
     };
 
     /**

@@ -16,8 +16,7 @@ void Object::Kill(Object* enemy)
     if (enemy->state & STATE_ALIVE)
     {
         enemy->state &= ~STATE_ALIVE;
-        enemy->state |= STATE_FALL;
-        enemy->dir_y = 10 * TileSize;
+        enemy->OnKill(this);
         map->game->OnKill(this, enemy);
     }
 }
@@ -31,6 +30,13 @@ void Object::OnAnimate(float dt)
         anim_timer = 0;
         ++frame;
     }
+}
+
+void Object::OnKill(Object* killer)
+{
+    state |= STATE_FALL;
+    dir_y = 10 * TileSize;
+    dir_x = 0;
 }
 
 void Object::OnMove(float dt)
@@ -49,14 +55,19 @@ void Object::OnUpdate(float dt)
     OnAnimate(dt);
 }
 
-void Enemy::OnCollision(Object* spawn)
+void Enemy::OnCollision(Object* enemy)
 {
-    if (Player* player = dynamic_cast<Player*>(spawn))
+    if (al_get_time() - last_collision < 0.1)
+        return;
+
+    last_collision = al_get_time();
+
+    if (Player* player = dynamic_cast<Player*>(enemy))
     {
-        if (pos_y < spawn->pos_y)
+        if (pos_y < enemy->pos_y)
             player->Kill(this);
         else
-            Kill(player);
+            Kill(enemy);
     }
 }
 
@@ -85,12 +96,61 @@ size_t Goomba::OnDraw()
     return frame % 2;
 }
 
+void Goomba::OnKill(Object* killer)
+{
+    dir_x = 0;
+}
+
+void Koopa::OnCollision(Object* enemy)
+{
+    if (al_get_time() - last_collision < 0.1)
+        return;
+
+    last_collision = al_get_time();
+
+    if (shell && dir_x != 0)
+    {
+        Kill(enemy);
+        return;
+    }
+
+    Player* player = dynamic_cast<Player*>(enemy);
+
+    if (!player)
+        return;
+
+    if (shell)
+    {
+        dir_x = (pos_x > enemy->pos_x ? 1.0 : -1.0) * 10 * TileSize;
+        return;
+    }
+    else if (pos_y < enemy->pos_y)
+    {
+        shell = true;
+        dir_x = 0;
+        return;
+    }
+
+    Kill(enemy);
+}
+
 size_t Koopa::OnDraw()
 {
     if (!(state & STATE_ALIVE))
         return 4;
 
+    if (shell)
+        return 4 + (dir_x != 0 ? frame % 4 : 0);
+
     return (dir_x < 0 ? 0 : 2) + frame % 2;
+}
+
+void Koopa::OnUpdate(float dt)
+{
+    if (shell)
+        Object::OnUpdate(dt);
+    else
+        Enemy::OnUpdate(dt);
 }
 
 size_t Lakitu::OnDraw()

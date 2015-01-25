@@ -165,11 +165,17 @@ void Map::Update(float dt)
             if (fabs((*i)->pos_x - (*j)->pos_x) < (*i)->size_x/2 + (*j)->size_x/2 &&
                 fabs((*i)->pos_y - (*j)->pos_y) < (*j)->size_x/2 + (*j)->size_x/2)
             {
-                if ((*i)->state & STATE_ALIVE)
+                if ((*i)->state & STATE_ALIVE && al_get_time() - (*i)->last_collision >= COLLISION_INTERVAL)
+                {
                     (*i)->OnCollision(*j);
+                    (*i)->last_collision = al_get_time();
+                }
 
-                if ((*j)->state & STATE_ALIVE)
+                if ((*j)->state & STATE_ALIVE && al_get_time() - (*j)->last_collision >= COLLISION_INTERVAL)
+                {
                     (*j)->OnCollision(*i);
+                    (*j)->last_collision = al_get_time();
+                }
             }
         }
     }

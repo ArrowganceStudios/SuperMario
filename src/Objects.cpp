@@ -57,11 +57,6 @@ void Object::OnUpdate(float dt)
 
 void Enemy::OnCollision(Object* enemy)
 {
-    if (al_get_time() - last_collision < 0.1)
-        return;
-
-    last_collision = al_get_time();
-
     if (Player* player = dynamic_cast<Player*>(enemy))
     {
         if (pos_y < enemy->pos_y)
@@ -103,11 +98,6 @@ void Goomba::OnKill(Object* killer)
 
 void Koopa::OnCollision(Object* enemy)
 {
-    if (al_get_time() - last_collision < 0.1)
-        return;
-
-    last_collision = al_get_time();
-
     if (shell && dir_x != 0)
     {
         Kill(enemy);

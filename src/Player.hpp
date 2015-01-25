@@ -27,6 +27,9 @@ namespace Mario
 
         ~Player() {}
 
+        /// @copydoc Object::Kill
+        void Kill(Object* enemy);
+
         /// @copydoc Object::OnAnimate
         void OnAnimate(float dt);
 
@@ -46,6 +49,8 @@ namespace Mario
         void OnKeyUp(int key);
 
         unsigned keys_down;     ///< Holds information about keys being pressed
+
+        const float RUN_BOOST = 1.5f;   ///< X key run boost
     };
 }
 

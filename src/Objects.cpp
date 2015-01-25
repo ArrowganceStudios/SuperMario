@@ -45,7 +45,7 @@ void Object::OnMove(float dt)
     if (!(state & STATE_FLY) && state & STATE_FALL)
         dir_y += -Gravity * dt;
 
-    pos_x += dir_x * dt;
+    pos_x += dir_x * dt * dir_x_boost;
     pos_y += dir_y * dt;
 }
 

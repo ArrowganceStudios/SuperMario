@@ -23,7 +23,7 @@ namespace Mario
          */
         Object(ObjectType type, Map* map, size_t tile_x, size_t tile_y) :
             dir_x(0), dir_y(0), size_x(TileSize), map(map), state(STATE_ALIVE),
-            type(type), frame(0), anim_timer(0), last_collision(0)
+            type(type), frame(0), anim_timer(0), last_collision(0), dir_x_boost(1.0)
         {
             pos_x = TileSize * tile_x + size_x/2;
             pos_y = TileSize * tile_y;
@@ -33,7 +33,7 @@ namespace Mario
          * Kills an enemy.
          * @param enemy Enemy.
          */
-        void Kill(Object* enemy);
+        virtual void Kill(Object* enemy);
 
         /**
          * Default animation handler.
@@ -73,6 +73,7 @@ namespace Mario
         float pos_x;        ///< X map position
         float pos_y;        ///< Y map position
         float dir_x;        ///< Horizontal direction of movement
+        float dir_x_boost;  ///< Running speed boost
         float dir_y;        ///< Vertical direction of movement
         float anim_timer;   ///< Animation timer
         unsigned frame;     ///< Current frame

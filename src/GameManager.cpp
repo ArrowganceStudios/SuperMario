@@ -143,6 +143,8 @@ void GameManager::Loop()
                     case ALLEGRO_KEY_RIGHT:
                     case ALLEGRO_KEY_UP:
                     case ALLEGRO_KEY_DOWN:
+                    case ALLEGRO_KEY_X:
+                    case ALLEGRO_KEY_Z:
                         if (game && game->player)
                             game->player->OnKeyUp(e.keyboard.keycode);
                         break;

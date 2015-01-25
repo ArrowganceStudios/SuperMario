@@ -151,6 +151,10 @@ void Map::Update(float dt)
             // prevent running after jumping
             if (!((*i)->state & STATE_RUN))
                 (*i)->dir_x = 0;
+
+            if (Player* player = dynamic_cast<Player*>(*i))
+                if (!(player->keys_down & KEY_STATE_X))
+                    (*i)->dir_x_boost = 1.0f;
         }
 
         // if is not falling and is standing on non-solid tile

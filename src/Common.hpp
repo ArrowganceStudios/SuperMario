@@ -146,6 +146,7 @@ namespace Mario
         KEY_STATE_DOWN  = (1 << 1),
         KEY_STATE_LEFT  = (1 << 2),
         KEY_STATE_RIGHT = (1 << 3),
+        KEY_STATE_X     = (1 << 4),
     };
 
     struct Map;

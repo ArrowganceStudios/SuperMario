@@ -54,11 +54,6 @@ namespace Mario
          */
         bool IsDone() { return done; }
 
-        /**
-         * Returns paused state.
-         */
-        bool IsPaused() { return false; } //todo
-
         ALLEGRO_DISPLAY* display;       ///< Screen display
         ALLEGRO_EVENT_QUEUE* queue;     ///< Event queue
         ALLEGRO_TIMER* redraw_timer;    ///< Redraw timer

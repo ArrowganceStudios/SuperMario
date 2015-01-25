@@ -57,7 +57,7 @@ bool Game::IsPaused()
 void Game::OnGameStateFinish(GameState* state)
 {
     states.remove(state);
-    delete state;
+    // delete state; // unnecessary, Valgrind indicates twice freeing error
 }
 
 void Game::OnKill(Object* killer, Object* victim)

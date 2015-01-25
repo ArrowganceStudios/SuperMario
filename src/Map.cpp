@@ -25,7 +25,7 @@ Map::Map(Game* game, std::string path)
 
 Map::~Map()
 {
-    delete player;
+    player = nullptr;
 
     log_info("[Map]\tDeleted.");
 }

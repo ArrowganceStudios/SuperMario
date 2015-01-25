@@ -78,7 +78,6 @@ unsigned TileManager::GetTileIndex(Tile tile)
 
 void TileManager::Draw(Map* map)
 {
-    //ClearScreen(MakeCol(0, 127, 255));
     TileSet& tiles = map->tiles;
 
     float ratio = al_get_bitmap_width(bg) / al_get_bitmap_height(bg);
@@ -87,8 +86,6 @@ void TileManager::Draw(Map* map)
     for (size_t c = 0; c < tiles.size(); ++c)
         for (size_t r = 0; r < 24; ++r)
         {
-            //DrawFilledRect(c * TileSize - map->offset, r * TileSize, (c+1)*TileSize - map->offset, (r+1)*TileSize, GetTileColor(map, tiles[c][r]));
-
             if (map->edit_mode)
                 DrawFilledRect(c * TileSize - map->offset, r * TileSize, c * TileSize + 2 - map->offset, (r * TileSize + 2), MakeCol(255, 255, 255));
 

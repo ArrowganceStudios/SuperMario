@@ -50,6 +50,14 @@ namespace Mario
         void Draw();
 
         /**
+         * Returns game time. Wrapper function.
+         */
+        inline static double GetTime()
+        {
+            return al_get_time();
+        }
+
+        /**
          * Returns true if main loop should finish.
          */
         bool IsDone() { return done; }

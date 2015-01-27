@@ -24,10 +24,10 @@ namespace Mario
             SetScreenSize(width, height);
             SetScreenOffset(offset_x, offset_y);
 
-            if (!(tiles = al_load_bitmap(ASSETS "tiles.png")))
+            if (!(tiles = LoadBitmap(ASSETS "tiles.png")))
                 throw std::runtime_error("[Tile] Could not load tiles.");
 
-            if (!(bg = al_load_bitmap(ASSETS "bg.png")))
+            if (!(bg = LoadBitmap(ASSETS "bg.png")))
                 throw std::runtime_error("[Tile] Could not load background.");
 
             log_info("[Tile]\tTile manager initialized.");
@@ -35,8 +35,8 @@ namespace Mario
 
         ~TileManager()
         {
-            al_destroy_bitmap(tiles);
-            al_destroy_bitmap(bg);
+            DestroyBitmap(tiles);
+            DestroyBitmap(bg);
 
             log_info("[Tile]\tTile manager destroyed.");
         }

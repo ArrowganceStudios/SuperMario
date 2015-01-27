@@ -51,6 +51,42 @@ namespace Mario
             // floor dx and dy to prevent gaps between tiles
             al_draw_scaled_bitmap(bmp, sx, sy, sw, sh, floor(dx), floor(dy), dw, dh, flags);
         }
+
+        /**
+         * Returns bitmap width.
+         * @param bmp Allegro bitmap.
+         */
+        static Size GetBitmapWidth(ALLEGRO_BITMAP* bmp)
+        {
+            return al_get_bitmap_width(bmp);
+        }
+
+        /**
+         * Returns bitmap height.
+         * @param bmp Allegro bitmap.
+         */
+        static Size GetBitmapHeight(ALLEGRO_BITMAP* bmp)
+        {
+            return al_get_bitmap_height(bmp);
+        }
+
+        /**
+         * Loads bitmap from file.
+         * @param path Bitmap path.
+         */
+        ALLEGRO_BITMAP* LoadBitmap(const char* path)
+        {
+            return al_load_bitmap(path);
+        }
+
+        /**
+         * Releases bitmap memory.
+         * @param bmp Bitmap pointer.
+         */
+        void DestroyBitmap(ALLEGRO_BITMAP* bmp)
+        {
+            al_destroy_bitmap(bmp);
+        }
     };
 
     class ScreenHandler : public AllegroHandler {};

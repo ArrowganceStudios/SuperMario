@@ -169,10 +169,10 @@ void GameManager::Loop()
             {
                 if (e.timer.source == update_timer)
                 {
-                    static float old_time = 0;
-                    float cur_time = al_get_time();
+                    static double old_time = 0;
+                    double cur_time = GetTime();
 
-                    Update(cur_time - old_time);
+                    Update(float(cur_time - old_time));
 
                     old_time = cur_time;
                 }

@@ -18,8 +18,9 @@ namespace Mario
     /// Game manager class.
     struct GameManager
     {
-        GameManager() throw() : display(nullptr), queue(nullptr), redraw_timer(nullptr),
-            update_timer(nullptr), game(nullptr), sprite_mgr(nullptr), done(false) {}
+        GameManager() throw() : display(nullptr), queue(nullptr),
+            redraw_timer(nullptr), update_timer(nullptr), game(nullptr),
+            sprite_mgr(nullptr), tile_mgr(nullptr), done(false), font(nullptr) {}
 
         ~GameManager() {}
 
@@ -64,6 +65,7 @@ namespace Mario
 
         ALLEGRO_DISPLAY* display;       ///< Screen display
         ALLEGRO_EVENT_QUEUE* queue;     ///< Event queue
+        ALLEGRO_FONT* font;             ///< Display font
         ALLEGRO_TIMER* redraw_timer;    ///< Redraw timer
         ALLEGRO_TIMER* update_timer;    ///< Update timer
         Game* game;                     ///< Game object

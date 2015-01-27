@@ -27,6 +27,14 @@ void GameManager::Init()
     if (!al_init_image_addon())
         throw std::runtime_error("Could not initialize Allegro image utilities.");
 
+    al_init_font_addon();
+
+    if (!al_init_ttf_addon())
+        throw std::runtime_error("Could not initialize font utilities.");
+
+    if (!(font = al_load_font(ASSETS "overlay.otf", 18, 0)))
+        throw std::runtime_error("Could not load overlay font.");
+
     if (!al_init_primitives_addon())
         throw std::runtime_error("Could not initialize Allegro primitives.");
 
@@ -34,14 +42,14 @@ void GameManager::Init()
     al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
     al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
 
+    if (!(display = al_create_display(width, height)))
+        throw std::runtime_error("Could not create display.");
+
     if (!(redraw_timer = al_create_timer(1.0/fps)))
         throw std::runtime_error("Could not create redraw timer.");
 
     if (!(update_timer = al_create_timer(1.0/ups)))
         throw std::runtime_error("Could not create update timer.");
-
-    if (!(display = al_create_display(width, height)))
-        throw std::runtime_error("Could not create display.");
 
     if (!(queue = al_create_event_queue()))
         throw std::runtime_error("Could not create event queue.");
@@ -207,6 +215,9 @@ void GameManager::Cleanup()
     if (update_timer)
         al_destroy_timer(update_timer);
 
+    if (font)
+        al_destroy_font(font);
+
     if (display)
         al_destroy_display(display);
 
@@ -228,6 +239,8 @@ void GameManager::Draw()
     {
         tile_mgr->Draw(game->map);
         sprite_mgr->Draw(game->map);
+        al_draw_textf(font, al_map_rgb(255, 255, 255), 15, 10, ALLEGRO_ALIGN_LEFT, "Mario x %u", game->num_lives);
+        al_draw_textf(font, al_map_rgb(255, 255, 255), width-15, 10, ALLEGRO_ALIGN_RIGHT, "Pts %u", game->points);
     }
 
     al_flip_display();

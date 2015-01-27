@@ -56,8 +56,8 @@ bool Game::IsPaused()
 
 void Game::OnGameStateFinish(GameState* state)
 {
+    delete state;
     states.remove(state);
-    // delete state; // unnecessary, Valgrind indicates twice freeing error
 }
 
 void Game::OnKill(Object* killer, Object* victim)
@@ -74,11 +74,6 @@ void Game::OnPlayerAddToMap(Player* player)
     this->player = player;
 
     log_info("[Map]\tPlayer added.");
-}
-
-void Game::OnObjectAddToMap(Object* object)
-{
-    log_info("[Map]\tObject added.");
 }
 
 void Game::OnObjectOutOfMap(Object* object)

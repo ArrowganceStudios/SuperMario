@@ -75,7 +75,7 @@ namespace Mario
          * Called when object is added to map (except player).
          * @param object Object.
          */
-        void OnObjectAddToMap(Object* object);
+        void OnObjectAddToMap(Object* object) {}
 
         /**
          * Called when object falls out of map boundaries.

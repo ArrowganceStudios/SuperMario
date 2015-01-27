@@ -149,8 +149,8 @@ void Map::Update(float dt)
             if (Player* player = dynamic_cast<Player*>(*out_of_map))
                 this->player = nullptr;
 
+            delete *out_of_map;
             objs.remove(*out_of_map);
-            //delete *out_of_map;
 
             continue;
         }

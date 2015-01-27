@@ -12,23 +12,6 @@ using namespace Mario;
 
 ScreenHandler::Color TileManager::GetTileColor(Map* map, Tile& tile)
 {
-    /*
-    switch (tile)
-    {
-        case TILE_EMPTY:
-            return MakeCol(0, 127, 255);
-
-        case TILE_GRASS:
-            return MakeCol(0, 255, 0);
-
-        case TILE_SAND:
-            return MakeCol(255, 255, 127);
-
-        case TILE_WALL:
-            return MakeCol(255, 127, 0);
-    }
-    */
-
     if (map->edit_mode)
         switch (tile)
         {

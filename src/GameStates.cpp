@@ -43,7 +43,8 @@ bool GameOverState::OnUpdate(float dt)
         game->done = true;
     }
 
-    game->player->OnUpdate(dt);
+    if (game && game->player)
+        game->player->OnUpdate(dt);
 
     return true;
 }

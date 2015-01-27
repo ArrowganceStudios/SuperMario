@@ -80,3 +80,14 @@ void Game::OnObjectAddToMap(Object* object)
 {
     log_info("[Map]\tObject added.");
 }
+
+void Game::OnObjectOutOfMap(Object* object)
+{
+    log_info("[Map]\tObject out of map.");
+
+    if (Player* player = dynamic_cast<Player*>(object))
+    {
+        this->player = nullptr;
+        states.push_back(new GameOverState(this));
+    }
+}

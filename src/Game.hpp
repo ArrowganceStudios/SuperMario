@@ -77,6 +77,12 @@ namespace Mario
          */
         void OnObjectAddToMap(Object* object);
 
+        /**
+         * Called when object falls out of map boundaries.
+         * @param object Map object.
+         */
+        void OnObjectOutOfMap(Object* object);
+
         Map* map;                       ///< Game map
         Player* player;                 ///< Player object
         std::list<GameState*> states;   ///< Game states

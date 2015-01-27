@@ -92,6 +92,15 @@ namespace Mario
         Tile GetTileAtPos(float x, float y);
 
         /**
+         * Returns true if object is out of map and should be deleted.
+         * @param o Map object.
+         */
+        inline bool IsObjectOutOfMap(Object* o)
+        {
+            return o->pos_y < -3.0f * TileSize;
+        }
+
+        /**
          * Returns true if the tile is solid (it is possible to stand on it).
          * @param tile Tile type.
          */

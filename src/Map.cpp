@@ -133,8 +133,26 @@ Tile Map::GetTileAtPos(float x, float y)
 
 void Map::Update(float dt)
 {
-    for (ObjectList::iterator i = objs.begin(); i != objs.end(); ++i)
+    for (ObjectList::iterator i = objs.begin(); i != objs.end(); )
     {
+        // check if out of map
+        if (IsObjectOutOfMap(*i))
+        {
+            game->OnObjectOutOfMap(*i);
+
+            ObjectList::iterator out_of_map = i;
+            ++i;
+
+            if (Player* player = dynamic_cast<Player*>(*out_of_map))
+                this->player = nullptr;
+
+            objs.remove(*out_of_map);
+            //delete *out_of_map;
+
+            continue;
+        }
+
+        // update object
         (*i)->OnUpdate(dt);
 
         // if falling and will land on solid tile in next frame
@@ -163,6 +181,7 @@ void Map::Update(float dt)
             // begin falling
             (*i)->state |= STATE_FALL;
 
+        // check collisions between alive objects
         ObjectList::iterator j = i;
         for (++j; j != objs.end(); ++j)
         {
@@ -182,5 +201,7 @@ void Map::Update(float dt)
                 }
             }
         }
+
+        ++i;
     }
 }

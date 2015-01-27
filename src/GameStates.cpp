@@ -31,19 +31,28 @@ void GameOverState::OnInit()
         player->dir_y = 15 * TileSize;
         player->state |= STATE_FALL;
     }
+
+    if (game->num_lives > 0)
+        --game->num_lives;
 }
 
 bool GameOverState::OnUpdate(float dt)
 {
-    timer += dt;
-
-    if (timer > 5)
+    if (timer <= dt)
     {
         Finish();
-        game->done = true;
-    }
 
-    if (game && game->player)
+        if (game->num_lives == 0)
+            game->done = true;
+        else
+            game->Start();
+
+        return true;
+    }
+    else
+        timer -= dt;
+
+    if (game->player)
         game->player->OnUpdate(dt);
 
     return true;

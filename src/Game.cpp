@@ -9,13 +9,12 @@
 
 using namespace Mario;
 
-Game::Game()
+Game::Game() : done(false), map(nullptr), player(nullptr), num_lives(3), points(0)
 {
-    done = false;
-    player = nullptr;
-    map = new Map(this, ASSETS "map1");
-
     log_info("[Game]\tCreated.");
+
+    Start();
+
 }
 
 Game::~Game()
@@ -36,6 +35,16 @@ void Game::SaveMap(std::string path)
     map->Save(path);
 }
 
+void Game::Start()
+{
+    log_info("[Game]\tStarted with", num_lives, "lives.");
+
+    if (map)
+        delete map;
+
+    map = new Map(this, ASSETS "map1");
+}
+
 void Game::Update(float dt)
 {
     if (!states.empty() && states.back()->OnUpdate(dt))
@@ -45,10 +54,17 @@ void Game::Update(float dt)
     if (player) map->offset = (player->pos_x > 5*TileSize) ? player->pos_x - 5*TileSize : 0;
 }
 
+void Game::AwardPoints(unsigned value)
+{
+    points += value;
+
+    log_info("[Game]\tScore changed to", points);
+}
+
 bool Game::IsPaused()
 {
     for (std::list<GameState*>::iterator i = states.begin(); i != states.end(); ++i)
-        if (GamePausedState* paused = dynamic_cast<GamePausedState*>(*i))
+        if (dynamic_cast<GamePausedState*>(*i))
             return true;
 
     return false;
@@ -62,11 +78,25 @@ void Game::OnGameStateFinish(GameState* state)
 
 void Game::OnKill(Object* killer, Object* victim)
 {
-    if (Player* player = dynamic_cast<Player*>(victim))
+    if (dynamic_cast<Player*>(victim))
     {
         log_info("[Game]\tPlayer killed.");
         states.push_back(new GameOverState(this));
+        return;
     }
+
+    // award points based on object type
+    if (dynamic_cast<Goomba*>(victim))
+        AwardPoints(10);
+
+    else if (dynamic_cast<Koopa*>(victim))
+        AwardPoints(20);
+
+    else if (dynamic_cast<Spiny*>(victim))
+        AwardPoints(50);
+
+    else if (dynamic_cast<Lakitu*>(victim))
+        AwardPoints(100);
 }
 
 void Game::OnPlayerAddToMap(Player* player)
@@ -80,9 +110,12 @@ void Game::OnObjectOutOfMap(Object* object)
 {
     log_info("[Map]\tObject out of map.");
 
-    if (Player* player = dynamic_cast<Player*>(object))
+    if (dynamic_cast<Player*>(object))
     {
         this->player = nullptr;
         states.push_back(new GameOverState(this));
     }
+
+    else if (dynamic_cast<Koopa*>(object))
+        AwardPoints(20);
 }

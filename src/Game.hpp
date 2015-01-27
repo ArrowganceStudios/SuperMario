@@ -36,10 +36,21 @@ namespace Mario
         void SaveMap(std::string path);
 
         /**
+         * Starts the game.
+         */
+        void Start();
+
+        /**
          * Game update handler.
          * @param dt Time increment.
          */
         void Update(float dt);
+
+        /**
+         * Awards points.
+         * @param value Points.
+         */
+        void AwardPoints(unsigned value);
 
         /**
          * Returns paused state flag.
@@ -87,6 +98,8 @@ namespace Mario
         Player* player;                 ///< Player object
         std::list<GameState*> states;   ///< Game states
         bool done;                      ///< Game finished flag
+        unsigned num_lives;             ///< Player life counter
+        unsigned points;                ///< Player score
     };
 }
 

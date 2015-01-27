@@ -27,6 +27,9 @@ Map::~Map()
 {
     player = nullptr;
 
+    for (Object* o : objs)
+        delete o;
+
     log_info("[Map]\tDeleted.");
 }
 

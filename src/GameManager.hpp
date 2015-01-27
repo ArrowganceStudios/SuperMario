@@ -18,7 +18,7 @@ namespace Mario
     /// Game manager class.
     struct GameManager
     {
-        GameManager() : display(nullptr), queue(nullptr), redraw_timer(nullptr),
+        GameManager() throw() : display(nullptr), queue(nullptr), redraw_timer(nullptr),
             update_timer(nullptr), game(nullptr), sprite_mgr(nullptr), done(false) {}
 
         ~GameManager() {}

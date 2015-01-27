@@ -17,6 +17,7 @@
 #include <vector>
 #include <cassert>
 #include <cmath>
+#include <exception>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>

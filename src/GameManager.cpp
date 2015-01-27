@@ -16,35 +16,35 @@ void GameManager::Init()
     srand(time(nullptr));
 
     if (!al_init())
-        exit(1);
+        throw std::runtime_error("Could not initialize Allegro.");
 
     if (!al_install_keyboard())
-        exit(1);
+        throw std::runtime_error("Could not initialize keyboard.");
 
     if (!al_install_mouse())
-        exit(1);
+        throw std::runtime_error("Could not initialize mouse.");
 
     if (!al_init_image_addon())
-        exit(1);
+        throw std::runtime_error("Could not initialize Allegro image utilities.");
 
     if (!al_init_primitives_addon())
-        exit(1);
+        throw std::runtime_error("Could not initialize Allegro primitives.");
 
     al_set_new_display_flags(ALLEGRO_WINDOWED);
     al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
     al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
 
     if (!(redraw_timer = al_create_timer(1.0/fps)))
-        exit(1);
+        throw std::runtime_error("Could not create redraw timer.");
 
     if (!(update_timer = al_create_timer(1.0/ups)))
-        exit(1);
+        throw std::runtime_error("Could not create update timer.");
 
     if (!(display = al_create_display(width, height)))
-        exit(1);
+        throw std::runtime_error("Could not create display.");
 
     if (!(queue = al_create_event_queue()))
-        exit(1);
+        throw std::runtime_error("Could not create event queue.");
 
     al_set_window_title(display, "Super Mario: OO Adventures");
 

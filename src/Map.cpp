@@ -12,6 +12,8 @@ using namespace Mario;
 
 Map::Map(Game* game, std::string path)
 {
+    log_info("[Map]\tCreated.");
+
     this->game = game;
     this->player = nullptr;
     this->edit_mode = false;
@@ -19,8 +21,6 @@ Map::Map(Game* game, std::string path)
 
     Load(path);
     SpawnObjects();
-
-    log_info("[Map]\tCreated.");
 }
 
 Map::~Map()

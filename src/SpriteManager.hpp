@@ -53,6 +53,8 @@ namespace Mario
 
             Register();
             Load();
+
+            log_info("[Spr]\tSprite manager initialized.");
         }
 
         ~SpriteManager();

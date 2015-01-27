@@ -16,10 +16,9 @@ SpriteManager::~SpriteManager()
         delete i->second;
 
     for (PathToBitmapMap::iterator i = bitmaps.begin(); i != bitmaps.end(); ++i)
-    {
         al_destroy_bitmap(i->second);
-        log_info("[Spr]\tUnloaded sprite sheet", i->first);
-    }
+
+    log_info("[Spr]\tSprite manager destroyed.");
 }
 
 void SpriteManager::Register()
@@ -35,12 +34,8 @@ void SpriteManager::Load()
 {
     for (SpriteInfoMap::iterator i = sprites.begin(); i != sprites.end(); ++i)
         if (!bitmaps[i->second->path])
-        {
-            if (bitmaps[i->second->path] = al_load_bitmap(i->second->path.c_str()))
-                log_info("[Spr]\tLoaded sprite sheet", i->second->path);
-            else
-                log_error("[Spr]\tCould not load sprite sheet", i->second->path);
-        }
+            if (!(bitmaps[i->second->path] = al_load_bitmap(i->second->path.c_str())))
+                throw std::runtime_error(std::string("[Spr] Could not load sprite sheet ") + i->second->path);
 }
 
 void SpriteManager::Draw(Map* map)

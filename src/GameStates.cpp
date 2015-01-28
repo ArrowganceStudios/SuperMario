@@ -67,6 +67,11 @@ bool KeyInfoState::OnKeyDown(int key)
     return true;
 }
 
+/**
+ * Shorthand for string displaying.
+ * @param where Y coordinate.
+ * @param what String to display.
+ */
 #define puts(where, what)   game_mgr->PutString(game_mgr->width/2, where, 0xFFFFFF, ALLEGRO_ALIGN_CENTER, what)
 
 bool KeyInfoState::OnDraw(GameManager* game_mgr)

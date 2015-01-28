@@ -65,16 +65,24 @@ namespace Mario
          * @param y Y coordinate.
          * @param col Color.
          * @param flags Align flags.
-         * @param fmt String format.
+         * @param str String to print.
          */
         template <int o = 1, unsigned bg = 0x222222>
-        void PutString(ScreenHandler::P x, ScreenHandler::P y, ScreenHandler::Color col, int flags, const char* fmt)
+        void PutString(ScreenHandler::P x, ScreenHandler::P y, ScreenHandler::Color col, int flags, const char* str)
         {
-            al_draw_text(font, ScreenHandler::toColor(bg), x+o, y+o, flags, fmt);
-            al_draw_text(font, ScreenHandler::toColor(col), x, y, flags, fmt);
+            al_draw_text(font, ScreenHandler::toColor(bg), x+o, y+o, flags, str);
+            al_draw_text(font, ScreenHandler::toColor(col), x, y, flags, str);
         }
 
-        /// @copydoc PutString
+        /**
+         * Displays text on screen.
+         * @param x X coordinate.
+         * @param y Y coordinate.
+         * @param col Color.
+         * @param flags Align flags.
+         * @param fmt String format.
+         * @param val String parameter.
+         */
         template <int o = 1, unsigned bg = 0x222222, typename T>
         void PutString(ScreenHandler::P x, ScreenHandler::P y, ScreenHandler::Color col, int flags, const char* fmt, T val)
         {

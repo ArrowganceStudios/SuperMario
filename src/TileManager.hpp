@@ -17,6 +17,12 @@ namespace Mario
     /// Tile manager class.
     struct TileManager : public ScreenHandler
     {
+        /**
+         * @param width Screen width.
+         * @param height Screen height.
+         * @param offset_x X offset.
+         * @param offset_y Y offset.
+         */
         TileManager(ScreenHandler::Size width, ScreenHandler::Size height,
             ScreenHandler::P offset_x = 0, ScreenHandler::P offset_y = 0) :
             tiles(nullptr), bg(nullptr)
@@ -60,6 +66,7 @@ namespace Mario
         /**
          * Draws the map on screen.
          * @param map Game map.
+         * @param bg Optional background bitmap.
          */
         void Draw(Map* map, ALLEGRO_BITMAP* bg = nullptr);
 

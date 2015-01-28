@@ -72,11 +72,17 @@ namespace Mario
             return floor(pos/TileSize);
         }
 
+        /**
+         * Returns map width in pixels.
+         */
         float GetMapWidth()
         {
             return tiles.size() * TileSize;
         }
 
+        /**
+         * Returns player from spawn list.
+         */
         Player* GetPlayer();
 
         /**

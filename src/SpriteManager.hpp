@@ -45,6 +45,12 @@ namespace Mario
         /// Sprite sheet path to to Allegro bitmap map type
         typedef std::map<std::string, ALLEGRO_BITMAP*> PathToBitmapMap;
 
+        /**
+         * @param width Screen width.
+         * @param height Screen height.
+         * @param offset_x X offset.
+         * @param offset_y Y offset.
+         */
         SpriteManager(ScreenHandler::Size width, ScreenHandler::Size height,
             ScreenHandler::P offset_x = 0, ScreenHandler::P offset_y = 0)
         {

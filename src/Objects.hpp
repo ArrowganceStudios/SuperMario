@@ -137,7 +137,7 @@ namespace Mario
         /// @copydoc Object::OnUpdate
         void OnUpdate(float dt);
 
-        bool shell;
+        bool shell;     ///< Shell form flag
     };
 
     /// Lakitu spawn.

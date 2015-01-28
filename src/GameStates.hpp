@@ -34,7 +34,6 @@ namespace Mario
 
         /**
          * Draw handler.
-         * If returns true, screen drawing is suppressed.
          * @param game_mgr Game manager.
          */
         virtual bool OnDraw(GameManager* game_mgr)

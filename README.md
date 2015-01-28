@@ -21,3 +21,4 @@ Documentation
 -------------
 
 You can generate the documentation with `make doc`. See `doc` directory afterwards.
+Make sure Graphviz is installed for diagrams.

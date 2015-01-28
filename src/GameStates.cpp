@@ -41,12 +41,12 @@ bool GameOverState::OnUpdate(float dt)
 {
     if (timer <= dt)
     {
-        Finish();
-
         if (game->num_lives == 0)
             game->done = true;
         else
             game->Start();
+
+        Finish();
 
         return true;
     }
@@ -99,8 +99,8 @@ bool LevelClearState::OnUpdate(float dt)
 {
     if (timer <= dt)
     {
-        Finish();
         game->done = true;
+        Finish();
 
         return true;
     }

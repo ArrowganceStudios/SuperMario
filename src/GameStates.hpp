@@ -119,6 +119,27 @@ namespace Mario
         /// @copydoc GameState::OnUpdate
         bool OnUpdate(float dt) { return true; }
     };
+
+    /// Level complete state class
+    struct LevelClearState : public GameState
+    {
+        /// @copydoc GameState::GameState
+        LevelClearState(Game* game) : GameState(game), timer(5.0f) {}
+
+        /// @copydoc GameState::OnDraw
+        bool OnDraw(GameManager* game_mgr);
+
+        /// @copydoc GameState::OnKeyDown
+        bool OnKeyDown(int key) { return true; }
+
+        /// @copydoc GameState::OnKeyUp
+        bool OnKeyUp(int key) { return true; }
+
+        /// @copydoc GameState::OnUpdate
+        bool OnUpdate(float dt);
+
+        float timer;        ///< State duration timer
+    };
 }
 
 #endif

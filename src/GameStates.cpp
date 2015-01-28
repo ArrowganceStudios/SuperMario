@@ -86,3 +86,26 @@ bool KeyInfoState::OnDraw(GameManager* game_mgr)
 }
 
 #undef puts
+
+bool LevelClearState::OnDraw(GameManager* game_mgr)
+{
+    game_mgr->PutString(game_mgr->width/2, game_mgr->height/2+20, 0xFFFFFF, ALLEGRO_ALIGN_CENTER, "Level clear");
+    game_mgr->PutString(game_mgr->width/2, game_mgr->height/2, 0xFFFFFF, ALLEGRO_ALIGN_CENTER, "Congratulations!");
+
+    return true;
+}
+
+bool LevelClearState::OnUpdate(float dt)
+{
+    if (timer <= dt)
+    {
+        Finish();
+        game->done = true;
+
+        return true;
+    }
+    else
+        timer -= dt;
+
+    return true;
+}

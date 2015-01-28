@@ -51,7 +51,10 @@ void Game::Update(float dt)
         return;
 
     map->Update(dt);
-    if (player) map->offset = (player->pos_x > 5*TileSize) ? player->pos_x - 5*TileSize : 0;
+
+    if (player)
+        if ((map->offset = player->pos_x - 10.0f * TileSize) < 0)
+            map->offset = 0;
 }
 
 void Game::AwardPoints(unsigned value)

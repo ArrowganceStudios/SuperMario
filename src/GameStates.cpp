@@ -80,6 +80,8 @@ bool KeyInfoState::OnDraw(GameManager* game_mgr)
     puts(170, "F2 - Save map to file");
     puts(190, "F3 - Load map from file");
 
+    puts(230, "H - Help/dismiss");
+
     return false;
 }
 

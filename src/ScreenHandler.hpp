@@ -34,6 +34,9 @@ namespace Mario
         virtual void DrawFilledRect(P x1, P y1, P x2, P y2, Color rgb) {}
         virtual void DrawScaledBitmap() {}
 
+        virtual Size GetWidth() { return width; }
+        virtual Size GetHeight() { return height; }
+
         static Color MakeCol(Color r, Color g, Color b)
         {
             return ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF);

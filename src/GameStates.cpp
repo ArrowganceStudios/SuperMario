@@ -7,6 +7,7 @@
 
 #include "GameStates.hpp"
 #include "Game.hpp"
+#include "GameManager.hpp"
 
 using namespace Mario;
 
@@ -57,3 +58,29 @@ bool GameOverState::OnUpdate(float dt)
 
     return true;
 }
+
+bool KeyInfoState::OnKeyDown(int key)
+{
+    if (key == ALLEGRO_KEY_H)
+        Finish();
+
+    return true;
+}
+
+#define puts(where, what)   game_mgr->PutString(game_mgr->width/2, where, 0xFFFFFF, ALLEGRO_ALIGN_CENTER, what)
+
+bool KeyInfoState::OnDraw(GameManager* game_mgr)
+{
+    puts(50,  "X - Run");
+    puts(70,  "Z - Jump");
+    puts(90,  "P - Pause");
+
+    puts(130, "Esc - Quit the game");
+    puts(150, "F1 - Toggle map edit");
+    puts(170, "F2 - Save map to file");
+    puts(190, "F3 - Load map from file");
+
+    return false;
+}
+
+#undef puts

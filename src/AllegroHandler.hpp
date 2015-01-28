@@ -13,6 +13,7 @@ namespace Mario
     class AllegroHandler : public IScreenHandler<float, int>
     {
     public:
+        inline static uint8_t a(Color col) { return (col >> 24) & 0xFF; }
         inline static uint8_t r(Color col) { return (col >> 16) & 0xFF; }
         inline static uint8_t g(Color col) { return (col >> 8) & 0xFF; }
         inline static uint8_t b(Color col) { return col & 0xFF; }
@@ -22,17 +23,22 @@ namespace Mario
             return al_map_rgb(r(col), g(col), b(col));
         }
 
+        static ALLEGRO_COLOR toRGBA(Color col)
+        {
+            return al_map_rgba(r(col), g(col), b(col), a(col));
+        }
+
         void ClearScreen(Color col)
         {
             al_clear_to_color(toColor(col));
         }
 
-        void DrawFilledRect(P x1, P y1, P x2, P y2, Color rgb)
+        void DrawFilledRect(P x1, P y1, P x2, P y2, Color col)
         {
             ToWinCoords(x1, y1);
             ToWinCoords(x2, y2);
 
-            al_draw_filled_rectangle(x1, y1, x2, y2, toColor(rgb));
+            al_draw_filled_rectangle(x1, y1, x2, y2, toColor(col));
         }
 
         void DrawBitmap(ALLEGRO_BITMAP* bmp, P x, P y, int flags = 0)

@@ -103,7 +103,7 @@ void GameManager::Loop()
                 else if (!game && e.keyboard.keycode == ALLEGRO_KEY_SPACE)
                     game = new Game();
 
-                if (!game)
+                else if (!game)
                     break;
 
                 switch (e.keyboard.keycode)
@@ -134,6 +134,11 @@ void GameManager::Loop()
                 if (e.keyboard.keycode == ALLEGRO_KEY_P)
                 {
                     game->states.push_back(new GamePausedState(game));
+                    break;
+                }
+                else if (e.keyboard.keycode == ALLEGRO_KEY_H)
+                {
+                    game->states.push_back(new KeyInfoState(game));
                     break;
                 }
 
@@ -247,6 +252,9 @@ void GameManager::Draw()
 
         PutString(15, 10, 0xffffff, ALLEGRO_ALIGN_LEFT, "Mario x %u", game->num_lives);
         PutString(width-15, 10, 0xffffff, ALLEGRO_ALIGN_RIGHT, "Pts %u", game->points);
+
+        if (!game->states.empty())
+            game->states.back()->OnDraw(this);
     }
     else if (splash_mgr)
         splash_mgr->Draw();

@@ -35,9 +35,12 @@ namespace Mario
         /**
          * Draw handler.
          * If returns true, screen drawing is suppressed.
-         * @param height Screen height.
+         * @param game_mgr Game manager.
          */
-        virtual bool OnDraw(size_t height)  { return false; }
+        virtual bool OnDraw(GameManager* game_mgr)
+        {
+            return false;
+        }
 
         /**
          * Key press handler.
@@ -96,6 +99,25 @@ namespace Mario
         bool OnUpdate(float dt);
 
         float timer;        ///< State duration timer
+    };
+
+    /// Key help state class
+    struct KeyInfoState : public GameState
+    {
+        /// @copydoc GameState::GameState
+        KeyInfoState(Game* game) : GameState(game) {}
+
+        /// @copydoc GameState::OnKeyDown
+        bool OnKeyDown(int key);
+
+        /// @copydoc GameState::OnKeyUp
+        bool OnKeyUp(int key) { return true; }
+
+        /// @copydoc GameState::OnDraw
+        bool OnDraw(GameManager* game_mgr);
+
+        /// @copydoc GameState::OnUpdate
+        bool OnUpdate(float dt) { return true; }
     };
 }
 

@@ -101,6 +101,22 @@ void Goomba::OnKill(Object* killer)
         dir_x = 0;
 }
 
+void Goomba::OnUpdate(float dt)
+{
+    Enemy::OnUpdate(dt);
+
+    if (!(state & STATE_ALIVE))
+    {
+        if (timer <= dt)
+        {
+            dir_y = -1000.0f * TileSize;
+            timer = 1000;
+        }
+        else
+            timer -= dt;
+    }
+}
+
 void Koopa::OnCollision(Object* enemy)
 {
     if (shell && dir_x != 0)

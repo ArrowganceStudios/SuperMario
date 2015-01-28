@@ -108,13 +108,18 @@ namespace Mario
          * @param tile_y Y map tile.
          */
         Goomba(Map* map, size_t tile_x, size_t tile_y) :
-            Enemy(OBJECT_GOOMBA, map, tile_x, tile_y) {}
+            Enemy(OBJECT_GOOMBA, map, tile_x, tile_y), timer(5.0f) {}
 
         /// @copydoc Object::OnDraw
         size_t OnDraw();
 
         /// @copydoc Object::OnKill
         void OnKill(Object* killer);
+
+        /// @copydoc Object::OnUpdate
+        void OnUpdate(float dt);
+
+        float timer;        ///< Despawn timer
     };
 
     /// Koopa spawn.

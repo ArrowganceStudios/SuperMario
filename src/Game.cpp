@@ -111,7 +111,7 @@ void Game::OnPlayerAddToMap(Player* player)
 {
     this->player = player;
 
-    log_info("[Map]\tPlayer added.");
+    //log_info("[Map]\tPlayer added.");
 }
 
 void Game::OnObjectOutOfMap(Object* object)

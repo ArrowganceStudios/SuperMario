@@ -77,6 +77,8 @@ namespace Mario
             return tiles.size() * TileSize;
         }
 
+        Player* GetPlayer();
+
         /**
          * Returns tile type at given map tile.
          * @param tile_x Map tile X.

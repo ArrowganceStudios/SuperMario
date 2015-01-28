@@ -35,8 +35,11 @@ namespace Mario
 
         ~TileManager()
         {
-            DestroyBitmap(tiles);
-            DestroyBitmap(bg);
+            if (tiles)
+                DestroyBitmap(tiles);
+
+            if (bg)
+                DestroyBitmap(bg);
 
             log_info("[Tile]\tTile manager destroyed.");
         }
@@ -58,7 +61,7 @@ namespace Mario
          * Draws the map on screen.
          * @param map Game map.
          */
-        void Draw(Map* map);
+        void Draw(Map* map, ALLEGRO_BITMAP* bg = nullptr);
 
         ALLEGRO_BITMAP* tiles;      ///< Tile sheet
         ALLEGRO_BITMAP* bg;         ///< Map background

@@ -59,14 +59,17 @@ unsigned TileManager::GetTileIndex(Tile tile)
     return 0;
 }
 
-void TileManager::Draw(Map* map)
+void TileManager::Draw(Map* map, ALLEGRO_BITMAP* bg)
 {
+    if (!bg)
+        bg = this->bg;
+
     TileSet& tiles = map->tiles;
 
-    float ratio = GetBitmapWidth(bg) / GetBitmapHeight(bg);
+    float ratio = float(GetBitmapWidth(bg)) / GetBitmapHeight(bg);
     DrawScaledBitmap(bg, 0, 0, GetBitmapWidth(bg), GetBitmapHeight(bg), 0, height, ratio*height, height);
 
-    for (size_t c = 0; c < tiles.size(); ++c)
+    for (size_t c = 0; c < tiles.size(); c++)
         for (size_t r = 0; r < 24; ++r)
         {
             if (map->edit_mode)

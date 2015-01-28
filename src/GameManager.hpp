@@ -12,6 +12,7 @@
 #include "Game.hpp"
 #include "TileManager.hpp"
 #include "SpriteManager.hpp"
+#include "SplashScreenManager.hpp"
 
 namespace Mario
 {
@@ -59,6 +60,29 @@ namespace Mario
         }
 
         /**
+         * Displays text on screen.
+         * @param x X coordinate.
+         * @param y Y coordinate.
+         * @param col Color.
+         * @param flags Align flags.
+         * @param fmt String format.
+         */
+        template <int o = 1, unsigned bg = 0x222222>
+        void PutString(ScreenHandler::P x, ScreenHandler::P y, ScreenHandler::Color col, int flags, const char* fmt)
+        {
+            al_draw_text(font, ScreenHandler::toColor(bg), x+o, y+o, flags, fmt);
+            al_draw_text(font, ScreenHandler::toColor(col), x, y, flags, fmt);
+        }
+
+        /// @copydoc PutString
+        template <int o = 1, unsigned bg = 0x222222, typename T>
+        void PutString(ScreenHandler::P x, ScreenHandler::P y, ScreenHandler::Color col, int flags, const char* fmt, T val)
+        {
+            al_draw_textf(font, ScreenHandler::toColor(bg), x+o, y+o, flags, fmt, val);
+            al_draw_textf(font, ScreenHandler::toColor(col), x, y, flags, fmt, val);
+        }
+
+        /**
          * Returns true if main loop should finish.
          */
         bool IsDone() { return done; }
@@ -69,6 +93,7 @@ namespace Mario
         ALLEGRO_TIMER* redraw_timer;    ///< Redraw timer
         ALLEGRO_TIMER* update_timer;    ///< Update timer
         Game* game;                     ///< Game object
+        SplashScreenManager* splash_mgr;    ///< Splash screen handler
         SpriteManager* sprite_mgr;      ///< Sprite manager
         TileManager* tile_mgr;          ///< Tile manager
         bool done;                      ///< Done flag

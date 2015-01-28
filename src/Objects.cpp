@@ -17,7 +17,9 @@ void Object::Kill(Object* enemy)
     {
         enemy->state &= ~STATE_ALIVE;
         enemy->OnKill(this);
-        map->game->OnKill(this, enemy);
+
+        if (map && map->game)
+            map->game->OnKill(this, enemy);
     }
 }
 
@@ -93,7 +95,10 @@ size_t Goomba::OnDraw()
 
 void Goomba::OnKill(Object* killer)
 {
-    dir_x = 0;
+    if (Koopa* koopa = dynamic_cast<Koopa*>(killer))
+        Object::OnKill(killer);
+    else
+        dir_x = 0;
 }
 
 void Koopa::OnCollision(Object* enemy)

@@ -8,7 +8,7 @@ BIN	= ./bin
 SRC	= ./src
 ASSETS	= ./assets
 OUT	= $(BIN)/Mario
-OBJS	= $(BIN)/Objects.o $(BIN)/Player.o $(BIN)/Map.o $(BIN)/GameStates.o $(BIN)/Game.o $(BIN)/TileManager.o $(BIN)/SpriteManager.o $(BIN)/GameManager.o $(BIN)/main.o
+OBJS	= $(BIN)/Objects.o $(BIN)/Player.o $(BIN)/Map.o $(BIN)/GameStates.o $(BIN)/Game.o $(BIN)/TileManager.o $(BIN)/SpriteManager.o $(BIN)/SplashScreenManager.o $(BIN)/GameManager.o $(BIN)/main.o
 
 all: prebuild $(OUT)
 

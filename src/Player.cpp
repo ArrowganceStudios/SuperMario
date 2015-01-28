@@ -114,5 +114,8 @@ size_t Player::OnDraw()
     if (state & STATE_RUN)
         return (state & STATE_LEFT ? 64 : 68) + frame % 3;
 
+    if (state & STATE_VICTORY)
+        return 115;
+
     return state & STATE_LEFT ? 66 : 68;
 }

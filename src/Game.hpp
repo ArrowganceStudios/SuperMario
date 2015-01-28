@@ -74,7 +74,7 @@ namespace Mario
          * @param killer Killer.
          * @param victim Victim.
          */
-        void OnKill(Object* killer, Object* victim);
+        virtual void OnKill(Object* killer, Object* victim);
 
         /**
          * Called when player is added to map.
@@ -92,7 +92,7 @@ namespace Mario
          * Called when object falls out of map boundaries.
          * @param object Map object.
          */
-        void OnObjectOutOfMap(Object* object);
+        virtual void OnObjectOutOfMap(Object* object);
 
         Map* map;                       ///< Game map
         Player* player;                 ///< Player object

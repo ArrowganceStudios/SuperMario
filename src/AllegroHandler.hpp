@@ -12,17 +12,16 @@ namespace Mario
 {
     class AllegroHandler : public IScreenHandler<float, int>
     {
-    private:
-        inline uint8_t r(Color col) { return (col >> 16) & 0xFF; }
-        inline uint8_t g(Color col) { return (col >> 8) & 0xFF; }
-        inline uint8_t b(Color col) { return col & 0xFF; }
+    public:
+        inline static uint8_t r(Color col) { return (col >> 16) & 0xFF; }
+        inline static uint8_t g(Color col) { return (col >> 8) & 0xFF; }
+        inline static uint8_t b(Color col) { return col & 0xFF; }
 
-        ALLEGRO_COLOR toColor(Color col)
+        static ALLEGRO_COLOR toColor(Color col)
         {
             return al_map_rgb(r(col), g(col), b(col));
         }
 
-    public:
         void ClearScreen(Color col)
         {
             al_clear_to_color(toColor(col));

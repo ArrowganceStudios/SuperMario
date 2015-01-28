@@ -67,7 +67,7 @@ void GameManager::Init()
 
     sprite_mgr = new SpriteManager(width, height, 0, 0);
     tile_mgr = new TileManager(width, height, 0, 0);
-    game = new Game();
+    splash_mgr = new SplashScreenManager(this, sprite_mgr, tile_mgr);
 }
 
 void GameManager::Loop()
@@ -77,10 +77,10 @@ void GameManager::Loop()
 
     while (!IsDone())
     {
-        if (game->done)
+        if (game && game->done)
         {
             delete game;
-            game = new Game();
+            game = nullptr;
         }
 
         al_wait_for_event(queue, &e);
@@ -100,6 +100,8 @@ void GameManager::Loop()
                     done = true;
                     break;
                 }
+                else if (!game && e.keyboard.keycode == ALLEGRO_KEY_SPACE)
+                    game = new Game();
 
                 if (!game)
                     break;
@@ -209,6 +211,9 @@ void GameManager::Cleanup()
     if (tile_mgr)
         delete tile_mgr;
 
+    if (splash_mgr)
+        delete splash_mgr;
+
     if (redraw_timer)
         al_destroy_timer(redraw_timer);
 
@@ -229,19 +234,22 @@ void GameManager::Update(float dt)
 {
     if (game)
         game->Update(dt);
+    else if (splash_mgr)
+        splash_mgr->Update(dt);
 }
 
 void GameManager::Draw()
 {
-    al_clear_to_color(al_map_rgb(0, 0, 0));
-
     if (game)
     {
         tile_mgr->Draw(game->map);
         sprite_mgr->Draw(game->map);
-        al_draw_textf(font, al_map_rgb(255, 255, 255), 15, 10, ALLEGRO_ALIGN_LEFT, "Mario x %u", game->num_lives);
-        al_draw_textf(font, al_map_rgb(255, 255, 255), width-15, 10, ALLEGRO_ALIGN_RIGHT, "Pts %u", game->points);
+
+        PutString(15, 10, 0xffffff, ALLEGRO_ALIGN_LEFT, "Mario x %u", game->num_lives);
+        PutString(width-15, 10, 0xffffff, ALLEGRO_ALIGN_RIGHT, "Pts %u", game->points);
     }
+    else if (splash_mgr)
+        splash_mgr->Draw();
 
     al_flip_display();
 }

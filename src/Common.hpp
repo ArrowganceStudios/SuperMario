@@ -134,6 +134,7 @@ namespace Mario
         STATE_JUMP      = (1 << 3),     ///< Jumping flag
         STATE_FALL      = (1 << 4),     ///< Falling flag
         STATE_FLY       = (1 << 5),     ///< Flying object flag
+        STATE_VICTORY   = (1 << 6),     ///< Victory flag
     };
 
     /**
@@ -153,6 +154,8 @@ namespace Mario
     struct Map;
     struct GameState;
     struct Game;
+    struct GameManager;
+    struct SplashScreenManager;
 }
 
 #endif

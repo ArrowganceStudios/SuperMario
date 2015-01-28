@@ -82,14 +82,16 @@ void Map::AddObject(Object* o)
 {
     objs.push_back(o);
 
-    game->OnObjectAddToMap(o);
+    if (game)
+        game->OnObjectAddToMap(o);
 }
 
 void Map::AddPlayer(Player* p)
 {
     objs.push_back(p);
 
-    game->OnPlayerAddToMap(p);
+    if (game)
+        game->OnPlayerAddToMap(p);
 }
 
 void Map::SpawnObjects()
@@ -120,6 +122,15 @@ void Map::SpawnObjects()
             }
 }
 
+Player* Map::GetPlayer()
+{
+    for (ObjectList::iterator i = objs.begin(); i != objs.end(); ++i)
+        if (Player* player = dynamic_cast<Player*>(*i))
+            return player;
+
+    return nullptr;
+}
+
 Tile Map::GetTile(int tile_x, int tile_y)
 {
     if (tile_x < 0 || tile_y < 0 ||
@@ -142,7 +153,8 @@ void Map::Update(float dt)
         // check if out of map
         if (IsObjectOutOfMap(*i))
         {
-            game->OnObjectOutOfMap(*i);
+            if (game)
+                game->OnObjectOutOfMap(*i);
 
             ObjectList::iterator out_of_map = i;
             ++i;

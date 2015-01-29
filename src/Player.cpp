@@ -94,9 +94,10 @@ void Player::OnKeyUp(int key)
         if (state & STATE_RUN)
             state &= ~STATE_RUN;
 
-        // stop if not jumping or falling
-        if (!(state & (STATE_JUMP | STATE_FALL)))
-            dir_x = 0;
+        // reset speed if running or decrease if mid-air
+        if (dir_x != 0)
+            dir_x = state & (STATE_JUMP | STATE_FALL) ?
+                (state & STATE_LEFT ? -1.0f : 1.0f) * TileSize : 0;
     }
 }
 

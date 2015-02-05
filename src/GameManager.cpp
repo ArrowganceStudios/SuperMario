@@ -38,6 +38,8 @@ void GameManager::Init()
     if (!al_init_primitives_addon())
         throw std::runtime_error("Could not initialize Allegro primitives.");
 
+    al_install_joystick();
+
     al_set_new_display_flags(ALLEGRO_WINDOWED);
     al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
     al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
@@ -61,6 +63,7 @@ void GameManager::Init()
     al_register_event_source(queue, al_get_mouse_event_source());
     al_register_event_source(queue, al_get_timer_event_source(redraw_timer));
     al_register_event_source(queue, al_get_timer_event_source(update_timer));
+    al_register_event_source(queue, al_get_joystick_event_source());
 
     al_start_timer(redraw_timer);
     al_start_timer(update_timer);
@@ -204,6 +207,91 @@ void GameManager::Loop()
                 }
                 else if (e.timer.source == redraw_timer)
                     redraw = true;
+                break;
+            }
+
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+            {
+                if (!game && e.joystick.button == JOY_KEY_START)
+                {
+                    game = new Game();
+                    break;
+                }
+
+                if (!game || !game->player)
+                    break;
+
+                switch (e.joystick.button)
+                {
+                    case JOY_KEY_A:
+                        game->player->OnKeyDown(ALLEGRO_KEY_Z);
+                        break;
+                    case JOY_KEY_LB:
+                    case JOY_KEY_RB:
+                        game->player->OnKeyDown(ALLEGRO_KEY_X);
+                        break;
+                }
+                break;
+            }
+
+            case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+            {
+                if (!game || !game->player)
+                    break;
+
+                switch (e.joystick.button)
+                {
+                    case JOY_KEY_A:
+                    {
+                        game->player->OnKeyUp(ALLEGRO_KEY_Z);
+                        break;
+                    }
+
+                    case JOY_KEY_LB:
+                    case JOY_KEY_RB:
+                    {
+                        game->player->OnKeyUp(ALLEGRO_KEY_X);
+                        break;
+                    }
+                }
+                break;
+            }
+
+            case ALLEGRO_EVENT_JOYSTICK_AXIS:
+            {
+                if (!game || !game->player)
+                    break;
+
+                switch (e.joystick.axis)
+                {
+                    case JOY_AXIS_X:
+                    {
+                        if (e.joystick.pos == -1)
+                            game->player->OnKeyDown(ALLEGRO_KEY_LEFT);
+                        else if (e.joystick.pos == 1)
+                            game->player->OnKeyDown(ALLEGRO_KEY_RIGHT);
+                        else
+                        {
+                            game->player->OnKeyUp(ALLEGRO_KEY_LEFT);
+                            game->player->OnKeyUp(ALLEGRO_KEY_RIGHT);
+                        }
+                        break;
+                    }
+
+                    case JOY_AXIS_Y:
+                    {
+                        if (e.joystick.pos == -1)
+                            game->player->OnKeyDown(ALLEGRO_KEY_UP);
+                        else if (e.joystick.pos == 1)
+                            game->player->OnKeyDown(ALLEGRO_KEY_DOWN);
+                        else
+                        {
+                            game->player->OnKeyUp(ALLEGRO_KEY_UP);
+                            game->player->OnKeyUp(ALLEGRO_KEY_DOWN);
+                        }
+                        break;
+                    }
+                }
                 break;
             }
         }

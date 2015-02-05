@@ -111,6 +111,27 @@ namespace Mario
         const float fps = 60;           ///< FPS setting
         const float ups = 100;          ///< Update frequency setting
     };
+
+    /**
+     * Joystick key identifiers.
+     */
+    enum JoyKeys
+    {
+        JOY_KEY_A       = 0,
+        JOY_KEY_LB      = 4,
+        JOY_KEY_RB      = 5,
+        JOY_KEY_START   = 7,
+    };
+
+    /**
+     * Joystick axis identifiers.
+     */
+    enum JoyAxis
+    {
+        JOY_AXIS_X      = 0,
+        JOY_AXIS_Y      = 1,
+        JOY_AXIS_Z      = 2,
+    };
 }
 
 #endif

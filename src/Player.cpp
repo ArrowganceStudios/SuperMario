@@ -30,6 +30,9 @@ void Player::OnAnimate(float dt)
 
 void Player::OnKeyDown(int key)
 {
+    if (!(state & STATE_ALIVE))
+        return;
+
     switch (key)
     {
         case ALLEGRO_KEY_DOWN:

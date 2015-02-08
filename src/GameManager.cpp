@@ -266,9 +266,9 @@ void GameManager::Loop()
                 {
                     case JOY_AXIS_X:
                     {
-                        if (e.joystick.pos == -1)
+                        if (e.joystick.pos <= -0.5)
                             game->player->OnKeyDown(ALLEGRO_KEY_LEFT);
-                        else if (e.joystick.pos == 1)
+                        else if (e.joystick.pos >= 0.5)
                             game->player->OnKeyDown(ALLEGRO_KEY_RIGHT);
                         else
                         {
@@ -280,9 +280,9 @@ void GameManager::Loop()
 
                     case JOY_AXIS_Y:
                     {
-                        if (e.joystick.pos == -1)
+                        if (e.joystick.pos <= -0.5)
                             game->player->OnKeyDown(ALLEGRO_KEY_UP);
-                        else if (e.joystick.pos == 1)
+                        else if (e.joystick.pos >= 0.5)
                             game->player->OnKeyDown(ALLEGRO_KEY_DOWN);
                         else
                         {

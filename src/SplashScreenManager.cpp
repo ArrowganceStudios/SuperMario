@@ -54,7 +54,7 @@ void SplashPlayer::OnUpdate(float dt)
 };
 
 SplashScreenManager::SplashScreenManager(GameManager* owner, SpriteManager*
-    sprite_mgr, TileManager* tile_mgr) : owner(owner), sprite_mgr(sprite_mgr),
+    sprite_mgr, TileManager* tile_mgr) : Game(owner), owner(owner), sprite_mgr(sprite_mgr),
     tile_mgr(tile_mgr), splash(nullptr), logo(nullptr), player(nullptr)
 {
     if (!(splash = al_load_bitmap(ASSETS "splash.png")))
@@ -66,6 +66,8 @@ SplashScreenManager::SplashScreenManager(GameManager* owner, SpriteManager*
     map = new Map(this, ASSETS "splash1");
     map->AddPlayer(new SplashPlayer(map, 14, 4));
     player = map->GetPlayer();
+
+    owner->sound_mgr->Play(SOUND_MAIN_MENU);
 }
 
 SplashScreenManager::~SplashScreenManager()

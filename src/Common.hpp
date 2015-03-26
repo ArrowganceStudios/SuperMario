@@ -24,6 +24,8 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #define __DEBUG__   1               ///< Debug info display flag
 
@@ -102,6 +104,12 @@ namespace Mario
         TILE_SOLID_END      = TILE_GRASS_RIGHT
     };
 
+    enum SoundFileId
+    {
+        SOUND_MAIN_MENU,
+        SOUND_LEVEL_1,
+    };
+
     /**
      * Map object type list
      *
@@ -155,6 +163,7 @@ namespace Mario
     struct GameState;
     struct Game;
     struct GameManager;
+    struct SoundManager;
     struct SplashScreenManager;
 }
 

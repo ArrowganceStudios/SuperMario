@@ -11,6 +11,7 @@
 #include "Common.hpp"
 #include "ScreenHandler.hpp"
 #include "Map.hpp"
+#include "SoundManager.hpp"
 #include "SpriteManager.hpp"
 #include "TileManager.hpp"
 #include "GameManager.hpp"

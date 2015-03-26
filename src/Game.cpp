@@ -6,15 +6,16 @@
  */
 
 #include "Game.hpp"
+#include "SoundManager.hpp"
+#include "GameManager.hpp"
 
 using namespace Mario;
 
-Game::Game() : done(false), map(nullptr), player(nullptr), num_lives(3), points(0)
+Game::Game(GameManager* owner) : owner(owner), done(false), map(nullptr), player(nullptr), num_lives(3), points(0)
 {
     log_info("[Game]\tCreated.");
-
     Start();
-
+    owner->sound_mgr->Play(SOUND_LEVEL_1);
 }
 
 Game::~Game()

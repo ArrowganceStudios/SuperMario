@@ -12,6 +12,7 @@
 #include "Game.hpp"
 #include "TileManager.hpp"
 #include "SpriteManager.hpp"
+#include "SoundManager.hpp"
 #include "SplashScreenManager.hpp"
 
 namespace Mario
@@ -21,7 +22,8 @@ namespace Mario
     {
         GameManager() throw() : display(nullptr), queue(nullptr),
             redraw_timer(nullptr), update_timer(nullptr), game(nullptr),
-            sprite_mgr(nullptr), tile_mgr(nullptr), done(false), font(nullptr) {}
+            sprite_mgr(nullptr), tile_mgr(nullptr), sound_mgr(nullptr),
+            done(false), font(nullptr) {}
 
         ~GameManager() {}
 
@@ -101,6 +103,7 @@ namespace Mario
         ALLEGRO_TIMER* redraw_timer;    ///< Redraw timer
         ALLEGRO_TIMER* update_timer;    ///< Update timer
         Game* game;                     ///< Game object
+        SoundManager* sound_mgr;        ///< Sound manager
         SplashScreenManager* splash_mgr;    ///< Splash screen handler
         SpriteManager* sprite_mgr;      ///< Sprite manager
         TileManager* tile_mgr;          ///< Tile manager

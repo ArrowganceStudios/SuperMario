@@ -24,6 +24,15 @@ void GameManager::Init()
     if (!al_install_mouse())
         throw std::runtime_error("Could not initialize mouse.");
 
+    if (!al_install_audio())
+        throw std::runtime_error("Could not initialize audio system.");
+
+    if (!al_init_acodec_addon())
+        throw std::runtime_error("Could not initialize audio codecs.");
+
+    if (!al_reserve_samples(5))
+        throw std::runtime_error("Could not reserve audio sample.");
+
     if (!al_init_image_addon())
         throw std::runtime_error("Could not initialize Allegro image utilities.");
 
@@ -68,8 +77,10 @@ void GameManager::Init()
     al_start_timer(redraw_timer);
     al_start_timer(update_timer);
 
+    sound_mgr = new SoundManager(this);
     sprite_mgr = new SpriteManager(width, height, 0, 0);
     tile_mgr = new TileManager(width, height, 0, 0);
+
     splash_mgr = new SplashScreenManager(this, sprite_mgr, tile_mgr);
 }
 
@@ -84,6 +95,7 @@ void GameManager::Loop()
         {
             delete game;
             game = nullptr;
+            splash_mgr = new SplashScreenManager(this, sprite_mgr, tile_mgr);
         }
 
         al_wait_for_event(queue, &e);
@@ -104,7 +116,11 @@ void GameManager::Loop()
                     break;
                 }
                 else if (!game && e.keyboard.keycode == ALLEGRO_KEY_SPACE)
-                    game = new Game();
+                {
+                    delete splash_mgr;
+                    splash_mgr = nullptr;
+                    game = new Game(this);
+                }
 
                 else if (!game)
                     break;
@@ -214,7 +230,9 @@ void GameManager::Loop()
             {
                 if (!game && e.joystick.button == JOY_KEY_START)
                 {
-                    game = new Game();
+                    delete splash_mgr;
+                    splash_mgr = nullptr;
+                    game = new Game(this);
                     break;
                 }
 

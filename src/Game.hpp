@@ -20,7 +20,7 @@ namespace Mario
     /// Game class.
     struct Game
     {
-        Game();
+        Game(GameManager* owner);
         ~Game();
 
         /**
@@ -94,6 +94,7 @@ namespace Mario
          */
         virtual void OnObjectOutOfMap(Object* object);
 
+        GameManager* owner;             ///< Game manager owner
         Map* map;                       ///< Game map
         Player* player;                 ///< Player object
         std::list<GameState*> states;   ///< Game states

@@ -7,6 +7,10 @@ Credits:
 * Mario series: Nintendo
 * Graphics: Nintendo, Tech Static/Bowserman, Guss, Black Squirrel, http://www.mariouniverse.com/
 
+![Main screen](screen1.png "Main screen")
+
+![In-game view](screen2.png "In-game view")
+
 Building
 --------
 

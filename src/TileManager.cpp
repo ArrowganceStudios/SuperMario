@@ -29,6 +29,9 @@ ScreenHandler::Color TileManager::GetTileColor(Map* map, Tile& tile)
 
             case TILE_SPINY_SPAWN:
                 return MakeCol(255, 0, 127);
+
+            default:
+                break;
         }
     else
         switch (tile)
@@ -39,6 +42,9 @@ ScreenHandler::Color TileManager::GetTileColor(Map* map, Tile& tile)
             case TILE_LAKITU_SPAWN:
             case TILE_SPINY_SPAWN:
                 return MakeCol(0, 127, 255);
+
+            default:
+                break;
         }
 
     return MakeCol(0, 0, 0);
@@ -54,6 +60,7 @@ unsigned TileManager::GetTileIndex(Tile tile)
         case TILE_SAND_LEFT:    return 45;
         case TILE_SAND_MID:     return 46;
         case TILE_SAND_RIGHT:   return 47;
+        default:                break;
     }
 
     return 0;

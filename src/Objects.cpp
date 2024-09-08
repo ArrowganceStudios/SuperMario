@@ -13,9 +13,9 @@ using namespace Mario;
 
 void Object::Kill(Object* enemy)
 {
-    if (enemy->state & STATE_ALIVE)
+    if (enemy->IsAlive())
     {
-        enemy->state &= ~STATE_ALIVE;
+        enemy->ClearState(STATE_ALIVE);
         enemy->OnKill(this);
 
         if (map && map->game)
@@ -36,7 +36,8 @@ void Object::OnAnimate(float dt)
 
 void Object::OnKill(Object* killer)
 {
-    state |= STATE_FALL;
+    SetState(STATE_FALL);
+
     dir_y = 10 * TileSize;
     dir_x_boost = 1.0f;
     dir_x = killer->dir_x * killer->dir_x_boost;
@@ -45,7 +46,7 @@ void Object::OnKill(Object* killer)
 void Object::OnMove(float dt)
 {
     // apply gravity if falling
-    if (!(state & STATE_FLY) && state & STATE_FALL)
+    if (!IsFlying() && IsFalling())
         dir_y += -Gravity * dt;
 
     pos_x += dir_x * dt * dir_x_boost;
@@ -88,7 +89,7 @@ void Enemy::OnUpdate(float dt)
 
 size_t Goomba::OnDraw()
 {
-    if (!(state & STATE_ALIVE))
+    if (!IsAlive())
         return 2;
 
     return frame % 2;
@@ -106,7 +107,7 @@ void Goomba::OnUpdate(float dt)
 {
     Enemy::OnUpdate(dt);
 
-    if (!(state & STATE_ALIVE))
+    if (!IsAlive())
     {
         if (timer <= dt)
         {
@@ -148,7 +149,7 @@ void Koopa::OnCollision(Object* enemy)
 
 size_t Koopa::OnDraw()
 {
-    if (!(state & STATE_ALIVE))
+    if (!IsAlive())
         return 4;
 
     if (shell)
@@ -178,7 +179,7 @@ void Spiny::OnCollision(Object* spawn)
 
 size_t Spiny::OnDraw()
 {
-    if (!(state & STATE_ALIVE))
+    if (!IsAlive())
         return 4;
 
     return (dir_x < 0 ? 0 : 2) + frame % 2;

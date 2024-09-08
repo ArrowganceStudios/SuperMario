@@ -29,6 +29,34 @@ namespace Mario
             pos_y = TileSize * tile_y;
         }
 
+        bool IsAlive() const {
+            return state & STATE_ALIVE;
+        }
+
+        bool IsFalling() const {
+            return state & STATE_FALL;
+        }
+
+        bool IsFlying() const {
+            return state & STATE_FLY;
+        }
+
+        bool IsRunning() const {
+            return state & STATE_RUN;
+        }
+
+        bool HasState(ObjectState state) const {
+            return this->state & state;
+        }
+
+        void SetState(ObjectState state) {
+            this->state |= state;
+        }
+
+        void ClearState(ObjectState state) {
+            this->state &= ~state;
+        }
+
         /**
          * Kills an enemy.
          * @param enemy Enemy.
@@ -79,9 +107,11 @@ namespace Mario
         unsigned frame;     ///< Current frame
         const float size_x; ///< Object size
         Map* map;           ///< Owner map
-        unsigned state;     ///< Alive state
         ObjectType type;    ///< Object type
         float last_collision;   ///< Collision interval timer
+
+    private:
+        unsigned state;     ///< Alive state
     };
 
     /// Generic enemy class.
@@ -157,7 +187,7 @@ namespace Mario
         Lakitu(Map* map, size_t tile_x, size_t tile_y) :
             Enemy(OBJECT_LAKITU, map, tile_x, tile_y)
         {
-            state |= STATE_FLY;
+            SetState(STATE_FLY);
             dir_x = 0;
         }
 

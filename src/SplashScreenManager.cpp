@@ -18,33 +18,40 @@ void SplashPlayer::OnUpdate(float dt)
         case 2:
         case 3:
         case 4:
-            if (!(state & STATE_FALL))
+            if (!IsFalling())
             {
-                state |= STATE_JUMP | STATE_FALL;
+                SetState(STATE_JUMP);
+                SetState(STATE_FALL);
+
                 dir_y = float(rand() % 10 + 5.0f) * TileSize;
             }
             break;
 
         case 10:
-            if (state & STATE_ALIVE)
+            if (IsAlive())
             {
-                state |= STATE_LEFT | STATE_RUN;
+                SetState(STATE_LEFT);
+                SetState(STATE_RUN);
+
                 dir_x = -5.0f * TileSize;
             }
             break;
 
         case 20:
-            if (state & STATE_ALIVE)
+            if (IsAlive())
             {
-                state &= ~STATE_LEFT | STATE_RUN;
+                ClearState(STATE_LEFT);
+                ClearState(STATE_RUN);
+
                 dir_x = 5.0f * TileSize;
             }
             break;
 
         case 30:
-            if (state & STATE_RUN)
+            if (IsRunning())
             {
-                state &= ~STATE_RUN;
+                ClearState(STATE_RUN);
+
                 dir_x = 0;
             }
             break;

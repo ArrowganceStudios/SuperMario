@@ -11,7 +11,7 @@ using namespace Mario;
 
 void Player::Kill(Object* enemy)
 {
-    if (state & STATE_FALL)
+    if (IsFalling())
         dir_y = (keys_down & KEY_STATE_UP ? 15.0 : 2.0) * int(TileSize);
 
     Object::Kill(enemy);
@@ -30,7 +30,7 @@ void Player::OnAnimate(float dt)
 
 void Player::OnKeyDown(int key)
 {
-    if (!(state & STATE_ALIVE))
+    if (!IsAlive())
         return;
 
     switch (key)
@@ -42,31 +42,31 @@ void Player::OnKeyDown(int key)
         case ALLEGRO_KEY_LEFT:
             keys_down |= KEY_STATE_LEFT;
             dir_x = -5.0f * TileSize;
-            state |= STATE_LEFT;
-            state |= STATE_RUN;
+            SetState(STATE_LEFT);
+            SetState(STATE_RUN);
             break;
 
         case ALLEGRO_KEY_RIGHT:
             keys_down |= KEY_STATE_RIGHT;
             dir_x = 5.0f * TileSize;
-            state &= ~STATE_LEFT;
-            state |= STATE_RUN;
+            ClearState(STATE_LEFT);
+            SetState(STATE_RUN);
             break;
 
         case ALLEGRO_KEY_Z:
         case ALLEGRO_KEY_UP:
             keys_down |= KEY_STATE_UP;
-            if (!(state & STATE_FALL))
+            if (!IsFalling())
             {
                 dir_y = 15*int(TileSize);
-                state |= STATE_FALL;
-                state |= STATE_JUMP;
+                SetState(STATE_FALL);
+                SetState(STATE_JUMP);
             }
             break;
 
         case ALLEGRO_KEY_X:
             keys_down |= KEY_STATE_X;
-            if (!(state & STATE_FALL))
+            if (!IsFalling())
                 dir_x_boost = RUN_BOOST;
             break;
     }
@@ -79,7 +79,7 @@ void Player::OnKeyUp(int key)
     {
         case ALLEGRO_KEY_X:
             keys_down &= ~KEY_STATE_X;
-            if (!(state & STATE_FALL))
+            if (!IsFalling())
                 dir_x_boost = 1.0f;
             break;
 
@@ -94,32 +94,32 @@ void Player::OnKeyUp(int key)
     if (!(keys_down & (KEY_STATE_LEFT | KEY_STATE_RIGHT)))
     {
         // stop running
-        if (state & STATE_RUN)
-            state &= ~STATE_RUN;
+        if (IsRunning())
+            ClearState(STATE_RUN);
 
         // reset speed if running or decrease if mid-air
         if (dir_x != 0)
-            dir_x = state & (STATE_JUMP | STATE_FALL) ?
-                (state & STATE_LEFT ? -1.0f : 1.0f) * TileSize : 0;
+            dir_x = (HasState(STATE_JUMP) || IsFalling()) ?
+                (HasState(STATE_LEFT) ? -1.0f : 1.0f) * TileSize : 0;
     }
 }
 
 size_t Player::OnDraw()
 {
-    if (!(state & STATE_ALIVE))
+    if (!IsAlive())
         return 52;
 
-    if (state & STATE_JUMP)
-        return state & STATE_LEFT ? 106 : 118;
+    if (HasState(STATE_JUMP))
+        return HasState(STATE_LEFT) ? 106 : 118;
 
-    if (state & STATE_FALL)
-        return state & STATE_LEFT ? 61 : 73;
+    if (HasState(STATE_FALL))
+        return HasState(STATE_LEFT) ? 61 : 73;
 
-    if (state & STATE_RUN)
-        return (state & STATE_LEFT ? 64 : 68) + frame % 3;
+    if (HasState(STATE_RUN))
+        return (HasState(STATE_LEFT) ? 64 : 68) + frame % 3;
 
-    if (state & STATE_VICTORY)
+    if (HasState(STATE_VICTORY))
         return 115;
 
-    return state & STATE_LEFT ? 66 : 68;
+    return HasState(STATE_LEFT) ? 66 : 68;
 }

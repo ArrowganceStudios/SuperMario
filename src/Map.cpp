@@ -175,18 +175,19 @@ void Map::Update(float dt)
         (*i)->OnUpdate(dt);
 
         // if falling and will land on solid tile in next frame
-        if ((*i)->state & STATE_FALL && (*i)->state & STATE_ALIVE && (*i)->dir_y < 0 &&
+        if ((*i)->IsFalling() && (*i)->IsAlive() && (*i)->dir_y < 0 &&
             IsSolidTile( GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt) ))
         {
             // finish jump or fall
-            (*i)->state &= ~(STATE_FALL | STATE_JUMP);
+            (*i)->ClearState(STATE_FALL);
+            (*i)->ClearState(STATE_JUMP);
             (*i)->dir_y = 0;
 
             // place on top of tile
             (*i)->pos_y = Map::ToTile((*i)->pos_y + TileSize/2) * TileSize;
 
             // prevent running after jumping
-            if (!((*i)->state & STATE_RUN))
+            if (!((*i)->IsRunning()))
                 (*i)->dir_x = 0;
 
             if (Player* player = dynamic_cast<Player*>(*i))
@@ -195,10 +196,14 @@ void Map::Update(float dt)
         }
 
         // if is not falling and is standing on non-solid tile
-        else if (!((*i)->state & (STATE_FALL | STATE_FLY)) &&
-            !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1)))
+        else if (
+            !(*i)->IsFalling() && !(*i)->IsFlying()
+            && !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1))
+        )
+        {
             // begin falling
-            (*i)->state |= STATE_FALL;
+            (*i)->SetState(STATE_FALL);
+        }
 
         // check collisions between alive objects
         ObjectList::iterator j = i;
@@ -207,13 +212,13 @@ void Map::Update(float dt)
             if (fabs((*i)->pos_x - (*j)->pos_x) < (*i)->size_x/2 + (*j)->size_x/2 &&
                 fabs((*i)->pos_y - (*j)->pos_y) < (*j)->size_x/2 + (*j)->size_x/2)
             {
-                if ((*i)->state & STATE_ALIVE && GameManager::GetTime() - (*i)->last_collision >= COLLISION_INTERVAL)
+                if ((*i)->IsAlive() && GameManager::GetTime() - (*i)->last_collision >= COLLISION_INTERVAL)
                 {
                     (*i)->OnCollision(*j);
                     (*i)->last_collision = GameManager::GetTime();
                 }
 
-                if ((*j)->state & STATE_ALIVE && GameManager::GetTime() - (*j)->last_collision >= COLLISION_INTERVAL)
+                if ((*j)->IsAlive() && GameManager::GetTime() - (*j)->last_collision >= COLLISION_INTERVAL)
                 {
                     (*j)->OnCollision(*i);
                     (*j)->last_collision = GameManager::GetTime();

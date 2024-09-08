@@ -29,7 +29,7 @@ void GameOverState::OnInit()
     if (Player* player = game->player)
     {
         player->dir_y = 15 * TileSize;
-        player->state |= STATE_FALL;
+        player->SetState(STATE_FALL);
     }
 
     if (game->num_lives > 0)

@@ -83,7 +83,7 @@ namespace Mario
     struct GameOverState : public GameState
     {
         /// @copydoc GameState::GameState
-        GameOverState(Game* game) : GameState(game), timer(5.0f) { OnInit(); }
+        GameOverState(Game* game) : GameState(game), timer(3.0f) { OnInit(); }
 
         /// Initialize handler.
         void OnInit();

@@ -123,8 +123,6 @@ namespace Mario
         ObjectList objs;            ///< Object  list
         bool edit_mode;             ///< Edit mode flag
         float offset;               ///< Map offset
-
-        float COLLISION_INTERVAL = 0.1;     ///< Min. time between OnCollision calls
     };
 }
 

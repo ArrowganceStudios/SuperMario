@@ -153,14 +153,16 @@ void Map::Update(float dt)
 {
     for (ObjectList::iterator i = objs.begin(); i != objs.end(); )
     {
+        Object* me = *i;
+
         // check if out of map
-        if (IsObjectOutOfMap(*i))
+        if (IsObjectOutOfMap(me))
         {
             if (game)
-                game->OnObjectOutOfMap(*i);
+                game->OnObjectOutOfMap(me);
 
             ObjectList::iterator out_of_map = i;
-            ++i;
+            ++i, me = *i;
 
             if (Player* player = dynamic_cast<Player*>(*out_of_map))
                 this->player = nullptr;
@@ -172,56 +174,56 @@ void Map::Update(float dt)
         }
 
         // update object
-        (*i)->OnUpdate(dt);
+        me->OnUpdate(dt);
 
         // if falling and will land on solid tile in next frame
-        if ((*i)->IsFalling() && (*i)->IsAlive() && (*i)->dir_y < 0 &&
-            IsSolidTile( GetTileAtPos((*i)->pos_x + (*i)->dir_x * dt, (*i)->pos_y + (*i)->dir_y * dt) ))
+        if (me->IsFalling() && me->IsAlive() && me->dir_y < 0 &&
+            IsSolidTile( GetTileAtPos(me->pos_x + me->dir_x * dt, me->pos_y + me->dir_y * dt) ))
         {
             // finish jump or fall
-            (*i)->ClearState(STATE_FALL);
-            (*i)->ClearState(STATE_JUMP);
-            (*i)->dir_y = 0;
+            me->ClearState(STATE_FALL);
+            me->ClearState(STATE_JUMP);
+            me->dir_y = 0;
 
             // place on top of tile
-            (*i)->pos_y = Map::ToTile((*i)->pos_y + TileSize/2) * TileSize;
+            me->pos_y = Map::ToTile(me->pos_y + TileSize/2) * TileSize;
 
             // prevent running after jumping
-            if (!((*i)->IsRunning()))
-                (*i)->dir_x = 0;
+            if (!me->IsRunning())
+                me->dir_x = 0;
 
             if (Player* player = dynamic_cast<Player*>(*i))
                 if (!(player->keys_down & KEY_STATE_RUN))
-                    (*i)->dir_x_boost = 1.0f;
+                    me->dir_x_boost = 1.0f;
         }
 
         // if is not falling and is standing on non-solid tile
         else if (
-            !(*i)->IsFalling() && !(*i)->IsFlying()
-            && !IsSolidTile(GetTileAtPos((*i)->pos_x, (*i)->pos_y + (*i)->dir_y * dt - 1))
+            !me->IsFalling() && !me->IsFlying()
+            && !IsSolidTile(GetTileAtPos(me->pos_x, me->pos_y + me->dir_y * dt - 1))
         )
         {
             // begin falling
-            (*i)->SetState(STATE_FALL);
+            me->SetState(STATE_FALL);
         }
 
         // check collisions between alive objects
         ObjectList::iterator j = i;
         for (++j; j != objs.end(); ++j)
         {
-            if (fabs((*i)->pos_x - (*j)->pos_x) < (*i)->size_x/2 + (*j)->size_x/2 &&
-                fabs((*i)->pos_y - (*j)->pos_y) < (*j)->size_x/2 + (*j)->size_x/2)
+            Object* them = *j;
+
+            if (fabs(me->pos_x - them->pos_x) < me->size_x/2 + them->size_x/2 &&
+                fabs(me->pos_y - them->pos_y) < them->size_x/2 + them->size_x/2)
             {
-                if ((*i)->IsAlive() && GameManager::GetTime() - (*i)->last_collision >= COLLISION_INTERVAL)
+                if (me->IsAlive())
                 {
-                    (*i)->OnCollision(*j);
-                    (*i)->last_collision = GameManager::GetTime();
+                    me->OnCollision(them);
                 }
 
-                if ((*j)->IsAlive() && GameManager::GetTime() - (*j)->last_collision >= COLLISION_INTERVAL)
+                if (them->IsAlive())
                 {
-                    (*j)->OnCollision(*i);
-                    (*j)->last_collision = GameManager::GetTime();
+                    them->OnCollision(me);
                 }
             }
         }

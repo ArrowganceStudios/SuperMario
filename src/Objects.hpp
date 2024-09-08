@@ -23,7 +23,7 @@ namespace Mario
          */
         Object(ObjectType type, Map* map, size_t tile_x, size_t tile_y) :
             dir_x(0), dir_y(0), size_x(TileSize), map(map), state(STATE_ALIVE),
-            type(type), frame(0), anim_timer(0), last_collision(0), dir_x_boost(1.0)
+            type(type), frame(0), anim_timer(0), dir_x_boost(1.0)
         {
             pos_x = TileSize * tile_x + size_x/2;
             pos_y = TileSize * tile_y;
@@ -108,7 +108,6 @@ namespace Mario
         const float size_x; ///< Object size
         Map* map;           ///< Owner map
         ObjectType type;    ///< Object type
-        float last_collision;   ///< Collision interval timer
 
     private:
         unsigned state;     ///< Alive state

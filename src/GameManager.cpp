@@ -226,6 +226,7 @@ void GameManager::Loop()
                     case JOY_KEY_A:
                         game->player->OnKeyDown(ALLEGRO_KEY_Z);
                         break;
+                    case JOY_KEY_X:
                     case JOY_KEY_LB:
                     case JOY_KEY_RB:
                         game->player->OnKeyDown(ALLEGRO_KEY_X);

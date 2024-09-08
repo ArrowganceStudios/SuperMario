@@ -118,9 +118,12 @@ namespace Mario
     enum JoyKeys
     {
         JOY_KEY_A       = 0,
-        JOY_KEY_LB      = 4,
-        JOY_KEY_RB      = 5,
-        JOY_KEY_START   = 7,
+        JOY_KEY_B       = 1,
+        JOY_KEY_X       = 3,
+        JOY_KEY_Y       = 4,
+        JOY_KEY_LB      = 6,
+        JOY_KEY_RB      = 7,
+        JOY_KEY_START   = 11,
     };
 
     /**

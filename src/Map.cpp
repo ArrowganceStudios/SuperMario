@@ -191,7 +191,7 @@ void Map::Update(float dt)
                 (*i)->dir_x = 0;
 
             if (Player* player = dynamic_cast<Player*>(*i))
-                if (!(player->keys_down & KEY_STATE_X))
+                if (!(player->keys_down & KEY_STATE_RUN))
                     (*i)->dir_x_boost = 1.0f;
         }
 

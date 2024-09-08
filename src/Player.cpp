@@ -53,7 +53,7 @@ void Player::OnKeyDown(int key)
             SetState(STATE_RUN);
             break;
 
-        case ALLEGRO_KEY_Z:
+        case ALLEGRO_KEY_X:
         case ALLEGRO_KEY_UP:
             keys_down |= KEY_STATE_UP;
             if (!IsFalling())
@@ -64,8 +64,8 @@ void Player::OnKeyDown(int key)
             }
             break;
 
-        case ALLEGRO_KEY_X:
-            keys_down |= KEY_STATE_X;
+        case ALLEGRO_KEY_Z:
+            keys_down |= KEY_STATE_RUN;
             if (!IsFalling())
                 dir_x_boost = RUN_BOOST;
             break;
@@ -77,13 +77,13 @@ void Player::OnKeyUp(int key)
     // clear key state flags
     switch (key)
     {
-        case ALLEGRO_KEY_X:
-            keys_down &= ~KEY_STATE_X;
+        case ALLEGRO_KEY_Z:
+            keys_down &= ~KEY_STATE_RUN;
             if (!IsFalling())
                 dir_x_boost = 1.0f;
             break;
 
-        case ALLEGRO_KEY_Z:
+        case ALLEGRO_KEY_X:
         case ALLEGRO_KEY_UP:    keys_down &= ~KEY_STATE_UP;     break;
         case ALLEGRO_KEY_DOWN:  keys_down &= ~KEY_STATE_DOWN;   break;
         case ALLEGRO_KEY_LEFT:  keys_down &= ~KEY_STATE_LEFT;   break;

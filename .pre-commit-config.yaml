@@ -1,0 +1,10 @@
+repos:
+- repo: local
+  hooks:
+  - id: cmake
+    name: cmake
+    language: system
+    entry: >
+      sh -c 'cmake -B build -S . && cmake --build build'
+    files: ^(\.cpp|CMakeLists\.txt)$
+    always_run: true

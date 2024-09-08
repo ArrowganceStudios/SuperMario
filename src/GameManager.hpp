@@ -67,7 +67,7 @@ namespace Mario
          * @param flags Align flags.
          * @param str String to print.
          */
-        template <int o = 1, unsigned bg = 0x222222>
+        template <int o = 2, unsigned bg = 0x222222>
         void PutString(ScreenHandler::P x, ScreenHandler::P y, ScreenHandler::Color col, int flags, const char* str)
         {
             al_draw_text(font, ScreenHandler::toColor(bg), x+o, y+o, flags, str);
@@ -83,7 +83,7 @@ namespace Mario
          * @param fmt String format.
          * @param val String parameter.
          */
-        template <int o = 1, unsigned bg = 0x222222, typename T>
+        template <int o = 2, unsigned bg = 0x222222, typename T>
         void PutString(ScreenHandler::P x, ScreenHandler::P y, ScreenHandler::Color col, int flags, const char* fmt, T val)
         {
             al_draw_textf(font, ScreenHandler::toColor(bg), x+o, y+o, flags, fmt, val);

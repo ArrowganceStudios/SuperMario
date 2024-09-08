@@ -28,7 +28,6 @@ void GameOverState::OnInit()
 {
     if (Player* player = game->player)
     {
-        player->dir_x = 0;
         player->dir_y = 15 * TileSize;
         player->state |= STATE_FALL;
     }

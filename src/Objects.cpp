@@ -38,7 +38,8 @@ void Object::OnKill(Object* killer)
 {
     state |= STATE_FALL;
     dir_y = 10 * TileSize;
-    dir_x = 0;
+    dir_x_boost = 1.0f;
+    dir_x = killer->dir_x * killer->dir_x_boost;
 }
 
 void Object::OnMove(float dt)

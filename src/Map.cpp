@@ -119,6 +119,9 @@ void Map::SpawnObjects()
                 case TILE_SPINY_SPAWN:
                     AddObject(new Spiny(this, x, y));
                     break;
+
+                default:
+                    break;
             }
 }
 

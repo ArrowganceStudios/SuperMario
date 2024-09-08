@@ -25,5 +25,6 @@ add_executable(mario ${SOURCE_FILES})
 target_link_libraries(mario ${ALLEGRO5_LIBRARIES})
 target_include_directories(mario PUBLIC ${ALLEGRO5_INCLUDE_DIRS})
 target_compile_options(mario PUBLIC ${ALLEGRO5_CFLAGS_OTHER})
+target_compile_options(mario PRIVATE -Werror)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
